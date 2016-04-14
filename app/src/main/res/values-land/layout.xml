@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="fragment_index" type="layout">@layout/fragment_index_land</item>
+
+    <item name="fragment_book" type="layout">@layout/fragment_book_land</item>
+
+</resources>

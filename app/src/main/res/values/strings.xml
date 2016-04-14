@@ -1,0 +1,33 @@
+<resources>
+
+    <!-- Index -->
+    <string name="app_name">BookSharing</string>
+    <string name="login">Login</string>
+    <string name="iscriviti">Iscriviti</string>
+    <string name="frase1">Acquistane uno,</string>
+    <string name="frase2">leggili tutti</string>
+
+
+    <!-- HomeFragment -->
+    <string name="search">Cerca</string>
+    <string name="titolo">Titolo</string>
+    <string name="autore">Autore</string>
+    <string name="genere">Genere</string>
+    <string name="isbn">ISBN</string>
+    <string name="raggio">Raggio</string>
+    <string name="solo_disponibili">Solo disponibili</string>
+    <string name="ricerca">Esegui la tua ricerca..</string>
+
+    <!-- Fragment Book -->
+    <string name="luogo">Luogo</string>
+    <string name="prenota">Prenota</string>
+
+
+    <!-- Login Fragment -->
+    <string name="accedi">Accedi</string>
+    <string name="pswdimenticata">Hai dimenticato la password?</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>

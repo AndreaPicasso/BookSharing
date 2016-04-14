@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    style="@android:style/Theme.Holo.NoActionBar.Fullscreen"
+    android:background="@drawable/sfondo_land">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/login_button"
+        android:layout_gravity="right"
+        android:background="#acffffff"
+        style="@style/login"
+        android:text="@string/login"
+        android:padding="20dp"
+        android:textAllCaps="false"
+        android:layout_alignTop="@+id/iscriviti_button"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/iscriviti_button" />
+
+    <Button
+        android:layout_width="600dp"
+        android:layout_height="wrap_content"
+        android:text="@string/iscriviti"
+        android:id="@+id/iscriviti_button"
+        android:background="#4effffff"
+        android:clickable="false"
+        android:capitalize="none"
+        style="@style/login"
+        android:padding="15dp"
+        android:textAllCaps="false"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/frase1"
+        android:id="@+id/textView"
+        android:capitalize="none"
+        style="@style/frase"
+        android:paddingRight="10dp"
+        android:layout_marginEnd="61dp"
+        android:layout_centerVertical="true"
+        android:layout_alignEnd="@+id/iscriviti_button" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/frase2"
+        android:id="@+id/textView2"
+        style="@style/frase"
+        android:layout_below="@+id/textView"
+        android:layout_alignEnd="@+id/textView"
+        android:paddingRight="10dp" />
+</RelativeLayout>
