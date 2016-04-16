@@ -1,6 +1,7 @@
 package com.example.simone.booksharing;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -64,7 +65,12 @@ public class IndexFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_index, container, false);
+        //return inflater.inflate(R.layout.fragment_index, container, false);
+
+        if(getResources().getConfiguration().orientation== Configuration.ORIENTATION_PORTRAIT)
+            return inflater.inflate(R.layout.fragment_index_port, container, false);
+        else
+            return inflater.inflate(R.layout.fragment_index_land, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
