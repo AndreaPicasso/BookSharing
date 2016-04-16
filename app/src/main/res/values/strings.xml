@@ -27,7 +27,11 @@
     <string name="accedi">Accedi</string>
     <string name="pswdimenticata">Hai dimenticato la password?</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Account Fragment -->
+    <string name="prestito">Libri in prestito</string>
+    <string name="lettura">Libri in lettura</string>
+    <string name="modifica">Modifica</string>
+    <string name="aggiungilibro">Aggiungi Libro</string>
+
 
 </resources>
