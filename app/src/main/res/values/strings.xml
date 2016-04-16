@@ -24,8 +24,14 @@
 
 
     <!-- Login Fragment -->
+    <string name="password">Password</string>
+    <string name="email">Email</string>
     <string name="accedi">Accedi</string>
     <string name="pswdimenticata">Hai dimenticato la password?</string>
+
+    <!-- Registration Fragment -->
+    <string name="confirmpsw">Conferma Password</string>
+
 
     <!-- Account Fragment -->
     <string name="prestito">Libri in prestito</string>

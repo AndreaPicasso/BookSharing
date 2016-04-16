@@ -1,7 +1,6 @@
 package com.example.simone.booksharing;
 
 import android.content.Context;
-import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,12 +12,12 @@ import android.view.ViewGroup;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link IndexFragment.OnFragmentInteractionListener} interface
+ * {@link InsertBookFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link IndexFragment#newInstance} factory method to
+ * Use the {@link InsertBookFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class IndexFragment extends Fragment {
+public class InsertBookFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -30,7 +29,7 @@ public class IndexFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public IndexFragment() {
+    public InsertBookFragment() {
         // Required empty public constructor
     }
 
@@ -40,11 +39,11 @@ public class IndexFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment IndexFragment.
+     * @return A new instance of fragment InsertBookFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static IndexFragment newInstance(String param1, String param2) {
-        IndexFragment fragment = new IndexFragment();
+    public static InsertBookFragment newInstance(String param1, String param2) {
+        InsertBookFragment fragment = new InsertBookFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -65,13 +64,7 @@ public class IndexFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_index, container, false);
-        /*
-        if(getResources().getConfiguration().orientation== Configuration.ORIENTATION_PORTRAIT)
-            return inflater.inflate(R.layout.fragment_index_port, container, false);
-        else
-            return inflater.inflate(R.layout.fragment_index_land, container, false);
-            */
+        return inflater.inflate(R.layout.fragment_insert_book, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

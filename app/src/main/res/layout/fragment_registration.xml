@@ -3,14 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.simone.booksharing.LoginFragment"
-    android:background="@drawable/back">
+    android:background="@drawable/back"
+    android:padding="@dimen/fragment_padding">
 
     <EditText
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:id="@+id/email_et"
-        android:layout_marginTop="173dp"
-        android:hint="Email"
+        android:layout_marginTop="150dp"
+        android:hint="@string/email"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
@@ -18,7 +19,7 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:id="@+id/password_et"
-        android:hint="Password"
+        android:hint="@string/password"
         android:layout_below="@+id/email_et"
         android:layout_alignStart="@+id/email_et"
         android:layout_marginTop="100dp" />
@@ -39,7 +40,7 @@
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/conf_password_et"
-        android:hint="Confirm Password"
+        android:hint="@string/confirmpsw"
         android:layout_marginTop="100dp"
         android:layout_below="@+id/password_et"
         android:layout_alignStart="@+id/password_et"
