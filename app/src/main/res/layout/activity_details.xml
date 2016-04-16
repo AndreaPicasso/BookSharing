@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:name="com.example.simone.booksharing.BookFragment"
-        android:id="@+id/fragment3"
+        android:id="@+id/details_fragment"
         android:layout_alignParentTop="true"
         tools:layout="@layout/fragment_book"
         android:layout_alignParentStart="true"

@@ -13,7 +13,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:name="com.example.simone.booksharing.IndexFragment"
-        android:id="@+id/fragment2"
+        android:id="@+id/index_fragment"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         tools:layout="@layout/fragment_index" />

@@ -1,13 +1,10 @@
 package com.example.simone.booksharing;
 
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.Display;
-import android.view.WindowManager;
 
-public class Index extends AppCompatActivity {
+import android.app.Activity;
+import android.os.Bundle;
+
+public class Index extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

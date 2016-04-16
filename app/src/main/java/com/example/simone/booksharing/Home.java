@@ -1,9 +1,9 @@
 package com.example.simone.booksharing;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
 import android.os.Bundle;
 
-public class Home extends AppCompatActivity {
+public class Home extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

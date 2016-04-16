@@ -9,7 +9,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:name="com.example.simone.booksharing.HomeFragment"
-        android:id="@+id/fragment"
+        android:id="@+id/home_fragment"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         tools:layout="@layout/fragment_home" />
