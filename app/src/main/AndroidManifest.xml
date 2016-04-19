@@ -11,14 +11,15 @@
         <activity
             android:name=".Index"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Home" />
-        <activity android:name=".Details"></activity>
+
+        <activity android:name=".Home"/>
+        <activity android:name=".Details"/>
     </application>
 
 </manifest>

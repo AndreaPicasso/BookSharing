@@ -3,6 +3,7 @@ package com.example.simone.booksharing;
 
 import android.content.DialogInterface;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -22,9 +23,12 @@ public class IndexFragment extends android.app.Fragment
 
     @Override
     public void onClick(View v) {
+
+        getFragmentManager().beginTransaction().remove(getFragmentManager().findFragmentById(R.id.index_fragment)).commit();
+
         switch (v.getId()){
             case R.id.login_button:{
-                getFragmentManager().beginTransaction().detach(this);
+                this.getActivity().findViewById(R.id.index_fragment).setBackgroundColor(Color.WHITE);
                 getFragmentManager().beginTransaction().replace(R.id.index_fragment, new LoginFragment()).commit();
                 break;
             }
@@ -55,7 +59,6 @@ public class IndexFragment extends android.app.Fragment
         iscriviti_button=(Button)view.findViewById(R.id.iscriviti_button);
         login_button.setOnClickListener(this);
         iscriviti_button.setOnClickListener(this);
-        Toast.makeText(this.getActivity(),"Listener ok", Toast.LENGTH_LONG).show();
 
         return view;
     }
