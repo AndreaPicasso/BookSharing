@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!--
     <item name="fragment_index" type="layout">@layout/fragment_index_port</item>
 
     <item name="fragment_book" type="layout">@layout/fragment_book_port</item>
 
     <item name="fragment_insert_book" type="layout">@layout/fragment_insert_book_port</item>
-
+    -->
 </resources>
