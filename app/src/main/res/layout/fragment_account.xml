@@ -4,5 +4,13 @@
     android:layout_height="match_parent"
     tools:context="com.example.simone.booksharing.AccountFragment">
 
+<<<<<<< HEAD
+=======
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+>>>>>>> 8062a1749c282a80ed9ac46381272f0a6697035d
 
 </RelativeLayout>
