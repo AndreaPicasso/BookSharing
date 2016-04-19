@@ -1,6 +1,7 @@
 package com.example.simone.booksharing;
 
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -43,22 +44,23 @@ public class FragmentProva extends android.app.Fragment {
 
 
 
-public class IndexFragment extends Fragment {
+public class IndexFragment extends android.app.Fragment {
 
-    @Override
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_index,container,false);
-        /*
-        if(getResources().getConfiguration().orientation== Configuration.ORIENTATION_PORTRAIT)
-            return inflater.inflate(R.layout.fragment_index_port, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view=null;
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
+            view=inflater.inflate(R.layout.fragment_index_port,container,false);
+
         else
-            return inflater.inflate(R.layout.fragment_index_land, container, false);
-            */
+            view=inflater.inflate(R.layout.fragment_index_land,container,false);
+
+        return view;
     }
 }
