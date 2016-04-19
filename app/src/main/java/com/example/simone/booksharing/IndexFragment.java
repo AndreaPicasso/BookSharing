@@ -1,51 +1,41 @@
 package com.example.simone.booksharing;
 
 
+import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
+
 
 /*
-
-
-public class FragmentProva extends android.app.Fragment {
-
-    Button opzione1;
-    @Override
-
-
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view=null;
-        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
-            view=inflater.inflate(R.layout.port,container,false);
-
-        else
-            view=inflater.inflate(R.layout.land,container,false);
-
-        opzione1=(Button)view.findViewById(R.id.button2);
-        return view;
-    }
-
-
-}
-
+/!\ SE NON METTO ANDROID.APP.FRAGMENT NON FUNZIONA NIENTE
  */
+public class IndexFragment extends android.app.Fragment
+        implements View.OnClickListener {
 
+    Button iscriviti_button,login_button;
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.login_button:{
+                getFragmentManager().beginTransaction().detach(this);
+                getFragmentManager().beginTransaction().replace(R.id.index_fragment, new LoginFragment()).commit();
+                break;
+            }
+            case R.id.iscriviti_button:{
+                getFragmentManager().beginTransaction().replace(R.id.index_fragment, new RegistrationFragment()).commit();
 
+                break;
+            }
+        }
 
-
-public class IndexFragment extends android.app.Fragment {
-
+    }
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +50,12 @@ public class IndexFragment extends android.app.Fragment {
 
         else
             view=inflater.inflate(R.layout.fragment_index_land,container,false);
+
+        login_button=(Button)view.findViewById(R.id.login_button);
+        iscriviti_button=(Button)view.findViewById(R.id.iscriviti_button);
+        login_button.setOnClickListener(this);
+        iscriviti_button.setOnClickListener(this);
+        Toast.makeText(this.getActivity(),"Listener ok", Toast.LENGTH_LONG).show();
 
         return view;
     }
