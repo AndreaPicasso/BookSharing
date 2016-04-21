@@ -39,8 +39,12 @@
     <string name="modifica">Modifica</string>
     <string name="aggiungilibro">Aggiungi Libro</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <!-- Registration Fragment -->
+    <string name="nome">Nome</string>
+    <string name="cognome">Cognome</string>
+
 
 
 </resources>
