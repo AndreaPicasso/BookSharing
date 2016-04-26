@@ -29,7 +29,6 @@ public class IndexFragment extends android.app.Fragment
             case R.id.login_button:{
                 this.getActivity().findViewById(R.id.index_fragment).setBackgroundColor(Color.WHITE);
                 getFragmentManager().beginTransaction().replace(R.id.index_fragment, new LoginFragment()).commit();
-
                 break;
             }
             case R.id.iscriviti_button:{
