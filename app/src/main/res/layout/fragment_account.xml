@@ -4,5 +4,8 @@
     android:layout_height="match_parent"
     tools:context="com.example.simone.booksharing.AccountFragment">
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7678357094c548786d49b1e1701ac41d8981f6bc
 </RelativeLayout>

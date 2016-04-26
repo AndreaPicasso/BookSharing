@@ -65,6 +65,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/rating_bar"
+            style="?android:attr/ratingBarStyleSmall"
+
             android:numStars="5" />
     </LinearLayout>
 
