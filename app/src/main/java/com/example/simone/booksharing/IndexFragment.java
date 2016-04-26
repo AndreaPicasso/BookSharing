@@ -24,7 +24,6 @@ public class IndexFragment extends android.app.Fragment
     @Override
     public void onClick(View v) {
 
-        getFragmentManager().beginTransaction().remove(getFragmentManager().findFragmentById(R.id.index_fragment)).commit();
 
         switch (v.getId()){
             case R.id.login_button:{
