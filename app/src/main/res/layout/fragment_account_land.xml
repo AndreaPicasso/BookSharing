@@ -30,6 +30,8 @@
                 android:inputType="textPersonName"
                 android:text="Name"
                 android:ems="10"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:id="@+id/editText2"
                 android:layout_alignBaseline="@+id/nome_et"
                 android:layout_alignBottom="@+id/nome_et"
@@ -40,6 +42,8 @@
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
                 android:ems="10"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:id="@+id/nome_et"
                 android:layout_above="@+id/cognome_et"
                 android:layout_alignParentStart="true" />
@@ -47,6 +51,8 @@
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:inputType="textPersonName"
                 android:text="Name"
                 android:ems="10"
@@ -58,6 +64,8 @@
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:inputType="number"
                 android:ems="10"
                 android:id="@+id/genere_pref_et"
@@ -69,6 +77,8 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:ems="10"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:id="@+id/password_et"
                 android:layout_alignTop="@+id/cognome_et"
                 android:layout_alignStart="@+id/genere_pref_et" />

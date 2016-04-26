@@ -13,10 +13,10 @@
     <fragment
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="com.example.simone.booksharing.BookFragment"
+        android:name="com.example.simone.booksharing.AccountFragment"
         android:id="@+id/details_fragment"
         android:layout_alignParentTop="true"
-        tools:layout="@layout/fragment_book"
+        tools:layout="@layout/fragment_account"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true" />
 </RelativeLayout>
