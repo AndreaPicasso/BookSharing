@@ -14,6 +14,23 @@ public class Home extends Activity {
         super.onCreate(savedInstanceState);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         setContentView(R.layout.activity_home);
+        if (findViewById(R.id.home_fragment) != null) {
+
+            // However, if we're being restored from a previous state,
+            // then we don't need to do anything and should return or else
+            // we could end up with overlapping fragments.
+
+
+            // Create a new Fragment to be placed in the activity layout
+            HomeFragment hFragment=new HomeFragment();
+
+            // In case this activity was started with special instructions from an
+            // Intent, pass the Intent's extras to the fragment as arguments
+            getFragmentManager().beginTransaction().add(R.id.home_fragment, hFragment).commit();
+
+            // Add the fragment to the 'fragment_container' FrameLayout
+
+        }
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu){

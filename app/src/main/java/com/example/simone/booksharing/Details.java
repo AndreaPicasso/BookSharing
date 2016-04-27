@@ -13,6 +13,23 @@ public class Details extends Activity {
         super.onCreate(savedInstanceState);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         setContentView(R.layout.activity_details);
+        if (findViewById(R.id.details_fragment) != null) {
+
+            // However, if we're being restored from a previous state,
+            // then we don't need to do anything and should return or else
+            // we could end up with overlapping fragments.
+
+
+            // Create a new Fragment to be placed in the activity layout
+            AccountFragment aFragment=new AccountFragment();
+
+            // In case this activity was started with special instructions from an
+            // Intent, pass the Intent's extras to the fragment as arguments
+            getFragmentManager().beginTransaction().add(R.id.details_fragment, aFragment).commit();
+
+            // Add the fragment to the 'fragment_container' FrameLayout
+
+        }
     }
 
     @Override

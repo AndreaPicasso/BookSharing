@@ -10,7 +10,7 @@
     tools:context="com.example.simone.booksharing.Index">
 
 
-    <fragment
+    <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:name="com.example.simone.booksharing.IndexFragment"
