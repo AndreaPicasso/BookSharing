@@ -40,6 +40,7 @@ public class HomeFragment extends android.app.Fragment {
 
         HashMap<String,String> map= new HashMap<>();
         l1.setCopertinaLink("link");
+
         l1.setTitolo("godfjgildfgl");
         map.put("titolo",l1.getTitolo());
         map.put("copertina", l1.getCopertinaLink());
