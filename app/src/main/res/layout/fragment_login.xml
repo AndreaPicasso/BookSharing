@@ -7,33 +7,48 @@
     android:padding="@dimen/fragment_padding">
 
 
-    <EditText
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/email_et"
-        android:layout_marginTop="150dp"
-        android:hint="@string/email"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView" >
 
-    <EditText
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/password_et"
-        android:layout_below="@+id/email_et"
-        android:layout_alignStart="@+id/email_et"
-        android:layout_marginTop="70dp"
-        android:hint="@string/password" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/accedi"
-        android:id="@+id/accedi_button"
-        android:layout_marginTop="115dp"
-        android:layout_below="@+id/password_et"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/button_rounded" />
+
+            <EditText
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/email_et"
+                android:layout_marginTop="150dp"
+                android:hint="@string/email"
+                android:inputType="textEmailSubject"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
+
+            <EditText
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/password_et"
+                android:layout_below="@+id/email_et"
+                android:layout_alignStart="@+id/email_et"
+                android:inputType="textPassword"
+                android:layout_marginTop="70dp"
+                android:hint="@string/password" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/accedi"
+                android:id="@+id/accedi_button"
+                android:layout_marginTop="115dp"
+                android:layout_below="@+id/password_et"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/button_rounded" />
+
+        </RelativeLayout>
+    </ScrollView>
 
     <TextView
         android:layout_width="wrap_content"
@@ -41,8 +56,9 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/pswdimenticata"
         android:id="@+id/pswdimenticata_tw"
-        android:layout_marginBottom="94dp"
+        android:textIsSelectable="false"
+        android:layout_marginBottom="64dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:textIsSelectable="false" />
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>
