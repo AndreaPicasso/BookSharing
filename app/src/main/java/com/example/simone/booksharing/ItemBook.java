@@ -33,6 +33,7 @@ public class ItemBook {
     private String titolo;
     private String autore;
     private String genere;
+    
     private String copertinaLink;
     private int numPag;
     //STATO? ENUM DI PRESTITO
