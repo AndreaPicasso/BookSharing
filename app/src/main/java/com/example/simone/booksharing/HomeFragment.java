@@ -1,6 +1,9 @@
 package com.example.simone.booksharing;
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
@@ -37,18 +41,25 @@ public class HomeFragment extends android.app.Fragment {
         slider=(TwoWayView) view.findViewById(R.id.slider_lw);
         l1=new ItemBook("9788804488255", this.getActivity());
         ArrayList<HashMap<String,String>> items= new ArrayList<>();
+        DownloadImg img= new DownloadImg("http://bootyfast.com/wp-content/uploads/2015/04/image8.jpg");
+        ArrayList<Bitmap> l= new ArrayList<>();
+        l.add(img.doInBackground());
 
-        HashMap<String,String> map= new HashMap<>();
-        l1.setCopertinaLink("link");
+        MyAdapter m=new MyAdapter(this.getActivity(),R.layout.list_item_img_book,l);
+        slider.setAdapter(m);
+        /*HashMap<String,String> map= new HashMap<>();
+        l1.setCopertinaLink("https://i.ytimg.com/vi/oJxtQ9u8ISs/hqdefault.jpg");
         l1.setTitolo("godfjgildfgl");
-        map.put("titolo",l1.getTitolo());
+        l1.setGenere("titolo");
+        map.put("titolo", l1.getTitolo());
         map.put("copertina", l1.getCopertinaLink());
+
         items.add(map);
-        int resource= R.layout.list_item_book;
-        String[] from={ "titolo", "copertina"};
-        int[] to={R.id.titolo_tw, R.id.copertina_iw};
+        int resource=R.layout.list_item_book ;
+        String[] from={"titolo","copertina"};
+        int[] to={R.id.titolo_tw, R.id.copertina_iw,};
         SimpleAdapter adapter= new SimpleAdapter(this.getActivity(),items,resource,from,to);
-        slider.setAdapter(adapter);
+        slider.setAdapter(adapter);*/
 
 
 
