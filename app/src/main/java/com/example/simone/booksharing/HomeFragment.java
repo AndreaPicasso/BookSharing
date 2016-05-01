@@ -37,6 +37,7 @@ public class HomeFragment extends android.app.Fragment {
         slider=(TwoWayView) view.findViewById(R.id.slider_lw);
         l1=new ItemBook("9788804488255", this.getActivity());
         ArrayList<HashMap<String,String>> items= new ArrayList<>();
+
         HashMap<String,String> map= new HashMap<>();
         l1.setCopertinaLink("link");
         l1.setTitolo("godfjgildfgl");
