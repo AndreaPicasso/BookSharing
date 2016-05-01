@@ -8,6 +8,11 @@
     android:padding="@dimen/fragment_padding">
 
 
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/scrollView2" >
+
         <LinearLayout
             android:focusable="true"
             android:focusableInTouchMode="true"
@@ -169,5 +174,6 @@
                 android:layout_gravity="center_horizontal" />
 
         </LinearLayout>
+    </ScrollView>
 
 </FrameLayout>
