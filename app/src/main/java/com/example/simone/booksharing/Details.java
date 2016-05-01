@@ -2,6 +2,7 @@ package com.example.simone.booksharing;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,6 +12,10 @@ public class Details extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences pref= getSharedPreferences("pref", MODE_PRIVATE);
+        Boolean flag=true;
+        SharedPreferences.Editor et= pref.edit();
+        et.putBoolean("flag",flag);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         setContentView(R.layout.activity_details);
         if (findViewById(R.id.details_fragment) != null) {
