@@ -40,14 +40,23 @@ public class Home extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.account_menu:
+                Intent i = new Intent(getApplicationContext(), Details.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(i);
+                break;
+            case R.id.logout_menu:
+                Intent i1 = new Intent(getApplicationContext(), Index.class);
+                i1.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(i1);
+                break;
+            default:
+                break;
 
-        if(item.getItemId()==R.id.account_menu ){
-            Intent i = new Intent(getApplicationContext(), Details.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-            startActivity(i);
-            return true;
 
         }
+
 
         return super.onOptionsItemSelected(item);
     }

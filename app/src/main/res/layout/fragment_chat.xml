@@ -1,13 +1,14 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.simone.booksharing.ChatFragment">
 
 
-    <WebView
+    <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/webView"
-        android:layout_gravity="left|top" />
-</FrameLayout>
+        android:id="@+id/chatlw"
+        android:layout_weight="1" />
+</LinearLayout>

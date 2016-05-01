@@ -4,4 +4,8 @@
         android:title="Account"
         android:showAsAction="ifRoom"
         ></item>
+    <item android:id="@+id/logout_menu"
+        android:title="Logout"
+        android:showAsAction="ifRoom"
+        ></item>
 </menu>
