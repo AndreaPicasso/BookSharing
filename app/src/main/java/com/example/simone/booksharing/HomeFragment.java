@@ -35,7 +35,7 @@ public class HomeFragment extends android.app.Fragment {
         View view=inflater.inflate(R.layout.fragment_home,container,false);
         cerca=(Button) view.findViewById(R.id.cerca_button);
         slider=(TwoWayView) view.findViewById(R.id.slider_lw);
-        l1=new ItemBook("9788804488255", this.getActivity());
+        l1=new ItemBook("9788858754405", this.getActivity());
         ArrayList<HashMap<String,String>> items= new ArrayList<>();
 
         HashMap<String,String> map= new HashMap<>();

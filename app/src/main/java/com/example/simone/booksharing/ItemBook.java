@@ -2,6 +2,7 @@ package com.example.simone.booksharing;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -119,17 +120,18 @@ public class ItemBook {
 
     //STATO? ENUM DI PRESTITO
 
-    public ItemBook(String ISBN, Context context) {
+    public ItemBook(String ISBN, final Context context) {
         this.ISBN =ISBN;
         RequestQueue queue = Volley.newRequestQueue(context);
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://www.googleapis.com/books/v1/volumes?q=isbn:"
-                + ISBN, new Response.Listener<String>(){
+        String richiesta = "https://www.googleapis.com/books/v1/volumes?q=isbn:" + ISBN;
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, richiesta, new Response.Listener<String>(){
             @Override
             public void onResponse(String response) {
                 try {
                     JSONObject ris = new JSONObject(response);
                     JSONArray arr = ris.getJSONArray("items");
                     ris = arr.getJSONObject(0);
+                    // /!\ NON E DETTO CHE CI SIANO TUTTE LE INFO SU GOOGLE
                     titolo= ris.getJSONObject("volumeInfo").getString("title");
                     numPag = ris.getJSONObject("volumeInfo").getInt("pageCount");
                     copertinaLink = ris.getJSONObject("volumeInfo").getJSONObject("imageLinks").getString("thumbnail");
@@ -138,12 +140,13 @@ public class ItemBook {
 
                 }
                 catch(Exception e){
-
+                    Toast.makeText(context, "Exception", Toast.LENGTH_LONG).show();
                 }
             }
         }, new Response.ErrorListener(){
             @Override
             public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context, "VolleyErrorS", Toast.LENGTH_LONG).show();
 
             }
         });
