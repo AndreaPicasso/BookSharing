@@ -41,15 +41,4 @@
     <string name="modifica">Modifica</string>
     <string name="aggiungilibro">Aggiungi Libro</string>
 
-<<<<<<< HEAD
-=======
-
-
-    <!-- Registration Fragment -->
-    <string name="nome">Nome</string>
-    <string name="cognome">Cognome</string>
-
-
->>>>>>> development
-
 </resources>
