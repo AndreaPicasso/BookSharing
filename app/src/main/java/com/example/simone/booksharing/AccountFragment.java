@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +52,7 @@ public class AccountFragment extends android.app.Fragment {
         else
             view=inflater.inflate(R.layout.fragment_account_land,container,false);
         modifica=(Button)view.findViewById(R.id.modifica_button);
+        modifica.setText("Modifica");
         nome=(EditText) view.findViewById(R.id.nome_et);
         cognome=(EditText) view.findViewById(R.id.cognome_et);
         sesso=(EditText) view.findViewById(R.id.sesso_et);
@@ -76,7 +78,7 @@ public class AccountFragment extends android.app.Fragment {
                     modifica.setText("Fatto");
                     flag=false;
                 }
-                else{
+                else  if(!flag){
                     nome.setFocusable(false);
                     nome.setFocusableInTouchMode(false);
                     cognome.setFocusable(false);
@@ -90,6 +92,8 @@ public class AccountFragment extends android.app.Fragment {
                     modifica.setText("Modifica");
                     flag=true;
                 }
+
+                Log.e("bottone", ""+modifica.getText());
 
             }
         };

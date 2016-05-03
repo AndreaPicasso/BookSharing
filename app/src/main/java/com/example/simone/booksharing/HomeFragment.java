@@ -40,8 +40,10 @@ public class HomeFragment extends android.app.Fragment {
         View view=inflater.inflate(R.layout.fragment_home,container,false);
         cerca=(Button) view.findViewById(R.id.cerca_button);
         slider=(TwoWayView) view.findViewById(R.id.slider_lw);
-        String[] linkImmagini= {"http://www.fantascienza.com/catalogo/imgbank/cover/UV039.jpg","http://www.mondadoristore.it/img/Il-vecchio-e-il-mare-Ernest-Hemingway/ea978880461312/BL/BL/01/NZO/?tit=Il+vecchio+e+il+mare&aut=Ernest+Hemingway"};
+        String[] linkImmagini= {"https://upload.wikimedia.org/wikipedia/commons/a/ab/JoyceUlysses2.jpg","https://ilcentrodellessere.files.wordpress.com/2011/05/il-gabbiano-jonathan-livingstone_fronte.jpg","http://alessandria.bookrepublic.it/api/books/9788858600795/cover","http://www.fantascienza.com/catalogo/imgbank/cover/UV039.jpg","http://www.mondadoristore.it/img/Il-vecchio-e-il-mare-Ernest-Hemingway/ea978880461312/BL/BL/01/NZO/?tit=Il+vecchio+e+il+mare&aut=Ernest+Hemingway"};
         l1=new ItemBook("9788858754405", this.getActivity());
+
+        Log.e("copertina",""+l1.getCopertinaLink());
         ArrayList<HashMap<String,String>> items= new ArrayList<>();
         DownloadImg img= new DownloadImg(linkImmagini,this.getActivity(),slider);
         img.execute();
