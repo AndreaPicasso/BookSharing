@@ -52,8 +52,10 @@ public class LoginFragment extends android.app.Fragment implements View.OnClickL
 
     @Override
     public void onClick(View v) {
+        startActivity(new Intent(v.getContext(),Home.class));
+        /*
         if(v.getId() == accedi.getId()) {
-            //startActivity(new Intent(v.getContext(),Home.class));
+
             boolean ok = true;
             if (email.getText().toString().equals("")) {
                 ok = false;
@@ -136,5 +138,7 @@ public class LoginFragment extends android.app.Fragment implements View.OnClickL
             };
             queue.add(stringRequest);
         }
+        */
     }
+
 }
