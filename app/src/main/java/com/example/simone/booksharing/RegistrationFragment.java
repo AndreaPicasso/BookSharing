@@ -57,19 +57,50 @@ public class RegistrationFragment extends android.app.Fragment implements View.O
 
     @Override
     public void onClick(View v) {
+        boolean ok = true;
+        if(email.getText().toString().equals("")){
+            ok=false;
+            Toast.makeText(this.getActivity(), "Campo email vuoto", Toast.LENGTH_SHORT).show();
+        }
+        if(isEmailValid(email.getText().toString())){
+            ok=false;
+            Toast.makeText(this.getActivity(), "Email non valida", Toast.LENGTH_SHORT).show();
+        }
+            if(nome.getText().toString().equals("")) {
+                ok=false;
+                Toast.makeText(this.getActivity(), "Campo nome vuoto", Toast.LENGTH_SHORT).show();
+            }
+        if(cognome.getText().toString().equals("")){
+            ok=false;
+            Toast.makeText(this.getActivity(), "Campo cognome vuoto", Toast.LENGTH_SHORT).show();
+        }
+        if(psw.getText().toString().equals("")){
+            ok=false;
+            Toast.makeText(this.getActivity(), "Campo password vuoto", Toast.LENGTH_SHORT).show();
+        }
+        if(repsw.getText().toString().equals("")){
+            ok=false;
+            Toast.makeText(this.getActivity(), "Campo Re-password vuoto", Toast.LENGTH_SHORT).show();
+        }
+        if(!repsw.getText().toString().equals(psw.getText().toString())){
+            ok=false;
+            Toast.makeText(this.getActivity(), "Le password non coincidono", Toast.LENGTH_SHORT).show();
+        }
+
+        if(!ok) return;
+
         RequestQueue queue = Volley.newRequestQueue(this.getActivity());
-        String richiesta = "http://webdev.dibris.unige.it/~S3940125/ANDROID_ENGINE/query_registration.php";
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, richiesta, new Response.Listener<String>(){
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, UnigeServerConnection.URL+UnigeServerConnection.REGISTRATION, new Response.Listener<String>(){
             @Override
             public void onResponse(String response) {
                 try {
                     JSONObject ris = new JSONObject(response);
                     if(ris.getString("risultato").equals("ok")){
-                        Toast.makeText(email.getContext(), "Iscrizione avvenuta! E' stata inviata un email,",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(email.getContext(), "Iscrizione avvenuta! E' stata inviata un email",Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(email.getContext(), Home.class));
                     }
                     else{
-                        Toast.makeText(email.getContext(), "Iscrizione avvenuta! E' stata inviata un email,",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(email.getContext(), ris.getString("risultato"),Toast.LENGTH_SHORT).show();
                     }
 
                 }
@@ -99,7 +130,7 @@ public class RegistrationFragment extends android.app.Fragment implements View.O
     public static boolean isEmailValid(String email) {
         boolean isValid = false;
 
-        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        String expression = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\\\.[A-Z]{2,6}$";
         CharSequence inputStr = email;
 
         Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
