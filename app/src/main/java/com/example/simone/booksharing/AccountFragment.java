@@ -3,9 +3,7 @@ package com.example.simone.booksharing;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,7 +55,7 @@ public class AccountFragment extends android.app.Fragment {
         cognome=(EditText) view.findViewById(R.id.cognome_et);
         sesso=(EditText) view.findViewById(R.id.sesso_et);
         genere=(EditText) view.findViewById(R.id.genere_pref_et);
-        password=(EditText) view.findViewById(R.id.password_et);
+        password=(EditText) view.findViewById(R.id.login_password_et);
 
 
         View.OnClickListener modif= new View.OnClickListener() {

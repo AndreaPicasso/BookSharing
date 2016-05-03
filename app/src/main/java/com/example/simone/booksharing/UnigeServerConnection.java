@@ -15,7 +15,7 @@ public class UnigeServerConnection {
     public static boolean isEmailValid(String email) {
         boolean isValid = false;
 
-        String expression = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\\\.[A-Z]{2,6}$";
+        String expression = "[A-Z0-9._]+@[A-Z0-9.]+.[A-Z0-9]+";
         CharSequence inputStr = email;
 
         Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);

@@ -68,7 +68,7 @@
                 android:ems="10"
                 android:focusable="false"
                 android:focusableInTouchMode="true"
-                android:id="@+id/password_et"
+                android:id="@+id/login_password_et"
                 android:layout_alignTop="@+id/cognome_et"
                 android:layout_alignStart="@+id/genere_pref_et" />
             <EditText

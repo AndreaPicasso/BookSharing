@@ -1,11 +1,7 @@
 package com.example.simone.booksharing;
 
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,13 +16,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 public class RegistrationFragment extends android.app.Fragment implements View.OnClickListener {
@@ -43,11 +36,11 @@ public class RegistrationFragment extends android.app.Fragment implements View.O
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View ris = inflater.inflate(R.layout.fragment_registration,container,false);
 
-        nome = (EditText)  ris.findViewById( R.id.nome_et);
-        cognome = (EditText)  ris.findViewById( R.id.cognome_et);
-        email = (EditText)  ris.findViewById( R.id.email_et);
-        psw = (EditText)  ris.findViewById( R.id.password_et);
-        repsw = (EditText)  ris.findViewById( R.id.conf_password_et);
+        nome = (EditText)  ris.findViewById( R.id.registration_nome_et);
+        cognome = (EditText)  ris.findViewById( R.id.registration_cognome_et);
+        email = (EditText)  ris.findViewById( R.id.registration_email_et);
+        psw = (EditText)  ris.findViewById( R.id.registration_password_et);
+        repsw = (EditText)  ris.findViewById( R.id.registration_password_et);
         iscriviti = (Button) ris.findViewById(R.id.iscriviti_button);
         iscriviti.setOnClickListener(this);
         return ris;
@@ -62,7 +55,7 @@ public class RegistrationFragment extends android.app.Fragment implements View.O
             ok=false;
             Toast.makeText(this.getActivity(), "Campo email vuoto", Toast.LENGTH_SHORT).show();
         }
-        if(UnigeServerConnection.isEmailValid(email.getText().toString())){
+        if(!UnigeServerConnection.isEmailValid(email.getText().toString())){
             ok=false;
             Toast.makeText(this.getActivity(), "Email non valida", Toast.LENGTH_SHORT).show();
         }
