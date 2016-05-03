@@ -17,7 +17,6 @@ import java.util.ArrayList;
  */
 public class GestioneSlider {
 
-    ArrayList<Bitmap> list=new ArrayList<>();
 
 
 

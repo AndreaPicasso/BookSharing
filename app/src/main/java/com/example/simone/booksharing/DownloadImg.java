@@ -1,45 +1,59 @@
 package com.example.simone.booksharing;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ImageView;
 
+import org.lucasr.twowayview.TwoWayView;
+
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 /**
  * Created by Utente on 01/05/2016.
  */
 
-public class DownloadImg extends AsyncTask<Void, Void, Bitmap> {
+public class DownloadImg extends AsyncTask<Void, Void, String> {
 
-    private String url;
-    private ImageView image;
-
-    public DownloadImg(String url){
+    private String[] url;
+    private ArrayList<Bitmap> images;
+    private Context context;
+    private TwoWayView slider;
+    public DownloadImg(String[] url, Context context, TwoWayView slider){
         this.url=url;
+        this.slider=slider;
+        this.context=context;
+        this.images= new ArrayList<>();
+
 
     }
-    public ImageView getImage(){
-        return this.image;
-    }
+
 
     @Override
-    protected Bitmap doInBackground(Void... params) {
+    protected String doInBackground(Void... params) {
         try {
-            URL urlConnection = new URL(url);
-            Log.e("url", url);
+            for(int i=0; i<url.length; i++){
+                URL urlConnection = new URL(url[i]);
+                Log.e("url", url[i]);
 
-            HttpURLConnection connection = (HttpURLConnection) urlConnection.openConnection();
-            connection.setDoInput(true);
-            connection.connect();
-            InputStream input = connection.getInputStream();
-            Bitmap myBitmap = BitmapFactory.decodeStream(input);
-            Log.e("Bitmap","returned");
-            return myBitmap;
+                HttpURLConnection connection = (HttpURLConnection) urlConnection.openConnection();
+                connection.setDoInput(true);
+                connection.connect();
+                InputStream input = connection.getInputStream();
+                Bitmap myBitmap = BitmapFactory.decodeStream(input);
+                Log.e("Bitmap", "returned");
+                Log.e("url", "" + images.size());
+                images.add(myBitmap);
+
+            }
+
+
+            return null;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -47,11 +61,11 @@ public class DownloadImg extends AsyncTask<Void, Void, Bitmap> {
     }
 
     @Override
-    public void onPostExecute(Bitmap result) {
-        super.onPostExecute(result);
-        this.image.setImageBitmap(result);
+    protected void onPostExecute(String s) {
+        MyAdapter m=new MyAdapter(this.context,R.layout.list_item_img_book,this.images);
+        slider.setAdapter(m);
+        super.onPostExecute(s);
     }
-
 }
 
 

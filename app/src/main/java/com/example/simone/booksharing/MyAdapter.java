@@ -3,6 +3,7 @@ package com.example.simone.booksharing;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,9 +30,21 @@ class MyAdapter extends ArrayAdapter<Bitmap> {
     }
 
     @Override
+    public int getCount() {
+            return list.size();
+
+    }
+    @Override
+    public long getItemId(int position) {
+        Log.e("url", ""+position);
+        return position;
+    }
+
+    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View row = convertView;
         BookHolder holder = null;
+        Log.e("url", "adapter"+position+list.size());
 
         if (row == null) {
             LayoutInflater inflater = ((Activity) context).getLayoutInflater();

@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Layout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,14 +40,25 @@ public class HomeFragment extends android.app.Fragment {
         View view=inflater.inflate(R.layout.fragment_home,container,false);
         cerca=(Button) view.findViewById(R.id.cerca_button);
         slider=(TwoWayView) view.findViewById(R.id.slider_lw);
+        String[] linkImmagini= {"http://www.fantascienza.com/catalogo/imgbank/cover/UV039.jpg","http://www.mondadoristore.it/img/Il-vecchio-e-il-mare-Ernest-Hemingway/ea978880461312/BL/BL/01/NZO/?tit=Il+vecchio+e+il+mare&aut=Ernest+Hemingway"};
         l1=new ItemBook("9788858754405", this.getActivity());
         ArrayList<HashMap<String,String>> items= new ArrayList<>();
-        DownloadImg img= new DownloadImg("http://bootyfast.com/wp-content/uploads/2015/04/image8.jpg");
-        ArrayList<Bitmap> l= new ArrayList<>();
-        l.add(img.doInBackground());
+        DownloadImg img= new DownloadImg(linkImmagini,this.getActivity(),slider);
+        img.execute();
+        //DownloadImg img1= new DownloadImg("http://www.mondadoristore.it/img/Il-vecchio-e-il-mare-Ernest-Hemingway/ea978880461312/BL/BL/01/NZO/?tit=Il+vecchio+e+il+mare&aut=Ernest+Hemingway");
+       // img1.execute();
+        //ownloadImg img= new DownloadImg("http://www.fantascienza.com/catalogo/imgbank/cover/UV039.jpg");
+        //img.execute();
+       // ArrayList<Bitmap> l= new ArrayList<>();
+        //while(img.getImage()==null || img1.getImage()==null){
 
-        MyAdapter m=new MyAdapter(this.getActivity(),R.layout.list_item_img_book,l);
-        slider.setAdapter(m);
+        //}
+        //l.add(img1.getImage());
+        //l.add(img.getImage());
+      //  Log.e("url", ""+l.size());
+        //ArrayAdapter<Bitmap> m= new ArrayAdapter<Bitmap>(this.getActivity(),R.layout.list_item_img_book,l);
+      //  MyAdapter m=new MyAdapter(this.getActivity(),R.layout.list_item_img_book,l);
+       // slider.setAdapter(m);
         /*HashMap<String,String> map= new HashMap<>();
         l1.setCopertinaLink("https://i.ytimg.com/vi/oJxtQ9u8ISs/hqdefault.jpg");
         l1.setTitolo("godfjgildfgl");
