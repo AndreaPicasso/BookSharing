@@ -1,8 +1,32 @@
 package com.example.simone.booksharing;
 
 
+import android.content.Context;
+import android.content.Intent;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+interface UnigeServerConnectionHandler{
+    void onResponse();
+    void onErrorResponse();
+    Map<String,String> getParams();
+    String getURL();
+
+}
+
 
 public class UnigeServerConnection {
     public static final String URL = "http://webdev.dibris.unige.it/~S3940125/ANDROID_ENGINE/";
@@ -10,6 +34,51 @@ public class UnigeServerConnection {
     public static final String LOGIN = "query_login.php";
     public static final String REGISTRATION = "query_registration.php";
     public static final String PSW_DIMENTICATA = "query_psw_dimenticata.php";
+
+
+
+    /*
+
+     Implementa la classe dove si vuole utilizzare la connessione e passa this
+    public static void sendRequest(UnigeServerConnectionHandler helper, Context context){
+
+        RequestQueue queue = Volley.newRequestQueue(context);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, helper.getURL(), new Response.Listener<String>(){
+            @Override
+            public void onResponse(String response) {
+                try {
+                    helper.onResponse();
+
+                    JSONObject ris = new JSONObject(response);
+                    if(ris.getString("risultato").equals("ok")){
+                        Toast.makeText(email.getContext(), "Iscrizione avvenuta! E' stata inviata un email", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(email.getContext(), Home.class));
+                    }
+                    else{
+                        Toast.makeText(email.getContext(), ris.getString("risultato"),Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+                catch(Exception e){
+                }
+            }
+
+        }, new Response.ErrorListener(){
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                helper.onErrorResponse();
+            }
+        }){ @Override
+            protected Map<String,String> getParams(){
+            return helper.getParams();
+        }
+        };
+        queue.add(stringRequest);
+    }
+        */
+
+
+
 
 
     public static boolean isEmailValid(String email) {

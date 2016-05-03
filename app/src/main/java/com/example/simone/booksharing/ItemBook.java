@@ -23,12 +23,6 @@ import java.util.Date;
 public class ItemBook {
 
 
-    //Campi libro prestato, li mettiamo?
-    private String proprietario;
-    private double lat,lon;
-    private Date datacondivisione;  //Campo data?
-
-
     public String getTitolo() {
         return titolo;
     }
@@ -117,6 +111,13 @@ public class ItemBook {
     private String copertinaLink;
     private int numPag;
 
+    //Campi libro prestato, li mettiamo?
+    private String proprietario;
+    private double lat,lon;
+    private Date datacondivisione;  //Campo data?
+
+
+
 
     //STATO? ENUM DI PRESTITO
 
@@ -132,12 +133,12 @@ public class ItemBook {
                     JSONArray arr = ris.getJSONArray("items");
                     ris = arr.getJSONObject(0);
                     // /!\ NON E DETTO CHE CI SIANO TUTTE LE INFO SU GOOGLE
-                    titolo= ris.getJSONObject("volumeInfo").getString("title");
+
+                    titolo = ris.getJSONObject("volumeInfo").getString("title");
                     numPag = ris.getJSONObject("volumeInfo").getInt("pageCount");
                     copertinaLink = ris.getJSONObject("volumeInfo").getJSONObject("imageLinks").getString("thumbnail");
                     autore = ris.getJSONObject("volumeInfo").getJSONArray("authors").getString(0);
-                    genere =    ris.getJSONObject("volumeInfo").getJSONArray("categories").getString(0);
-
+                    genere = ris.getJSONObject("volumeInfo").getJSONArray("categories").getString(0);
                 }
                 catch(Exception e){
                     Toast.makeText(context, "Exception", Toast.LENGTH_LONG).show();
