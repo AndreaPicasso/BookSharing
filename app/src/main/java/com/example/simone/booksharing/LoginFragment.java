@@ -53,10 +53,23 @@ public class LoginFragment extends android.app.Fragment implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        startActivity(new Intent(v.getContext(),Home.class));
-/*
+       //startActivity(new Intent(v.getContext(),Home.class));
+        boolean ok = true;
+        if(email.getText().toString().equals("")){
+            ok=false;
+            Toast.makeText(this.getActivity(), "Campo email vuoto", Toast.LENGTH_SHORT).show();
+        }
+        if(UnigeServerConnection.isEmailValid(email.getText().toString())){
+            ok=false;
+            Toast.makeText(this.getActivity(), "Email non valida", Toast.LENGTH_SHORT).show();
+        }
+        if(password.getText().toString().equals("")) {
+            ok=false;
+            Toast.makeText(this.getActivity(), "Campo password vuoto", Toast.LENGTH_SHORT).show();
+        }
+        if(!ok) return;
         RequestQueue queue = Volley.newRequestQueue(this.getActivity());
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, UnigeServerConnection.URL+UnigeServerConnection.REGISTRATION, new Response.Listener<String>(){
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, UnigeServerConnection.URL+UnigeServerConnection.LOGIN, new Response.Listener<String>(){
             @Override
             public void onResponse(String response) {
                 try {
@@ -65,7 +78,7 @@ public class LoginFragment extends android.app.Fragment implements View.OnClickL
                         startActivity(new Intent(email.getContext(), Home.class));
                     }
                     else{
-                        Toast.makeText(email.getContext(), "Iscrizione avvenuta! E' stata inviata un email,",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(email.getContext(), "Utente non riconosciuto.",Toast.LENGTH_SHORT).show();
                     }
 
                 }
@@ -82,9 +95,10 @@ public class LoginFragment extends android.app.Fragment implements View.OnClickL
             Map<String,String> params = new HashMap<String, String>();
             params.put("email",email.getText().toString());
             params.put("psw",password.getText().toString());
-        }
+            return params;
+            }
         };
         queue.add(stringRequest);
-*/
+
     }
 }

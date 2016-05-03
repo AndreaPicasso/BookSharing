@@ -62,7 +62,7 @@ public class RegistrationFragment extends android.app.Fragment implements View.O
             ok=false;
             Toast.makeText(this.getActivity(), "Campo email vuoto", Toast.LENGTH_SHORT).show();
         }
-        if(isEmailValid(email.getText().toString())){
+        if(UnigeServerConnection.isEmailValid(email.getText().toString())){
             ok=false;
             Toast.makeText(this.getActivity(), "Email non valida", Toast.LENGTH_SHORT).show();
         }
@@ -127,17 +127,5 @@ public class RegistrationFragment extends android.app.Fragment implements View.O
     }
 
 
-    public static boolean isEmailValid(String email) {
-        boolean isValid = false;
 
-        String expression = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\\\.[A-Z]{2,6}$";
-        CharSequence inputStr = email;
-
-        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(inputStr);
-        if (matcher.matches()) {
-            isValid = true;
-        }
-        return isValid;
-    }
 }
