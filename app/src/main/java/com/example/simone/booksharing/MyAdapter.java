@@ -52,6 +52,14 @@ class MyAdapter extends ArrayAdapter<Bitmap> {
 
             holder = new BookHolder();
             holder.imgIcon = (ImageView) row.findViewById(R.id.immagine_slider_iw);
+            /*
+            holder.imgIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    getFragmentManager().beginTransaction().replace(R.id.home_fragment, new BookFragment()).addToBackStack(null).commit();
+                }
+
+            });*/
 
 
             row.setTag(holder);

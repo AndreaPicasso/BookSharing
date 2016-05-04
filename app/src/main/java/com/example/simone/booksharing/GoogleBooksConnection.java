@@ -1,9 +1,6 @@
 package com.example.simone.booksharing;
 
-
 import android.content.Context;
-import android.content.Intent;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -14,12 +11,15 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-interface UnigeServerConnectionHandler{
+/**
+ * Created by simone on 04/05/2016.
+ */
+
+interface GoogleBooksConnectionHandler{
     void onResponse(JSONObject risposta);
     void onErrorResponse(VolleyError error);
     Map<String,String> getParams();
@@ -28,25 +28,19 @@ interface UnigeServerConnectionHandler{
 }
 
 
-public class UnigeServerConnection {
-    public static final String URL = "http://webdev.dibris.unige.it/~S3940125/ANDROID_ENGINE/";
-
-    public static final String LOGIN = "query_login.php";
-    public static final String REGISTRATION = "query_registration.php";
-    public static final String PSW_DIMENTICATA = "query_psw_dimenticata.php";
-    public static final String RICERCA = "query_ricerca.php";
+public class GoogleBooksConnection {
+    public static final String URL = "https://www.googleapis.com/books/v1/volumes?q=";
+    public GoogleBooksConnectionHandler helper = null;
 
 
 
-    public UnigeServerConnectionHandler helper = null;
-
-    public UnigeServerConnection(UnigeServerConnectionHandler handler){
+    public GoogleBooksConnection(GoogleBooksConnectionHandler handler){
         helper = handler;
     }
 
 
 
-     /*Implementa la classe dove si vuole utilizzare la connessione e passa this */
+    /*Implementa la classe dove si vuole utilizzare la connessione e passa this */
     public void sendRequest(Context context){
 
         RequestQueue queue = Volley.newRequestQueue(context);
@@ -56,7 +50,7 @@ public class UnigeServerConnection {
             public void onResponse(String response) {
                 try {
                     helper.onResponse(new JSONObject(response));
-                    }
+                }
                 catch(Exception e){
                 }
             }
@@ -77,20 +71,14 @@ public class UnigeServerConnection {
 
 
 
+    public static String makeGoogleQuery(String titolo, String autore, String isbn, String genere){
+        StringBuffer ris=new StringBuffer();
+        if(!genere.equals("")) ris.append(genere+"&");
+        if(!titolo.equals("")) ris.append("intitle:"+titolo+"&");
+        if(!autore.equals("")) ris.append("inauthor:"+autore+"&");
+        if(!isbn.equals("")) ris.append("isbn:"+isbn);
 
-    public static boolean isEmailValid(String email) {
-        boolean isValid = false;
-
-        String expression = "[A-Z0-9._]+@[A-Z0-9.]+.[A-Z0-9]+";
-        CharSequence inputStr = email;
-
-        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(inputStr);
-        if (matcher.matches()) {
-            isValid = true;
-        }
-        return isValid;
+        return ris.toString();
     }
-
 
 }

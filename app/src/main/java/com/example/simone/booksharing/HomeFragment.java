@@ -1,10 +1,7 @@
 package com.example.simone.booksharing;
 
-import android.app.Activity;
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
+
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v4.app.Fragment;
@@ -15,9 +12,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SeekBar;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import org.lucasr.twowayview.TwoWayView;
 
@@ -26,10 +27,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class HomeFragment extends android.app.Fragment {
+public class HomeFragment extends android.app.Fragment implements View.OnClickListener {
     public Button cerca;
     public TwoWayView slider;
     public ItemBook l1;
+
+    private EditText titolo, autore,genere,isbn;
+    private CheckBox disponibile;
+    private SeekBar raggio;
+    private TextView raggioDisp;
+
     public void onCreate(Bundle savedInstanceState) {
 
 
@@ -41,7 +48,29 @@ public class HomeFragment extends android.app.Fragment {
         View view=inflater.inflate(R.layout.fragment_home,container,false);
         cerca=(Button) view.findViewById(R.id.cerca_button);
         slider=(TwoWayView) view.findViewById(R.id.slider_lw);
-         l1=new ItemBook("9788858754405", this.getActivity());
+        genere = (EditText) view.findViewById(R.id.genere_et);
+        isbn = (EditText) view.findViewById(R.id.isbn_et);
+        titolo = (EditText) view.findViewById(R.id.titolo_et);
+        autore = (EditText) view.findViewById(R.id.autore_et);
+        disponibile = (CheckBox) view.findViewById(R.id.disponibile_chk);
+        raggio = (SeekBar) view.findViewById(R.id.raggio_seek);
+        raggioDisp =(TextView) view.findViewById(R.id.raggio_tw);
+
+        raggio.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if(progress<2)
+                    seekBar.setProgress(2);
+                raggioDisp.setText(String.valueOf(seekBar.getProgress())+" Km");
+            }
+            @Override public void onStartTrackingTouch(SeekBar seekBar) {}
+            @Override public void onStopTrackingTouch(SeekBar seekBar) {}
+        });
+
+        cerca.setOnClickListener(this);
+
+
+        // /!\  MEGLIO METTERE QUESTO PRIMA, CHE TANTO PARTE E SI FA I CAZZI SUOI DIREI
+        l1=new ItemBook("9788858754405", this.getActivity());
         String[] linkImmagini= {"https://upload.wikimedia.org/wikipedia/commons/a/ab/JoyceUlysses2.jpg","https://ilcentrodellessere.files.wordpress.com/2011/05/il-gabbiano-jonathan-livingstone_fronte.jpg","http://alessandria.bookrepublic.it/api/books/9788858600795/cover","http://www.fantascienza.com/catalogo/imgbank/cover/UV039.jpg","http://www.mondadoristore.it/img/Il-vecchio-e-il-mare-Ernest-Hemingway/ea978880461312/BL/BL/01/NZO/?tit=Il+vecchio+e+il+mare&aut=Ernest+Hemingway"};
 
         ArrayList<HashMap<String,String>> items= new ArrayList<>();
@@ -75,19 +104,13 @@ public class HomeFragment extends android.app.Fragment {
         SimpleAdapter adapter= new SimpleAdapter(this.getActivity(),items,resource,from,to);
         slider.setAdapter(adapter);*/
 
-
-
-
-        View.OnClickListener cerca_l= new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-               getFragmentManager().beginTransaction().replace(R.id.home_fragment, new BookFragment()).addToBackStack(null).commit();
-            }
-        };
-        cerca.setOnClickListener(cerca_l);
-
         return view;
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        getFragmentManager().beginTransaction().replace(R.id.home_fragment, new BookFragment()).addToBackStack(null).commit();
 
     }
 }
