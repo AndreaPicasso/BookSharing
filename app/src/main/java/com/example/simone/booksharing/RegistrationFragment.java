@@ -81,19 +81,16 @@ public class RegistrationFragment extends android.app.Fragment implements View.O
         }
 
         if(!ok) return;
-
-        RequestQueue queue = Volley.newRequestQueue(this.getActivity());
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, UnigeServerConnection.URL+UnigeServerConnection.REGISTRATION, new Response.Listener<String>(){
+        UnigeServerConnection con = new UnigeServerConnection(new UnigeServerConnectionHandler() {
             @Override
-            public void onResponse(String response) {
+            public void onResponse(JSONObject risposta) {
                 try {
-                    JSONObject ris = new JSONObject(response);
-                    if(ris.getString("risultato").equals("ok")){
+                    if(risposta.getString("risultato").equals("ok")){
                         Toast.makeText(email.getContext(), "Iscrizione avvenuta! E' stata inviata un email",Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(email.getContext(), Home.class));
                     }
                     else{
-                        Toast.makeText(email.getContext(), ris.getString("risultato"),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(email.getContext(), risposta.getString("risultato"),Toast.LENGTH_SHORT).show();
                     }
 
                 }
@@ -101,22 +98,28 @@ public class RegistrationFragment extends android.app.Fragment implements View.O
                 }
             }
 
-        }, new Response.ErrorListener(){
             @Override
             public void onErrorResponse(VolleyError error) {
+
             }
-        }){ @Override
-        protected Map<String,String> getParams(){
-            Map<String,String> params = new HashMap<String, String>();
-            params.put("email",email.getText().toString());
-            params.put("psw",psw.getText().toString());
-            params.put("repsw",repsw.getText().toString());
-            params.put("nome",nome.getText().toString());
-            params.put("cognome",cognome.getText().toString());
-            return params;
+
+            @Override
+            public Map<String, String> getParams() {
+                Map<String,String> params = new HashMap<String, String>();
+                params.put("email",email.getText().toString());
+                params.put("psw",psw.getText().toString());
+                params.put("repsw",repsw.getText().toString());
+                params.put("nome",nome.getText().toString());
+                params.put("cognome",cognome.getText().toString());
+                return params;
             }
-        };
-        queue.add(stringRequest);
+
+            @Override
+            public String getURL() {
+                return UnigeServerConnection.URL+UnigeServerConnection.REGISTRATION;
+            }
+        });
+        con.sendRequest(this.getActivity());
     }
 
 

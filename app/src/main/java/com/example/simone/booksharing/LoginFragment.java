@@ -52,10 +52,9 @@ public class LoginFragment extends android.app.Fragment implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        startActivity(new Intent(v.getContext(),Home.class));
-        /*
-        if(v.getId() == accedi.getId()) {
+       // startActivity(new Intent(v.getContext(),Home.class));
 
+        if(v.getId() == accedi.getId()) {
             boolean ok = true;
             if (email.getText().toString().equals("")) {
                 ok = false;
@@ -70,50 +69,50 @@ public class LoginFragment extends android.app.Fragment implements View.OnClickL
                 Toast.makeText(this.getActivity(), "Campo password vuoto", Toast.LENGTH_SHORT).show();
             }
             if (!ok) return;
-            RequestQueue queue = Volley.newRequestQueue(this.getActivity());
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, UnigeServerConnection.URL + UnigeServerConnection.LOGIN, new Response.Listener<String>() {
+            UnigeServerConnection connection = new UnigeServerConnection(new UnigeServerConnectionHandler() {
                 @Override
-                public void onResponse(String response) {
-                    try {
-                        JSONObject ris = new JSONObject(response);
-                        if (ris.getString("risultato").equals("ok")) {
+                public void onResponse(JSONObject risposta) {
+                    try{
+                        if (risposta.getString("risultato").equals("ok")) {
                             startActivity(new Intent(email.getContext(), Home.class));
-                        } else {
+                        } else
                             Toast.makeText(email.getContext(), "Utente non riconosciuto.", Toast.LENGTH_SHORT).show();
-                        }
+                    }catch(Exception e){
 
-                    } catch (Exception e) {
                     }
                 }
-
-            }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                 }
-            }) {
+
                 @Override
-                protected Map<String, String> getParams() {
+                public Map<String, String> getParams() {
                     Map<String, String> params = new HashMap<String, String>();
                     params.put("email", email.getText().toString());
                     params.put("psw", password.getText().toString());
                     return params;
                 }
-            };
-            queue.add(stringRequest);
+
+                @Override
+                public String getURL() {
+                    return UnigeServerConnection.URL + UnigeServerConnection.LOGIN;
+                }
+            });
+            connection.sendRequest(getActivity());
         }
-        else if(v.getId() == pswDim.getId()){
+
+        else
+        if(v.getId() == pswDim.getId()){
             if (email.getText().toString().equals("") && !UnigeServerConnection.isEmailValid(email.getText().toString())) {
                 Toast.makeText(this.getActivity(), "Inserisci un email valida", Toast.LENGTH_SHORT).show();
                 return ;
             }
 
-            RequestQueue queue = Volley.newRequestQueue(this.getActivity());
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, UnigeServerConnection.URL + UnigeServerConnection.PSW_DIMENTICATA, new Response.Listener<String>() {
+            UnigeServerConnection conn = new UnigeServerConnection(new UnigeServerConnectionHandler() {
                 @Override
-                public void onResponse(String response) {
+                public void onResponse(JSONObject risposta) {
                     try {
-                        JSONObject ris = new JSONObject(response);
-                        if (ris.getString("risultato").equals("ok")) {
+                        if (risposta.getString("risultato").equals("ok")) {
                             Toast.makeText(email.getContext(), "E' stata inviata un'email contenente la nuova password.", Toast.LENGTH_SHORT).show();
 
                         } else {
@@ -124,21 +123,25 @@ public class LoginFragment extends android.app.Fragment implements View.OnClickL
                     }
                 }
 
-            }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
+
                 }
-            }) {
+
                 @Override
-                protected Map<String, String> getParams() {
+                public Map<String, String> getParams() {
                     Map<String, String> params = new HashMap<String, String>();
                     params.put("email", email.getText().toString());
-                    return params;
+                    return params;                }
+
+                @Override
+                public String getURL() {
+                   return UnigeServerConnection.URL + UnigeServerConnection.PSW_DIMENTICATA;
                 }
-            };
-            queue.add(stringRequest);
+            });
+            conn.sendRequest(this.getActivity());
         }
-        */
+
     }
 
 }

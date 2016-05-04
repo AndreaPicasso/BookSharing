@@ -20,8 +20,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 interface UnigeServerConnectionHandler{
-    void onResponse();
-    void onErrorResponse();
+    void onResponse(JSONObject risposta);
+    void onErrorResponse(VolleyError error);
     Map<String,String> getParams();
     String getURL();
 
@@ -36,29 +36,25 @@ public class UnigeServerConnection {
     public static final String PSW_DIMENTICATA = "query_psw_dimenticata.php";
 
 
+    public UnigeServerConnectionHandler helper = null;
 
-    /*
+    public UnigeServerConnection(UnigeServerConnectionHandler handler){
+        helper = handler;
+    }
 
-     Implementa la classe dove si vuole utilizzare la connessione e passa this
-    public static void sendRequest(UnigeServerConnectionHandler helper, Context context){
+
+
+     /*Implementa la classe dove si vuole utilizzare la connessione e passa this */
+    public void sendRequest(Context context){
 
         RequestQueue queue = Volley.newRequestQueue(context);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, helper.getURL(), new Response.Listener<String>(){
+
             @Override
             public void onResponse(String response) {
                 try {
-                    helper.onResponse();
-
-                    JSONObject ris = new JSONObject(response);
-                    if(ris.getString("risultato").equals("ok")){
-                        Toast.makeText(email.getContext(), "Iscrizione avvenuta! E' stata inviata un email", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(email.getContext(), Home.class));
+                    helper.onResponse(new JSONObject(response));
                     }
-                    else{
-                        Toast.makeText(email.getContext(), ris.getString("risultato"),Toast.LENGTH_SHORT).show();
-                    }
-
-                }
                 catch(Exception e){
                 }
             }
@@ -66,7 +62,7 @@ public class UnigeServerConnection {
         }, new Response.ErrorListener(){
             @Override
             public void onErrorResponse(VolleyError error) {
-                helper.onErrorResponse();
+                helper.onErrorResponse(error);
             }
         }){ @Override
             protected Map<String,String> getParams(){
@@ -75,7 +71,6 @@ public class UnigeServerConnection {
         };
         queue.add(stringRequest);
     }
-        */
 
 
 
