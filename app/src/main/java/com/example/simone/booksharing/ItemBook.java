@@ -1,6 +1,7 @@
 package com.example.simone.booksharing;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -15,6 +16,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.Date;
+import java.util.Map;
 
 /**
  * Created by simone on 27/04/2016.
@@ -121,37 +123,46 @@ public class ItemBook {
 
     //STATO? ENUM DI PRESTITO
 
-    public ItemBook(String ISBN, final Context context) {
-        this.ISBN =ISBN;
-        RequestQueue queue = Volley.newRequestQueue(context);
-        String richiesta = "https://www.googleapis.com/books/v1/volumes?q=isbn:" + ISBN;
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, richiesta, new Response.Listener<String>(){
+    public ItemBook(String isbn, final Context context) {
+        this.ISBN = isbn;
+        Log.e("sad", ""+this.getISBN());
+        GoogleBooksConnection con = new GoogleBooksConnection(new GoogleBooksConnectionHandler() {
             @Override
-            public void onResponse(String response) {
+            public void onResponse(JSONObject risposta) {
                 try {
-                    JSONObject ris = new JSONObject(response);
-                    JSONArray arr = ris.getJSONArray("items");
-                    ris = arr.getJSONObject(0);
+                    JSONArray arr = risposta.getJSONArray("items");
+                    risposta = arr.getJSONObject(0);
                     // /!\ NON E DETTO CHE CI SIANO TUTTE LE INFO SU GOOGLE
 
-                    titolo = ris.getJSONObject("volumeInfo").getString("title");
-                    numPag = ris.getJSONObject("volumeInfo").getInt("pageCount");
-                    copertinaLink = ris.getJSONObject("volumeInfo").getJSONObject("imageLinks").getString("thumbnail");
-                    autore = ris.getJSONObject("volumeInfo").getJSONArray("authors").getString(0);
-                    genere = ris.getJSONObject("volumeInfo").getJSONArray("categories").getString(0);
+                    titolo = risposta.getJSONObject("volumeInfo").getString("title");
+                    numPag = risposta.getJSONObject("volumeInfo").getInt("pageCount");
+                    copertinaLink = risposta.getJSONObject("volumeInfo").getJSONObject("imageLinks").getString("thumbnail");
+                    autore = risposta.getJSONObject("volumeInfo").getJSONArray("authors").getString(0);
+                    genere = risposta.getJSONObject("volumeInfo").getJSONArray("categories").getString(0);
                 }
                 catch(Exception e){
                     Toast.makeText(context, "Exception", Toast.LENGTH_LONG).show();
                 }
+
             }
-        }, new Response.ErrorListener(){
+
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(context, "VolleyErrorS", Toast.LENGTH_LONG).show();
 
             }
+
+            @Override
+            public Map<String, String> getParams() {
+                return null;
+            }
+
+            @Override
+            public String getURL() {
+                return GoogleBooksConnection.URL+GoogleBooksConnection.makeGoogleQuery("","",getISBN(),"");
+            }
         });
-        queue.add(stringRequest);
+        con.sendRequest(context);
     }
 
 
