@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RemoteViews;
 
 
 public class AccountFragment extends android.app.Fragment {
@@ -52,7 +53,8 @@ public class AccountFragment extends android.app.Fragment {
         else
             view=inflater.inflate(R.layout.fragment_account_land,container,false);
         modifica=(Button)view.findViewById(R.id.modifica_button);
-        modifica.setText("Modifica");
+
+
         nome=(EditText) view.findViewById(R.id.nome_et);
         cognome=(EditText) view.findViewById(R.id.cognome_et);
         sesso=(EditText) view.findViewById(R.id.sesso_et);
@@ -89,6 +91,7 @@ public class AccountFragment extends android.app.Fragment {
                     sesso.setFocusableInTouchMode(false);
                     password.setFocusable(false);
                     password.setFocusableInTouchMode(false);
+
                     modifica.setText("Modifica");
                     flag=true;
                 }
