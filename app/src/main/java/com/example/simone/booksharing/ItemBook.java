@@ -149,8 +149,7 @@ public class ItemBook {
 
 
                     Log.e("url1", ""+copertinaLink);
-
-                    URL urlConnection = new URL("http://www.conoscereweb.com/wp-content/uploads/2013/07/ciao.jpg");
+                    URL urlConnection = new URL(copertinaLink);
 
                     HttpURLConnection connection = (HttpURLConnection) urlConnection.openConnection();
                     connection.setDoInput(true);
