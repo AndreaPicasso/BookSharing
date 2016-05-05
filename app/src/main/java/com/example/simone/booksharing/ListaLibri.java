@@ -9,6 +9,7 @@ import com.android.volley.VolleyError;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.lucasr.twowayview.TwoWayView;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -22,17 +23,24 @@ public class ListaLibri  {
     private Integer max;
     private Integer cont;
     private Context context;
+    private TwoWayView slider;
 
-    ListaLibri(ArrayList<ItemBook> l, Context context){
+    ListaLibri(ArrayList<ItemBook> l, Context context, TwoWayView s){
         this.listaLibri=l;
         this.cont=0;
-        SharedPreferences preferences=context.getSharedPreferences("pref", Context.MODE_PRIVATE);
-        SharedPreferences.Editor et= preferences.edit();
-        et.putInt("cont", this.cont);
+        this.slider=s;
         this.context=context;
         this.max=this.listaLibri.size();
     }
 
+    public void riempiSlider(){
+        String[] listaLink= new String[listaLibri.size()];
+        for(int i=0; i<listaLink.length; i++){
+            listaLink[i]=listaLibri.get(i).getCopertinaLink();
+        }
+        DownloadImg downloadImg= new DownloadImg(listaLink,context,slider);
+        downloadImg.execute();
+    }
     public void Riempi(){
         GoogleBooksConnection con= new GoogleBooksConnection(new GoogleBooksConnectionHandler() {
             @Override
@@ -58,6 +66,9 @@ public class ListaLibri  {
                     cont++;
                     Riempi();
                 }
+                else if(cont==max){
+                    riempiSlider();
+                }
 
 
 
@@ -78,6 +89,7 @@ public class ListaLibri  {
                 return GoogleBooksConnection.URL+GoogleBooksConnection.makeGoogleQuery("","",listaLibri.get(cont).getISBN(),"");
             }
         });
+        con.sendRequest(context);
     }
 
 }
