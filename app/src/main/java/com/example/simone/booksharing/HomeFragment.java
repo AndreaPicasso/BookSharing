@@ -22,6 +22,9 @@ import android.widget.SeekBar;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
+import com.android.volley.VolleyError;
+
+import org.json.JSONObject;
 import org.lucasr.twowayview.TwoWayView;
 
 import java.util.ArrayList;
@@ -63,6 +66,7 @@ public class HomeFragment extends android.app.Fragment implements View.OnClickLi
         raggioDisp =(TextView) view.findViewById(R.id.raggio_tw);
 
         raggio.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if (progress < 2)
@@ -83,8 +87,10 @@ public class HomeFragment extends android.app.Fragment implements View.OnClickLi
 
 
         // /!\  MEGLIO METTERE QUESTO PRIMA, CHE TANTO PARTE E SI FA I CAZZI SUOI DIREI
+
        l1=new ItemBook("9788858754405", this.getActivity());
         String[] linkImmagini= {"http://books.google.it/books/content?id=RDVS2LeLzhQC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api","https://upload.wikimedia.org/wikipedia/commons/a/ab/JoyceUlysses2.jpg","https://ilcentrodellessere.files.wordpress.com/2011/05/il-gabbiano-jonathan-livingstone_fronte.jpg","http://alessandria.bookrepublic.it/api/books/9788858600795/cover","http://www.fantascienza.com/catalogo/imgbank/cover/UV039.jpg","http://www.mondadoristore.it/img/Il-vecchio-e-il-mare-Ernest-Hemingway/ea978880461312/BL/BL/01/NZO/?tit=Il+vecchio+e+il+mare&aut=Ernest+Hemingway"};
+
         ArrayList<HashMap<String,String>> items= new ArrayList<>();
         DownloadImg img= new DownloadImg(linkImmagini,this.getActivity(),slider);
         img.execute();
@@ -127,6 +133,38 @@ public class HomeFragment extends android.app.Fragment implements View.OnClickLi
     @Override
     public void onClick(View v) {
         getFragmentManager().beginTransaction().replace(R.id.home_fragment, new BookFragment()).addToBackStack(null).commit();
+        UnigeServerConnection unigeCon = new UnigeServerConnection(new UnigeServerConnectionHandler() {
+            @Override
+            public void onResponse(JSONObject risposta) {
+
+            }
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+
+            @Override
+            public Map<String, String> getParams() {
+                Map<String,String> params = new HashMap<String, String>();
+                if(!isbn.getText().equals(""))params.put("isbn",isbn.getText().toString());
+                if(disponibile.isChecked()) params.put("disponibili","true");
+
+                if(true) {
+                    /* trova posizione */
+                    double myLat =5;
+                    double myLon = 6;
+
+                }
+                return params;
+            }
+
+            @Override
+            public String getURL() {
+                return UnigeServerConnection.URL+UnigeServerConnection.RICERCA;
+            }
+        });
+
 
     }
 }

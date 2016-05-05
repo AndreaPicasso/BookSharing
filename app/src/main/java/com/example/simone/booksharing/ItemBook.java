@@ -118,12 +118,16 @@ public class ItemBook {
     private String copertinaLink;
     private int numPag;
 
-    //Campi libro prestato, li mettiamo?
     private String proprietario;
     private double lat,lon;
     private Date datacondivisione;  //Campo data?
 
-
+    public ItemBook(String isbn, double lat, double lon, String proprietario){
+        this.ISBN = isbn;
+        this.lat = lat;
+        this.lon= lon;
+        this.proprietario = proprietario;
+    }
 
 
     //STATO? ENUM DI PRESTITO

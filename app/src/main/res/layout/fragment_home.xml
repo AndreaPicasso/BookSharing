@@ -150,8 +150,7 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:id="@+id/raggio_tw"
-                        android:singleLine="true"
-                        android:text="       " />
+                        android:singleLine="true" />
                 </TableRow>
 
                 <TableRow
