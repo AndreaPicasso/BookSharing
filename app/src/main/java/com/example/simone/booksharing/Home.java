@@ -12,7 +12,7 @@ public class Home extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        SharedPreferences pref1= getSharedPreferences("pref", MODE_PRIVATE);
+        SharedPreferences pref= getSharedPreferences("pref", MODE_PRIVATE);
         super.onCreate(savedInstanceState);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         setContentView(R.layout.activity_home);

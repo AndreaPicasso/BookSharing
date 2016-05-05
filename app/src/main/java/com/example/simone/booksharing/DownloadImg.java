@@ -28,7 +28,6 @@ public class DownloadImg extends AsyncTask<Void, Void, String> {
     public DownloadImg(String url[], Context context, TwoWayView slider){
         this.url=url;
         this.slider=slider;
-
         this.context=context;
         this.images= new ArrayList<>();
 
