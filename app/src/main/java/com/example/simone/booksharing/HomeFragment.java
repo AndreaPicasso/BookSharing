@@ -1,7 +1,9 @@
 package com.example.simone.booksharing;
 
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v4.app.Fragment;
@@ -29,6 +31,7 @@ import java.util.Map;
 
 public class HomeFragment extends android.app.Fragment implements View.OnClickListener {
     public Button cerca;
+    SharedPreferences pref1;
     public TwoWayView slider;
     public ItemBook l1;
 
@@ -45,6 +48,9 @@ public class HomeFragment extends android.app.Fragment implements View.OnClickLi
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        pref1=this.getActivity().getSharedPreferences("pref", Context.MODE_PRIVATE);
+        SharedPreferences.Editor et= pref1.edit();
+        et.putInt("n",0);
         View view=inflater.inflate(R.layout.fragment_home,container,false);
         cerca=(Button) view.findViewById(R.id.cerca_button);
         slider=(TwoWayView) view.findViewById(R.id.slider_lw);
@@ -57,24 +63,35 @@ public class HomeFragment extends android.app.Fragment implements View.OnClickLi
         raggioDisp =(TextView) view.findViewById(R.id.raggio_tw);
 
         raggio.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if(progress<2)
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (progress < 2)
                     seekBar.setProgress(2);
-                raggioDisp.setText(String.valueOf(seekBar.getProgress())+" Km");
+                raggioDisp.setText(String.valueOf(seekBar.getProgress()) + " Km");
             }
-            @Override public void onStartTrackingTouch(SeekBar seekBar) {}
-            @Override public void onStopTrackingTouch(SeekBar seekBar) {}
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
         });
 
         cerca.setOnClickListener(this);
 
 
         // /!\  MEGLIO METTERE QUESTO PRIMA, CHE TANTO PARTE E SI FA I CAZZI SUOI DIREI
-        l1=new ItemBook("9788858754405", this.getActivity());
+       // l1=new ItemBook("9788858754405", this.getActivity());
         String[] linkImmagini= {"https://upload.wikimedia.org/wikipedia/commons/a/ab/JoyceUlysses2.jpg","https://ilcentrodellessere.files.wordpress.com/2011/05/il-gabbiano-jonathan-livingstone_fronte.jpg","http://alessandria.bookrepublic.it/api/books/9788858600795/cover","http://www.fantascienza.com/catalogo/imgbank/cover/UV039.jpg","http://www.mondadoristore.it/img/Il-vecchio-e-il-mare-Ernest-Hemingway/ea978880461312/BL/BL/01/NZO/?tit=Il+vecchio+e+il+mare&aut=Ernest+Hemingway"};
         ArrayList<HashMap<String,String>> items= new ArrayList<>();
         DownloadImg img= new DownloadImg(linkImmagini,this.getActivity(),slider);
         img.execute();
+
+
+
+
         //DownloadImg img1= new DownloadImg("http://www.mondadoristore.it/img/Il-vecchio-e-il-mare-Ernest-Hemingway/ea978880461312/BL/BL/01/NZO/?tit=Il+vecchio+e+il+mare&aut=Ernest+Hemingway");
        // img1.execute();
         //ownloadImg img= new DownloadImg("http://www.fantascienza.com/catalogo/imgbank/cover/UV039.jpg");

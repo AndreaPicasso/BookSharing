@@ -2,6 +2,7 @@ package com.example.simone.booksharing;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,6 +12,7 @@ public class Home extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences pref1= getSharedPreferences("pref", MODE_PRIVATE);
         super.onCreate(savedInstanceState);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         setContentView(R.layout.activity_home);

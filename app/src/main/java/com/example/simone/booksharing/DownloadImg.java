@@ -20,13 +20,15 @@ import java.util.ArrayList;
 
 public class DownloadImg extends AsyncTask<Void, Void, String> {
 
-    private String[] url;
+    private String url[];
     private ArrayList<Bitmap> images;
     private Context context;
+
     private TwoWayView slider;
-    public DownloadImg(String[] url, Context context, TwoWayView slider){
+    public DownloadImg(String url[], Context context, TwoWayView slider){
         this.url=url;
         this.slider=slider;
+
         this.context=context;
         this.images= new ArrayList<>();
 
@@ -38,19 +40,24 @@ public class DownloadImg extends AsyncTask<Void, Void, String> {
     protected String doInBackground(Void... params) {
         try {
             for(int i=0; i<url.length; i++){
+
                 URL urlConnection = new URL(url[i]);
                 Log.e("url", url[i]);
 
                 HttpURLConnection connection = (HttpURLConnection) urlConnection.openConnection();
+                Log.e("urlfgf", "");
+
                 connection.setDoInput(true);
                 connection.connect();
                 InputStream input = connection.getInputStream();
                 Bitmap myBitmap = BitmapFactory.decodeStream(input);
                 Log.e("Bitmap", "returned");
                 Log.e("url", "" + images.size());
-                images.add(myBitmap);
 
+                images.add(myBitmap);
             }
+
+
 
 
             return null;
@@ -62,6 +69,7 @@ public class DownloadImg extends AsyncTask<Void, Void, String> {
 
     @Override
     protected void onPostExecute(String s) {
+
         MyAdapter m=new MyAdapter(this.context,R.layout.list_item_img_book,this.images);
         slider.setAdapter(m);
         super.onPostExecute(s);

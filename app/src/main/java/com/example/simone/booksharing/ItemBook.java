@@ -1,6 +1,8 @@
 package com.example.simone.booksharing;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -15,6 +17,9 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Date;
 import java.util.Map;
 
@@ -109,7 +114,7 @@ public class ItemBook {
     private String titolo;
     private String autore;
     private String genere;
-
+    private Bitmap copertina;
     private String copertinaLink;
     private int numPag;
 
@@ -139,6 +144,8 @@ public class ItemBook {
                     copertinaLink = risposta.getJSONObject("volumeInfo").getJSONObject("imageLinks").getString("thumbnail");
                     autore = risposta.getJSONObject("volumeInfo").getJSONArray("authors").getString(0);
                     genere = risposta.getJSONObject("volumeInfo").getJSONArray("categories").getString(0);
+
+
                 }
                 catch(Exception e){
                     Toast.makeText(context, "Exception", Toast.LENGTH_LONG).show();
