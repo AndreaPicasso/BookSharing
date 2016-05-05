@@ -1,6 +1,8 @@
 package com.example.simone.booksharing;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -15,6 +17,9 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Date;
 import java.util.Map;
 
@@ -139,6 +144,21 @@ public class ItemBook {
                     copertinaLink = risposta.getJSONObject("volumeInfo").getJSONObject("imageLinks").getString("thumbnail");
                     autore = risposta.getJSONObject("volumeInfo").getJSONArray("authors").getString(0);
                     genere = risposta.getJSONObject("volumeInfo").getJSONArray("categories").getString(0);
+
+
+
+
+                    Log.e("url1", ""+copertinaLink);
+
+                    URL urlConnection = new URL("http://www.conoscereweb.com/wp-content/uploads/2013/07/ciao.jpg");
+
+                    HttpURLConnection connection = (HttpURLConnection) urlConnection.openConnection();
+                    connection.setDoInput(true);
+                    connection.connect();
+                    InputStream input = connection.getInputStream();
+                    Bitmap myBitmap = BitmapFactory.decodeStream(input);
+                    Log.e("Bitmap", "returned");
+                    Log.e("url", "" + myBitmap.toString());
                 }
                 catch(Exception e){
                     Toast.makeText(context, "Exception", Toast.LENGTH_LONG).show();
