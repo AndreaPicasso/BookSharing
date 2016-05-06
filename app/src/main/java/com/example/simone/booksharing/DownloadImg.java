@@ -44,7 +44,7 @@ public class DownloadImg extends AsyncTask<Void, Void, String> {
                 Log.e("url", url[i]);
 
                 HttpURLConnection connection = (HttpURLConnection) urlConnection.openConnection();
-                Log.e("urlfgf", "");
+
 
                 connection.setDoInput(true);
                 connection.connect();

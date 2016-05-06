@@ -87,6 +87,7 @@ public class HomeFragment extends android.app.Fragment implements View.OnClickLi
 
         HomeCreationSlider homeCreationSlider= new HomeCreationSlider(this.getActivity(),slider);
         homeCreationSlider.start();
+
         // /!\  MEGLIO METTERE QUESTO PRIMA, CHE TANTO PARTE E SI FA I CAZZI SUOI DIREI
 
      //  l1=new ItemBook("9788858754405", this.getActivity());

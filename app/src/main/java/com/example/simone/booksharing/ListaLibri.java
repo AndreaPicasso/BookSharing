@@ -2,6 +2,7 @@ package com.example.simone.booksharing;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -37,9 +38,13 @@ public class ListaLibri  {
         String[] listaLink= new String[listaLibri.size()];
         for(int i=0; i<listaLink.length; i++){
             listaLink[i]=listaLibri.get(i).getCopertinaLink();
+
         }
         DownloadImg downloadImg= new DownloadImg(listaLink,context,slider);
+
         downloadImg.execute();
+
+
     }
     public void Riempi(){
         GoogleBooksConnection con= new GoogleBooksConnection(new GoogleBooksConnectionHandler() {
@@ -52,21 +57,24 @@ public class ListaLibri  {
                     // /!\ NON E DETTO CHE CI SIANO TUTTE LE INFO SU GOOGLE
 
                     listaLibri.get(cont).setTitolo(risposta.getJSONObject("volumeInfo").getString("title"));
+
                     listaLibri.get(cont).setCopertinaLink(risposta.getJSONObject("volumeInfo").getJSONObject("imageLinks").getString("thumbnail"));
                     listaLibri.get(cont).setNumPag(risposta.getJSONObject("volumeInfo").getInt("pageCount"));
-                    listaLibri.get(cont).setGenere(risposta.getJSONObject("volumeInfo").getJSONArray("categories").getString(0));
+                    //listaLibri.get(cont).setGenere(risposta.getJSONObject("volumeInfo").getJSONArray("categories").getString(0));
                     listaLibri.get(cont).setAutore(risposta.getJSONObject("volumeInfo").getJSONArray("authors").getString(0));
-
+                    //Log.e("listalibri risposta", "titolo" + risposta.getJSONObject("volumeInfo").getString("title") + "copertinalink" + risposta.getJSONObject("volumeInfo").getJSONObject("imageLinks").getString("thumbnail"));
                 }
                 catch(Exception e){
+                    Log.e("Eccezione lista libri",""+e.getMessage());
                     Toast.makeText(context, "Exception", Toast.LENGTH_LONG).show();
                 }
 
-                if(cont<max){
+                if(cont<max-1){
                     cont++;
                     Riempi();
                 }
-                else if(cont==max){
+                else if(cont==max-1){
+
                     riempiSlider();
                 }
 
