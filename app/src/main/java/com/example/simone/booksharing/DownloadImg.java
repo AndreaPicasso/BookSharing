@@ -39,20 +39,26 @@ public class DownloadImg extends AsyncTask<Void, Void, String> {
     protected String doInBackground(Void... params) {
         try {
             for(int i=0; i<url.length; i++){
+                Bitmap myBitmap= null;
+                /*
+                if(url[i]==null){
+                    myBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.not_available);
+                }
+                else {
+                */
+                    URL urlConnection = new URL(url[i]);
+                    Log.e("url", url[i]);
 
-                URL urlConnection = new URL(url[i]);
-                Log.e("url", url[i]);
-
-                HttpURLConnection connection = (HttpURLConnection) urlConnection.openConnection();
+                    HttpURLConnection connection = (HttpURLConnection) urlConnection.openConnection();
 
 
-                connection.setDoInput(true);
-                connection.connect();
-                InputStream input = connection.getInputStream();
-                Bitmap myBitmap = BitmapFactory.decodeStream(input);
-                Log.e("Bitmap", "returned");
-                Log.e("url", "" + images.size());
-
+                    connection.setDoInput(true);
+                    connection.connect();
+                    InputStream input = connection.getInputStream();
+                    myBitmap = BitmapFactory.decodeStream(input);
+                    Log.e("Bitmap", "returned");
+                    Log.e("url", "" + images.size());
+                /*}*/
                 images.add(myBitmap);
             }
 

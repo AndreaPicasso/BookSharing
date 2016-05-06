@@ -53,20 +53,21 @@ public class ListaLibri  {
 
                 try {
                     JSONArray arr = risposta.getJSONArray("items");
-                    risposta = arr.getJSONObject(0);
+                    risposta = arr.getJSONObject(0).getJSONObject("volumeInfo");
                     // /!\ NON E DETTO CHE CI SIANO TUTTE LE INFO SU GOOGLE
 
-                    listaLibri.get(cont).setTitolo(risposta.getJSONObject("volumeInfo").getString("title"));
-
-                    listaLibri.get(cont).setCopertinaLink(risposta.getJSONObject("volumeInfo").getJSONObject("imageLinks").getString("thumbnail"));
-                    listaLibri.get(cont).setNumPag(risposta.getJSONObject("volumeInfo").getInt("pageCount"));
-                    //listaLibri.get(cont).setGenere(risposta.getJSONObject("volumeInfo").getJSONArray("categories").getString(0));
-                    listaLibri.get(cont).setAutore(risposta.getJSONObject("volumeInfo").getJSONArray("authors").getString(0));
-                    //Log.e("listalibri risposta", "titolo" + risposta.getJSONObject("volumeInfo").getString("title") + "copertinalink" + risposta.getJSONObject("volumeInfo").getJSONObject("imageLinks").getString("thumbnail"));
+                    listaLibri.get(cont).setTitolo(risposta.getString("title"));
+                    if(risposta.has("imageLinks"))
+                        listaLibri.get(cont).setCopertinaLink(risposta.getJSONObject("imageLinks").getString("thumbnail"));
+                    if(risposta.has("pageCount"))
+                        listaLibri.get(cont).setNumPag(risposta.getInt("pageCount"));
+                    if(risposta.has("categories"))
+                        listaLibri.get(cont).setGenere(risposta.getJSONArray("categories").getString(0));
+                    if(risposta.has("authors"))
+                        listaLibri.get(cont).setAutore(risposta.getJSONArray("authors").getString(0));
                 }
                 catch(Exception e){
                     Log.e("Eccezione lista libri",""+e.getMessage());
-                    Toast.makeText(context, "Exception", Toast.LENGTH_LONG).show();
                 }
 
                 if(cont<max-1){
@@ -74,7 +75,6 @@ public class ListaLibri  {
                     Riempi();
                 }
                 else if(cont==max-1){
-
                     riempiSlider();
                 }
 
