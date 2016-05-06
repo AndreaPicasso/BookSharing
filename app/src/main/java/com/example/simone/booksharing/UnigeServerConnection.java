@@ -36,6 +36,7 @@ public class UnigeServerConnection {
     public static final String REGISTRATION = "query_registration.php";
     public static final String PSW_DIMENTICATA = "query_psw_dimenticata.php";
     public static final String RICERCA = "query_ricerca.php";
+    public static final String PSW_ACCESSO = "Azet325K54fA32w";
 
 
 

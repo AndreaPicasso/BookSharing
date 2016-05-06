@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import org.lucasr.twowayview.TwoWayView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -74,7 +75,9 @@ public class HomeCreationSlider {
 
             @Override
             public Map<String, String> getParams() {
-                return null;
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("pswAccesso", UnigeServerConnection.PSW_ACCESSO);
+                return params;
             }
 
             @Override
