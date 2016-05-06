@@ -37,7 +37,7 @@ public class LoginFragment extends android.app.Fragment implements View.OnClickL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view=inflater.inflate(R.layout.fragment_login,container,false);
-        accedi=(Button)view.findViewById(R.id.accedi_button);
+        accedi=(Button)view.findViewById(R.id.login_accedi_button);
         email = (EditText) view.findViewById(R.id.login_email_et);
         password = (EditText) view.findViewById(R.id.login_password_et);
         pswDim = (TextView) view.findViewById(R.id.pswdimenticata_tw);

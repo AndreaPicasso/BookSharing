@@ -32,17 +32,18 @@ public class HomeCreationSlider {
                 try {
                     String isbn, proprietario;
                     double lat,lon;
-                   // int numBook = risposta.getInt("number");
-                    int numBook=2;
-                    //JSONArray books = risposta.getJSONArray("items");
+                    int numBook = risposta.getInt("number");
+                    JSONArray books = risposta.getJSONArray("items");
                     if(numBook>5)   numBook =5;             /*Massimo caricane solo 5 */
                     ArrayList<ItemBook> toCreate = new ArrayList<>(numBook);
                     for(int i = 0; i<numBook; i++){
-                        /*isbn = books.getJSONObject(i).getString("isbn");
+                        isbn = books.getJSONObject(i).getString("isbn");
                         proprietario = books.getJSONObject(i).getString("proprietario");
                         lat = books.getJSONObject(i).getDouble("lat");
-                        lon = books.getJSONObject(i).getDouble("lon");*/
+                        lon = books.getJSONObject(i).getDouble("lon");
+                        toCreate.add(new ItemBook(isbn,lat,lon,proprietario));
 
+                        /*
                         if(i==0){
                             isbn="9780099908401";
                             Log.e("webdev", "isbn" + isbn);
@@ -53,7 +54,7 @@ public class HomeCreationSlider {
                         }
                         toCreate.add(new ItemBook(isbn,0,0,null));
 
-
+                        */
                     }
                     ListaLibri list= new ListaLibri(toCreate,context,slider);
                     list.Riempi();
