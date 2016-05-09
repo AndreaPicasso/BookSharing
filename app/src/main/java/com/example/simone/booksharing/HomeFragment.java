@@ -162,6 +162,7 @@ public class HomeFragment extends android.app.Fragment implements View.OnClickLi
         if(!titolo.getText().equals("")){googleParams.put("titolo",titolo.getText().toString()); googleOk=true;}
 
         if(!unigeOk) unigeParams=null;
+
         if(!googleOk) googleParams=null;
         if(googleOk || unigeOk) {
             //slider.removeAllViews();
