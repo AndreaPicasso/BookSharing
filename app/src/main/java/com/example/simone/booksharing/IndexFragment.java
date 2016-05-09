@@ -1,11 +1,14 @@
 package com.example.simone.booksharing;
 
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,15 +26,19 @@ public class IndexFragment extends android.app.Fragment
 
     @Override
     public void onClick(View v) {
+        SharedPreferences pref= getActivity().getSharedPreferences("index",Context.MODE_PRIVATE);
+        SharedPreferences.Editor et= pref.edit();
 
 
         switch (v.getId()){
             case R.id.login_button:{
-
+                et.putInt("flag",1).commit();
                 getFragmentManager().beginTransaction().replace(R.id.index_fragment, new LoginFragment()).addToBackStack(null).commit();
+
                 break;
             }
             case R.id.iscriviti_button:{
+                et.putInt("flag",2).commit();
                 getFragmentManager().beginTransaction().replace(R.id.index_fragment, new RegistrationFragment()).addToBackStack(null).commit();
 
                 break;
@@ -48,6 +55,7 @@ public class IndexFragment extends android.app.Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view=null;
+
         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
             view=inflater.inflate(R.layout.fragment_index_port,container,false);
 

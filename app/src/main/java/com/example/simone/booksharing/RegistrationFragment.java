@@ -2,6 +2,7 @@ package com.example.simone.booksharing;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,8 +35,9 @@ public class RegistrationFragment extends android.app.Fragment implements View.O
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.e("view", "registra");
         View ris = inflater.inflate(R.layout.fragment_registration,container,false);
-
+        Log.e("view", "registraok");
         nome = (EditText)  ris.findViewById( R.id.registration_nome_et);
         cognome = (EditText)  ris.findViewById( R.id.registration_cognome_et);
         email = (EditText)  ris.findViewById( R.id.registration_email_et);
