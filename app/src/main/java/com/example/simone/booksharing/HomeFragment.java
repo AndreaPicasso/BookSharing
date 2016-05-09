@@ -86,7 +86,7 @@ public class HomeFragment extends android.app.Fragment implements View.OnClickLi
         cerca.setOnClickListener(this);
 
         HomeCreationSlider homeCreationSlider= new HomeCreationSlider(this.getActivity(),slider);
-        homeCreationSlider.start();
+        homeCreationSlider.start(null, null);
 
         // /!\  MEGLIO METTERE QUESTO PRIMA, CHE TANTO PARTE E SI FA I CAZZI SUOI DIREI
 
@@ -134,38 +134,43 @@ public class HomeFragment extends android.app.Fragment implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        getFragmentManager().beginTransaction().replace(R.id.home_fragment, new BookFragment()).addToBackStack(null).commit();
-        UnigeServerConnection unigeCon = new UnigeServerConnection(new UnigeServerConnectionHandler() {
-            @Override
-            public void onResponse(JSONObject risposta) {
+        //getFragmentManager().beginTransaction().replace(R.id.home_fragment, new BookFragment()).addToBackStack(null).commit();
 
+        Map<String,String> unigeParams = new HashMap<String, String>();
+        boolean googleOk=false, unigeOk=false;
+        if(!isbn.getText().equals("")){unigeParams.put("isbn",isbn.getText().toString()); unigeOk=true;}
+        if(disponibile.isChecked()){ unigeParams.put("disponibili","true"); unigeOk=true;}
+        if(raggio.getProgress()>2) {
+            /* trova posizione */
+            unigeOk=true;
+            double myLat =5;
+            double myLon = 6;
+
+            // /!\ NON CREDO SIA COSI SEMPLICE
+            double temp = myLat-raggio.getProgress()/2;
+            unigeParams.put("minLat",Double.toString(temp));
+            temp = myLat-raggio.getProgress()+2;
+            unigeParams.put("maxLat",Double.toString(temp));
+            temp = myLon-raggio.getProgress()-2;
+            unigeParams.put("minLon",Double.toString(temp));
+            temp = myLon-raggio.getProgress()-2;
+            unigeParams.put("maxLon",Double.toString(temp));
             }
+        Map<String,String> googleParams = new HashMap<String, String>();
+        if(!autore.getText().equals("")){googleParams.put("autore",autore.getText().toString()); googleOk=true;}
+        if(!genere.getText().equals("")){googleParams.put("genere",genere.getText().toString()); googleOk=true;}
+        if(!titolo.getText().equals("")){googleParams.put("titolo",titolo.getText().toString()); googleOk=true;}
 
-            @Override
-            public void onErrorResponse(VolleyError error) {
+        if(!unigeOk) unigeParams=null;
+        if(!googleOk) googleParams=null;
+        if(googleOk || unigeOk) {
+            //slider.removeAllViews();
+            HomeCreationSlider homeCreationSlider = new HomeCreationSlider(this.getActivity(), slider);
+            homeCreationSlider.start(unigeParams, googleParams);
+        }
 
-            }
 
-            @Override
-            public Map<String, String> getParams() {
-                Map<String,String> params = new HashMap<String, String>();
-                if(!isbn.getText().equals(""))params.put("isbn",isbn.getText().toString());
-                if(disponibile.isChecked()) params.put("disponibili","true");
 
-                if(true) {
-                    /* trova posizione */
-                    double myLat =5;
-                    double myLon = 6;
-
-                }
-                return params;
-            }
-
-            @Override
-            public String getURL() {
-                return UnigeServerConnection.URL+UnigeServerConnection.RICERCA;
-            }
-        });
 
 
     }

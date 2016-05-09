@@ -25,7 +25,7 @@ public class HomeCreationSlider {
         Log.e("Creoslider","costruttore");
     }
 
-    public  void start(){
+    public  void start(final Map<String, String> unigeSearchParam, final Map<String, String> googleSearchParam){
 
         UnigeServerConnection unigeCon = new UnigeServerConnection(new UnigeServerConnectionHandler() {
             @Override
@@ -58,7 +58,7 @@ public class HomeCreationSlider {
                         */
                     }
                     ListaLibri list= new ListaLibri(toCreate,context,slider);
-                    list.Riempi();
+                    list.Riempi(googleSearchParam);
 
 
 
@@ -77,6 +77,9 @@ public class HomeCreationSlider {
             public Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("pswAccesso", UnigeServerConnection.PSW_ACCESSO);
+                if(unigeSearchParam!=null) {
+                    params.putAll(unigeSearchParam);
+                }
                 return params;
             }
 
