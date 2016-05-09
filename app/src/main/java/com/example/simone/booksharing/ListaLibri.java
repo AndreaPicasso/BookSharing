@@ -46,7 +46,7 @@ public class ListaLibri  {
 
 
     }
-    public void Riempi(){
+    public void Riempi(final Map<String, String> googleSearchParam){
         GoogleBooksConnection con= new GoogleBooksConnection(new GoogleBooksConnectionHandler() {
             @Override
             public void onResponse(JSONObject risposta) {
@@ -72,7 +72,7 @@ public class ListaLibri  {
 
                 if(cont<max-1){
                     cont++;
-                    Riempi();
+                    Riempi(googleSearchParam);
                 }
                 else if(cont==max-1){
                     riempiSlider();
@@ -94,7 +94,19 @@ public class ListaLibri  {
 
             @Override
             public String getURL() {
-                return GoogleBooksConnection.URL+GoogleBooksConnection.makeGoogleQuery("","",listaLibri.get(cont).getISBN(),"");
+                if(googleSearchParam!=null) {
+                    String tit, aut, gen;
+                    if(googleSearchParam.get("titolo")!=null) tit =googleSearchParam.get("titolo");
+                    else tit="";
+                    if(googleSearchParam.get("autore")!=null) aut =googleSearchParam.get("autore");
+                    else aut="";
+                    if(googleSearchParam.get("genere")!=null) gen =googleSearchParam.get("genere");
+                    else gen="";
+                    return GoogleBooksConnection.URL + GoogleBooksConnection.makeGoogleQuery(tit, aut, listaLibri.get(cont).getISBN(), gen);
+                }
+                else
+                    return GoogleBooksConnection.URL+GoogleBooksConnection.makeGoogleQuery("","",listaLibri.get(cont).getISBN(),"");
+
             }
         });
         con.sendRequest(context);

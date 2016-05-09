@@ -39,13 +39,11 @@ public class DownloadImg extends AsyncTask<Void, Void, String> {
     protected String doInBackground(Void... params) {
         try {
             for(int i=0; i<url.length; i++){
-                Bitmap myBitmap= null;
-                /*
+                Bitmap myBitmap;
                 if(url[i]==null){
                     myBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.not_available);
                 }
                 else {
-                */
                     URL urlConnection = new URL(url[i]);
                     Log.e("url", url[i]);
 
@@ -58,7 +56,7 @@ public class DownloadImg extends AsyncTask<Void, Void, String> {
                     myBitmap = BitmapFactory.decodeStream(input);
                     Log.e("Bitmap", "returned");
                     Log.e("url", "" + images.size());
-                /*}*/
+                }
                 images.add(myBitmap);
             }
 
