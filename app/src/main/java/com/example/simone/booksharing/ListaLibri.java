@@ -40,7 +40,7 @@ public class ListaLibri  {
             listaLink[i]=listaLibri.get(i).getCopertinaLink();
 
         }
-        DownloadImg downloadImg= new DownloadImg(listaLink,context,slider);
+        DownloadImg downloadImg= new DownloadImg(listaLink,context,slider,listaLibri);
 
         downloadImg.execute();
 

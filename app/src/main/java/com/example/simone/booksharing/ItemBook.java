@@ -110,6 +110,15 @@ public class ItemBook {
         this.proprietario = proprietario;
     }
 
+
+    public Bitmap getCopertina() {
+        return copertina;
+    }
+
+    public void setCopertina(Bitmap copertina) {
+        this.copertina = copertina;
+    }
+
     private String ISBN;
     private String titolo;
     private String autore;
@@ -149,12 +158,10 @@ public class ItemBook {
                     autore = risposta.getJSONObject("volumeInfo").getJSONArray("authors").getString(0);
                     genere = risposta.getJSONObject("volumeInfo").getJSONArray("categories").getString(0);
 
-
                 }
                 catch(Exception e){
                     Toast.makeText(context, "Exception", Toast.LENGTH_LONG).show();
                 }
-
             }
 
             @Override
@@ -162,7 +169,6 @@ public class ItemBook {
                 Toast.makeText(context, "VolleyErrorS", Toast.LENGTH_LONG).show();
 
             }
-
             @Override
             public Map<String, String> getParams() {
                 return null;

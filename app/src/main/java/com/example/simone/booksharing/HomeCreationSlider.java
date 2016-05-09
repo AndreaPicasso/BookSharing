@@ -43,19 +43,6 @@ public class HomeCreationSlider {
                         lat = books.getJSONObject(i).getDouble("lat");
                         lon = books.getJSONObject(i).getDouble("lon");
                         toCreate.add(new ItemBook(isbn,lat,lon,proprietario));
-
-                        /*
-                        if(i==0){
-                            isbn="9780099908401";
-                            Log.e("webdev", "isbn" + isbn);
-                        }
-                        else{
-                            isbn="9788858754405";
-                            Log.e("webdev", "isbn" + isbn);
-                        }
-                        toCreate.add(new ItemBook(isbn,0,0,null));
-
-                        */
                     }
                     ListaLibri list= new ListaLibri(toCreate,context,slider);
                     list.Riempi(googleSearchParam);
