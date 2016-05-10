@@ -26,13 +26,15 @@ public class AccountFragment extends android.app.Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         pref=this.getActivity().getSharedPreferences("pref",Context.MODE_PRIVATE);
-        flag=pref.getBoolean("flag",true);
+        flag=pref.getBoolean("flag", true);
+        Log.e("account fragment","oncreate");
 
     }
 
     @Override
     public void onResume() {
         flag=pref.getBoolean("flag",true);
+        Log.e("account fragment","onresume");
         super.onResume();
     }
 
@@ -40,13 +42,14 @@ public class AccountFragment extends android.app.Fragment {
     public void onPause() {
         SharedPreferences.Editor et= pref.edit();
         et.putBoolean("flag",flag);
-
+        Log.e("account fragment", "onpause");
         super.onPause();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =null;
+        Log.e("account fragment", "oncreateview");
         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
             view=inflater.inflate(R.layout.fragment_account_port,container,false);
 
