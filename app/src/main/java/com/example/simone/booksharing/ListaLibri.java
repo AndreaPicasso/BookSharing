@@ -1,9 +1,7 @@
 package com.example.simone.booksharing;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.util.Log;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
@@ -43,7 +41,7 @@ public class ListaLibri  {
             listaLink[i]=listaLibri.get(i).getCopertinaLink();
 
         }
-        DownloadImg downloadImg= new DownloadImg(listaLink,context,slider,listaLibri,sliderMap);
+        DownloadImgs downloadImg= new DownloadImgs(listaLink,context,slider,listaLibri,sliderMap);
 
         downloadImg.execute();
 

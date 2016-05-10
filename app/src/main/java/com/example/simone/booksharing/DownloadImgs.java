@@ -26,7 +26,7 @@ import java.util.Set;
  * Created by Utente on 01/05/2016.
  */
 
-public class DownloadImg extends AsyncTask<Void, Void, String> {
+public class DownloadImgs extends AsyncTask<Void, Void, String> {
 
     private String url[];
     private ArrayList<Bitmap> images;
@@ -36,7 +36,7 @@ public class DownloadImg extends AsyncTask<Void, Void, String> {
 
 
     private TwoWayView slider;
-    public DownloadImg(String url[], Context context, TwoWayView slider, ArrayList<ItemBook> listaLibri, HashMap<Integer, ItemBook> sliderMap){
+    public DownloadImgs(String url[], Context context, TwoWayView slider, ArrayList<ItemBook> listaLibri, HashMap<Integer, ItemBook> sliderMap){
         this.url=url;
         this.slider=slider;
         this.context=context;
