@@ -1,6 +1,7 @@
 package com.example.simone.booksharing;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -36,12 +38,13 @@ public class HomeFragment extends android.app.Fragment implements View.OnClickLi
     public Button cerca;
     SharedPreferences pref1;
     public TwoWayView slider;
-    public ItemBook l1;
 
     private EditText titolo, autore,genere,isbn;
     private CheckBox disponibile;
     private SeekBar raggio;
     private TextView raggioDisp;
+
+    private HashMap<Integer, ItemBook> sliderMap;
 
     public void onCreate(Bundle savedInstanceState) {
 
@@ -64,7 +67,7 @@ public class HomeFragment extends android.app.Fragment implements View.OnClickLi
         disponibile = (CheckBox) view.findViewById(R.id.disponibile_chk);
         raggio = (SeekBar) view.findViewById(R.id.raggio_seek);
         raggioDisp =(TextView) view.findViewById(R.id.raggio_tw);
-
+        sliderMap = new HashMap<>();
         raggio.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             @Override
@@ -85,49 +88,19 @@ public class HomeFragment extends android.app.Fragment implements View.OnClickLi
 
         cerca.setOnClickListener(this);
 
-        HomeCreationSlider homeCreationSlider= new HomeCreationSlider(this.getActivity(),slider);
+        HomeCreationSlider homeCreationSlider= new HomeCreationSlider(this.getActivity(),slider,sliderMap);
         homeCreationSlider.start(null, null);
-
-        // /!\  MEGLIO METTERE QUESTO PRIMA, CHE TANTO PARTE E SI FA I CAZZI SUOI DIREI
-
-     //  l1=new ItemBook("9788858754405", this.getActivity());
-     //   String[] linkImmagini= {"http://books.google.it/books/content?id=RDVS2LeLzhQC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api","https://upload.wikimedia.org/wikipedia/commons/a/ab/JoyceUlysses2.jpg","https://ilcentrodellessere.files.wordpress.com/2011/05/il-gabbiano-jonathan-livingstone_fronte.jpg","http://alessandria.bookrepublic.it/api/books/9788858600795/cover","http://www.fantascienza.com/catalogo/imgbank/cover/UV039.jpg","http://www.mondadoristore.it/img/Il-vecchio-e-il-mare-Ernest-Hemingway/ea978880461312/BL/BL/01/NZO/?tit=Il+vecchio+e+il+mare&aut=Ernest+Hemingway"};
-
-    //    ArrayList<HashMap<String,String>> items= new ArrayList<>();
-      //  DownloadImg img= new DownloadImg(linkImmagini,this.getActivity(),slider);
-       // img.execute();
+        slider.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ItemBook choose = sliderMap.get(position);
+                SharedPreferences pref = getActivity().getSharedPreferences("home",Context.MODE_PRIVATE);
 
 
+                getFragmentManager().beginTransaction().replace(R.id.home_fragment, new BookFragment()).addToBackStack(null).commit();
 
-
-        //DownloadImg img1= new DownloadImg("http://www.mondadoristore.it/img/Il-vecchio-e-il-mare-Ernest-Hemingway/ea978880461312/BL/BL/01/NZO/?tit=Il+vecchio+e+il+mare&aut=Ernest+Hemingway");
-       // img1.execute();
-        //ownloadImg img= new DownloadImg("http://www.fantascienza.com/catalogo/imgbank/cover/UV039.jpg");
-        //img.execute();
-       // ArrayList<Bitmap> l= new ArrayList<>();
-        //while(img.getImage()==null || img1.getImage()==null){
-
-        //}
-        //l.add(img1.getImage());
-        //l.add(img.getImage());
-      //  Log.e("url", ""+l.size());
-        //ArrayAdapter<Bitmap> m= new ArrayAdapter<Bitmap>(this.getActivity(),R.layout.list_item_img_book,l);
-      //  MyAdapter m=new MyAdapter(this.getActivity(),R.layout.list_item_img_book,l);
-       // slider.setAdapter(m);
-        /*HashMap<String,String> map= new HashMap<>();
-        l1.setCopertinaLink("https://i.ytimg.com/vi/oJxtQ9u8ISs/hqdefault.jpg");
-        l1.setTitolo("godfjgildfgl");
-        l1.setGenere("titolo");
-        map.put("titolo", l1.getTitolo());
-        map.put("copertina", l1.getCopertinaLink());
-
-        items.add(map);
-        int resource=R.layout.list_item_book ;
-        String[] from={"titolo","copertina"};
-        int[] to={R.id.titolo_tw, R.id.copertina_iw,};
-        SimpleAdapter adapter= new SimpleAdapter(this.getActivity(),items,resource,from,to);
-        slider.setAdapter(adapter);*/
-
+            }
+        });
         return view;
 
     }
@@ -138,8 +111,12 @@ public class HomeFragment extends android.app.Fragment implements View.OnClickLi
 
         Map<String,String> unigeParams = new HashMap<String, String>();
         boolean googleOk=false, unigeOk=false;
-        if(!isbn.getText().equals("")){unigeParams.put("isbn",isbn.getText().toString()); unigeOk=true;}
-        if(disponibile.isChecked()){ unigeParams.put("disponibili","true"); unigeOk=true;}
+        if(!isbn.getText().toString().equals("")){
+            unigeParams.put("isbn",isbn.getText().toString()); unigeOk=true;
+        }
+        if(disponibile.isChecked()){
+            unigeParams.put("disponibili","true"); unigeOk=true;
+        }
         if(raggio.getProgress()>2) {
             /* trova posizione */
             unigeOk=true;
@@ -157,16 +134,23 @@ public class HomeFragment extends android.app.Fragment implements View.OnClickLi
             unigeParams.put("maxLon",Double.toString(temp));
             }
         Map<String,String> googleParams = new HashMap<String, String>();
-        if(!autore.getText().equals("")){googleParams.put("autore",autore.getText().toString()); googleOk=true;}
-        if(!genere.getText().equals("")){googleParams.put("genere",genere.getText().toString()); googleOk=true;}
-        if(!titolo.getText().equals("")){googleParams.put("titolo",titolo.getText().toString()); googleOk=true;}
+        if(!autore.getText().toString().equals("")){
+            googleParams.put("autore",autore.getText().toString()); googleOk=true;
+        }
+        if(!genere.getText().toString().equals("")){
+            googleParams.put("genere",genere.getText().toString()); googleOk=true;
+        }
+        if(!titolo.getText().toString().equals("")){
+            googleParams.put("titolo",titolo.getText().toString()); googleOk=true;
+        }
 
         if(!unigeOk) unigeParams=null;
+
 
         if(!googleOk) googleParams=null;
         if(googleOk || unigeOk) {
             //slider.removeAllViews();
-            HomeCreationSlider homeCreationSlider = new HomeCreationSlider(this.getActivity(), slider);
+            HomeCreationSlider homeCreationSlider = new HomeCreationSlider(this.getActivity(), slider, sliderMap);
             homeCreationSlider.start(unigeParams, googleParams);
         }
 

@@ -13,6 +13,7 @@ import org.json.JSONObject;
 import org.lucasr.twowayview.TwoWayView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -25,13 +26,15 @@ public class ListaLibri  {
     private Integer cont;
     private Context context;
     private TwoWayView slider;
+    public HashMap<Integer, ItemBook> sliderMap;
 
-    ListaLibri(ArrayList<ItemBook> l, Context context, TwoWayView s){
+    ListaLibri(ArrayList<ItemBook> l, Context context, TwoWayView s,HashMap<Integer, ItemBook> sliderMap){
         this.listaLibri=l;
         this.cont=0;
         this.slider=s;
         this.context=context;
         this.max=this.listaLibri.size();
+        this.sliderMap = sliderMap;
     }
 
     public void riempiSlider(){
@@ -40,7 +43,7 @@ public class ListaLibri  {
             listaLink[i]=listaLibri.get(i).getCopertinaLink();
 
         }
-        DownloadImg downloadImg= new DownloadImg(listaLink,context,slider,listaLibri);
+        DownloadImg downloadImg= new DownloadImg(listaLink,context,slider,listaLibri,sliderMap);
 
         downloadImg.execute();
 

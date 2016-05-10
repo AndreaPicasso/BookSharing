@@ -19,10 +19,12 @@ import java.util.Map;
 public class HomeCreationSlider {
     private Context context;
     private  TwoWayView slider;
-    HomeCreationSlider( Context context,  TwoWayView slider){
+    private HashMap<Integer, ItemBook> sliderMap;
+    HomeCreationSlider( Context context,  TwoWayView slider, HashMap<Integer, ItemBook> sliderMap){
         this.slider=slider;
         this.context=context;
-        Log.e("Creoslider","costruttore");
+        this.sliderMap = sliderMap;
+
     }
 
     public  void start(final Map<String, String> unigeSearchParam, final Map<String, String> googleSearchParam){
@@ -44,7 +46,7 @@ public class HomeCreationSlider {
                         lon = books.getJSONObject(i).getDouble("lon");
                         toCreate.add(new ItemBook(isbn,lat,lon,proprietario));
                     }
-                    ListaLibri list= new ListaLibri(toCreate,context,slider);
+                    ListaLibri list= new ListaLibri(toCreate,context,slider,sliderMap);
                     list.Riempi(googleSearchParam);
 
 

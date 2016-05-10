@@ -32,17 +32,17 @@ public class DownloadImg extends AsyncTask<Void, Void, String> {
     private ArrayList<Bitmap> images;
     private Context context;
     private  ArrayList<ItemBook> listaLibri;
-    private HashMap<Bitmap, ItemBook> sliderMap;
+    private HashMap<Integer, ItemBook> sliderMap;
 
 
     private TwoWayView slider;
-    public DownloadImg(String url[], Context context, TwoWayView slider, ArrayList<ItemBook> listaLibri){
+    public DownloadImg(String url[], Context context, TwoWayView slider, ArrayList<ItemBook> listaLibri, HashMap<Integer, ItemBook> sliderMap){
         this.url=url;
         this.slider=slider;
         this.context=context;
         this.images= new ArrayList<>();
         this.listaLibri = listaLibri;
-        sliderMap = new HashMap<>();
+        this.sliderMap=sliderMap;
     }
 
 
@@ -56,7 +56,6 @@ public class DownloadImg extends AsyncTask<Void, Void, String> {
                 }
                 else {
                     URL urlConnection = new URL(url[i]);
-                    Log.e("url", url[i]);
 
                     HttpURLConnection connection = (HttpURLConnection) urlConnection.openConnection();
 
@@ -65,12 +64,10 @@ public class DownloadImg extends AsyncTask<Void, Void, String> {
                     connection.connect();
                     InputStream input = connection.getInputStream();
                     myBitmap = BitmapFactory.decodeStream(input);
-                    Log.e("Bitmap", "returned");
-                    Log.e("url", "" + images.size());
                 }
                 images.add(myBitmap);
                 listaLibri.get(i).setCopertina(myBitmap);
-                sliderMap.put(myBitmap, listaLibri.get(i));
+                sliderMap.put(i,listaLibri.get(i));
             }
 
 
@@ -88,29 +85,7 @@ public class DownloadImg extends AsyncTask<Void, Void, String> {
 
         MyAdapter m=new MyAdapter(this.context,R.layout.list_item_img_book,this.images);
         slider.setAdapter(m);
-        /*
-        slider.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //ItemBook choose = sliderMap.get(view);
-                final Activity act = (Activity)context;
-                act.getFragmentManager().beginTransaction().replace(R.id.home_fragment, new BookFragment()).addToBackStack(null).commit();
-            }
-        });
-        */
-        slider.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //ItemBook choose = sliderMap.get(view);
-                final Activity act = (Activity)context;
-                act.getFragmentManager().beginTransaction().replace(R.id.home_fragment, new BookFragment()).addToBackStack(null).commit();
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
         super.onPostExecute(s);
     }
 }
