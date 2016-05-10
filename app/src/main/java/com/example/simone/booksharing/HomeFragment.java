@@ -95,8 +95,17 @@ public class HomeFragment extends android.app.Fragment implements View.OnClickLi
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ItemBook choose = sliderMap.get(position);
                 SharedPreferences pref = getActivity().getSharedPreferences("home",Context.MODE_PRIVATE);
-
-
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putString("titoloBookToShow", choose.getTitolo().toString());
+                editor.putString("autoreBookToShow", choose.getAutore().toString());
+                editor.putString("copertinaBookToShow", choose.getCopertinaLink().toString());
+                editor.putString("genereBookToShow", choose.getGenere().toString());
+                editor.putString("proprietarioBookToShow", choose.getProprietario().toString());
+                editor.putString("isbnBookToShow", choose.getISBN().toString());
+                editor.putFloat("latBookToShow", ((float) choose.getLat()));
+                editor.putFloat("lonBookToShow", ((float) choose.getLon()));
+                editor.putInt("numPagBookToShow", choose.getNumPag());
+                editor.commit();
                 getFragmentManager().beginTransaction().replace(R.id.home_fragment, new BookFragment()).addToBackStack(null).commit();
 
             }
