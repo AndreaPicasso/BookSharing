@@ -30,7 +30,7 @@ public class DownloadSingleImg extends AsyncTask<Void, Void, String> {
         try {
 
 
-                if(url==null){
+                if(url==null || url.equals("")){
                     img = BitmapFactory.decodeResource(context.getResources(), R.drawable.not_available);
                 }
                 else {

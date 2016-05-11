@@ -56,7 +56,7 @@ public class BookFragment extends android.app.Fragment  {
         else if(state == -1) stato.setText("Stato: Err");
 
 
-        DownloadSingleImg img= new DownloadSingleImg(url,this.getActivity(),copertina);
+        DownloadSingleImg img = new DownloadSingleImg(url,this.getActivity(),copertina);
         img.execute();
 
 
