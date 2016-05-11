@@ -119,6 +119,14 @@ public class ItemBook {
         this.copertina = copertina;
     }
 
+    public boolean getDisponibile() {
+        return disponibile;
+    }
+
+    public void setDisponibile(boolean disp) {
+        this.disponibile = disp;
+    }
+
     private String ISBN;
     private String titolo;
     private String autore;
@@ -126,16 +134,18 @@ public class ItemBook {
     private Bitmap copertina;
     private String copertinaLink;
     private int numPag;
+    private boolean disponibile;
 
     private String proprietario;
     private double lat,lon;
     private Date datacondivisione;  //Campo data?
 
-    public ItemBook(String isbn, double lat, double lon, String proprietario){
+    public ItemBook(String isbn, double lat, double lon, String proprietario, boolean disp){
         this.ISBN = isbn;
         this.lat = lat;
         this.lon= lon;
         this.proprietario = proprietario;
+        this.disponibile=disp;
     }
 
 

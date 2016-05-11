@@ -33,8 +33,9 @@ public class HomeCreationSlider {
             @Override
             public void onResponse(JSONObject risposta) {
                 try {
-                    String isbn, proprietario;
+                    String isbn, proprietario,disp;
                     double lat,lon;
+                    boolean disponibile=true;
                     int numBook = risposta.getInt("number");
                     JSONArray books = risposta.getJSONArray("items");
                     if(numBook>5)   numBook =5;             /*Massimo caricane solo 5 */
@@ -44,7 +45,10 @@ public class HomeCreationSlider {
                         proprietario = books.getJSONObject(i).getString("proprietario");
                         lat = books.getJSONObject(i).getDouble("lat");
                         lon = books.getJSONObject(i).getDouble("lon");
-                        toCreate.add(new ItemBook(isbn,lat,lon,proprietario));
+                        disp= books.getJSONObject(i).getString("disponibile");
+                        if(disp.equals("no"))
+                            disponibile=false;
+                        toCreate.add(new ItemBook(isbn,lat,lon,proprietario,disponibile));
                     }
                     ListaLibri list= new ListaLibri(toCreate,context,slider,sliderMap);
                     list.Riempi(googleSearchParam);

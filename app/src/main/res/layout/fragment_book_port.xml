@@ -31,7 +31,9 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/titolo"
             android:id="@+id/titolo_tw"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:padding="10dp"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"

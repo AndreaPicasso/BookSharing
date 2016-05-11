@@ -20,7 +20,7 @@ public class BookFragment extends android.app.Fragment  {
     public Button prenota;
     public TextView titolo;
     public TextView autore;
-    public TextView genere;
+    public TextView genere,stato;
     public RatingBar rating;
     public ImageView copertina;
 
@@ -45,20 +45,19 @@ public class BookFragment extends android.app.Fragment  {
         autore=(TextView) view.findViewById(R.id.autore_tw);
         genere=(TextView) view.findViewById(R.id.genere_tw);
         copertina=(ImageView) view.findViewById(R.id.imageView);
+        stato = (TextView) view.findViewById(R.id.stato_tw);
         titolo.setText(pref.getString("titoloBookToShow",""));
         autore.setText(pref.getString("autoreBookToShow",""));
-        genere.setText(pref.getString("genereBookToShow",""));
-        String url=pref.getString("copertinaBookToShow","");
+        genere.setText(pref.getString("genereBookToShow", ""));
+        String url=pref.getString("copertinaBookToShow", "");
+        int state = pref.getInt("disponibileBookToShow",-1);
+        if(state == 0) stato.setText("Stato: Non disponibile");
+        else if(state == 1) stato.setText("Stato: Disponibile");
+        else if(state == -1) stato.setText("Stato: Err");
 
-        if(url==null){
-           // copertina.setImageDrawable();
 
-
-        }
-        else{
-            DownloadSingleImg img= new DownloadSingleImg(url,this.getActivity(),copertina);
-            img.execute();
-        }
+        DownloadSingleImg img= new DownloadSingleImg(url,this.getActivity(),copertina);
+        img.execute();
 
 
 
