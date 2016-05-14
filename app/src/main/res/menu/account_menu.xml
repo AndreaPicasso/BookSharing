@@ -4,6 +4,10 @@
         android:title="Account"
         android:showAsAction="ifRoom"
         ></item>
+    <item android:id="@+id/chat_menu"
+        android:title="Chat"
+        android:showAsAction="ifRoom"
+        ></item>
     <item android:id="@+id/logout_menu"
         android:title="Logout"
         android:showAsAction="ifRoom"

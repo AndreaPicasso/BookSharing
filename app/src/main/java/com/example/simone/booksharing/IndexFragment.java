@@ -6,10 +6,13 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.OrientationEventListener;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -53,7 +56,7 @@ public class IndexFragment extends android.app.Fragment
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         View view=null;
 
         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
@@ -66,6 +69,26 @@ public class IndexFragment extends android.app.Fragment
         iscriviti_button=(Button)view.findViewById(R.id.iscriviti_button);
         login_button.setOnClickListener(this);
         iscriviti_button.setOnClickListener(this);
+       /* PROBLEMI CON SENSORE DA SISTEMARE
+       OrientationEventListener orientationEventListener= new OrientationEventListener(getActivity(), SensorManager.SENSOR_DELAY_NORMAL) {
+            @Override
+            public void onOrientationChanged(int orientation) {
+
+                switch (orientation){
+                    case Configuration.ORIENTATION_PORTRAIT:
+                        getView().inflate(getActivity(),R.layout.fragment_index_port,container);
+                        Log.e("index", "orientationportraittttttttttttt");
+                        break;
+                    case Configuration.ORIENTATION_LANDSCAPE:
+                        getView().inflate(getActivity(),R.layout.fragment_index_land,container);
+                        Log.e("index", "orientatiolandscapeeeeeeeeeeee");
+                        break;
+                }
+            }
+        };
+
+        orientationEventListener.enable();*/
+
 
         return view;
     }

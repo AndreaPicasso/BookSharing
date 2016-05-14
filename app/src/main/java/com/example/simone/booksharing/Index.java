@@ -3,10 +3,12 @@ package com.example.simone.booksharing;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.OrientationEventListener;
 
 
 public class Index extends Activity {
@@ -19,6 +21,7 @@ public class Index extends Activity {
         SharedPreferences pref =getSharedPreferences("index",MODE_PRIVATE);
         SharedPreferences.Editor et= pref.edit();
         et.putInt("flag",0).commit();
+
 
         setContentView(R.layout.activity_index);
         /*if (findViewById(R.id.index_fragment) != null) {

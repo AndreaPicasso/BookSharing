@@ -42,8 +42,11 @@ public class Home extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        SharedPreferences pref=getSharedPreferences("pref",MODE_PRIVATE);
+        SharedPreferences.Editor et=pref.edit();
         switch (item.getItemId()){
             case R.id.account_menu:
+                et.putInt("flagdetails",0).commit();
                 Intent i = new Intent(getApplicationContext(), Details.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(i);
@@ -53,6 +56,14 @@ public class Home extends Activity {
                 i1.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(i1);
                 break;
+            case R.id.chat_menu:
+
+                et.putInt("flagdetails",1).commit();
+                Intent i2 = new Intent(getApplicationContext(), Details.class);
+                i2.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(i2);
+                break;
+
             default:
                 break;
 

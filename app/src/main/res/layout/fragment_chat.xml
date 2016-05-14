@@ -3,12 +3,15 @@
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.simone.booksharing.ChatFragment">
+    tools:context="com.example.simone.booksharing.ChatFragment"
+    android:background="@drawable/sfondo_land">
 
 
-    <ListView
+
+
+    <WebView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/chatlw"
+        android:id="@+id/chatwv"
         android:layout_weight="1" />
 </LinearLayout>
