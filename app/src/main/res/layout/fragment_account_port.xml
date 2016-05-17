@@ -1,19 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="@dimen/fragment_padding"
-    android:background="@drawable/back"><![CDATA[
+    android:background="@drawable/back">
 
 
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="180dp">
-
-    ]]>
-
-    <RelativeLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="200dp">
 
@@ -62,7 +57,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_toEndOf="@+id/nome_et" />
 
-        <EditText
+            <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
@@ -71,22 +66,22 @@
                 android:focusable="false"
                 android:focusableInTouchMode="true"
                 android:id="@+id/sesso_et"
-            android:layout_below="@+id/cognome_et"
-            android:layout_alignParentStart="true" />
+                android:layout_below="@+id/cognome_et"
+                android:layout_alignParentStart="true" />
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:ems="10"
-            android:focusable="false"
-            android:focusableInTouchMode="true"
-            android:id="@+id/login_password_et"
-            android:layout_gravity="right"
-            android:layout_alignTop="@+id/cognome_et"
-            android:layout_toEndOf="@+id/cognome_et" />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:ems="10"
+                android:focusable="false"
+                android:focusableInTouchMode="true"
+                android:id="@+id/login_password_et"
+                android:layout_gravity="right"
+                android:layout_alignTop="@+id/cognome_et"
+                android:layout_toEndOf="@+id/cognome_et" />
 
-    </RelativeLayout>
+        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -127,40 +122,43 @@
                 android:layout_alignParentEnd="true" />
         </RelativeLayout>
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/gridLayout"
-        android:layout_alignParentStart="true">
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/prestito"
-            android:id="@+id/textView5"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center" />
-
-        <ListView
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:id="@+id/prestito_list" />
+            android:layout_height="match_parent"
+            android:layout_below="@+id/gridLayout"
+            android:layout_alignParentStart="true">
 
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/lettura"
-            android:id="@+id/zdfdsf"
-            android:gravity="center" />
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/prestito"
+                android:id="@+id/textView5"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center" />
 
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/lettura_list" />
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/prestito_list" />
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/lettura"
+                android:id="@+id/zdfdsf"
+                android:gravity="center" />
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/lettura_list" />
+
+        </LinearLayout>
+
+
+
 
 </LinearLayout>

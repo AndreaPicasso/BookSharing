@@ -36,7 +36,7 @@ class MyAdapter extends ArrayAdapter<Bitmap> {
     }
     @Override
     public long getItemId(int position) {
-        Log.e("url", ""+position);
+
         return position;
     }
 

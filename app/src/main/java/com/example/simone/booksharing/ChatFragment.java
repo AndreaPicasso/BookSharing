@@ -5,12 +5,15 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Xml;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.SeekBar;
+
+import java.nio.charset.Charset;
 
 
 public class ChatFragment extends android.app.Fragment {
@@ -30,10 +33,11 @@ public class ChatFragment extends android.app.Fragment {
 
 
         web.setWebViewClient(new WebViewClient());
+        String postData = "pswAccesso="+UnigeServerConnection.PSW_ACCESSO+"&email=a@a.it";
 
 
-
-        web.loadUrl("http://webdev.dibris.unige.it/~S3940125/chatapp.php");
+        web.postUrl("http://webdev.dibris.unige.it/~S3940125/chatapp.php", postData.getBytes(Charset.forName("utf-8")));
+        //web.loadUrl("http://webdev.dibris.unige.it/~S3940125/chatapp.php");
         return view;
 
     }

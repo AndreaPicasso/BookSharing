@@ -18,7 +18,10 @@ public class Index extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        SharedPreferences login= getSharedPreferences("login",MODE_PRIVATE);
         SharedPreferences pref =getSharedPreferences("index",MODE_PRIVATE);
+        SharedPreferences.Editor etlogin=login.edit();
+        etlogin.putString("email","").commit();
         SharedPreferences.Editor et= pref.edit();
         et.putInt("flag",0).commit();
 
@@ -63,7 +66,7 @@ public class Index extends Activity {
         SharedPreferences.Editor et= indexPref.edit();
         int flag=indexPref.getInt("flag",0);
 
-        //Log.e("ONRESUME", ""+flag);
+        Log.e("ONRESUME", ""+flag);
         switch (flag){
             case 0:
                 if (findViewById(R.id.index_fragment) != null) {

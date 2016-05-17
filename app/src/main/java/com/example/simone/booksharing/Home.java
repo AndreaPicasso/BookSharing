@@ -1,12 +1,15 @@
 package com.example.simone.booksharing;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 public class Home extends Activity {
 
@@ -41,6 +44,23 @@ public class Home extends Activity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences login=getSharedPreferences("login", Context.MODE_PRIVATE);
+
+        if(login.getString("email","")==""){
+            SharedPreferences index=getSharedPreferences("index",MODE_PRIVATE);
+            SharedPreferences.Editor et=index.edit();
+            Toast.makeText(this, "Effettuare il Login!", Toast.LENGTH_LONG).show();
+            et.putInt("flag",1).commit();
+            Intent i = new Intent(getApplicationContext(), Index.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            startActivity(i);
+
+        }
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         SharedPreferences pref=getSharedPreferences("pref",MODE_PRIVATE);
         SharedPreferences.Editor et=pref.edit();
@@ -52,6 +72,13 @@ public class Home extends Activity {
                 startActivity(i);
                 break;
             case R.id.logout_menu:
+                SharedPreferences login=getSharedPreferences("login",MODE_PRIVATE);
+                SharedPreferences.Editor etlog=login.edit();
+                etlog.putString("email","").commit();
+                SharedPreferences index=getSharedPreferences("index",MODE_PRIVATE);
+                SharedPreferences.Editor etindex=index.edit();
+                etindex.putInt("flag",0).commit();
+                Log.e("stringa","nullalogin");
                 Intent i1 = new Intent(getApplicationContext(), Index.class);
                 i1.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(i1);

@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 public class Details extends Activity {
     @Override
@@ -67,6 +68,17 @@ public class Details extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
+        SharedPreferences login=getSharedPreferences("login",MODE_PRIVATE);
+        if(login.getString("email","")==""){
+            SharedPreferences index=getSharedPreferences("index",MODE_PRIVATE);
+            SharedPreferences.Editor et=index.edit();
+            Toast.makeText(this, "Effettuare il Login!", Toast.LENGTH_LONG).show();
+            et.putInt("flag",1).commit();
+            Intent i = new Intent(getApplicationContext(), Index.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            startActivity(i);
+
+        }
         SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
         int flagdetails = pref.getInt("flagdetails", 0);
         switch (flagdetails) {

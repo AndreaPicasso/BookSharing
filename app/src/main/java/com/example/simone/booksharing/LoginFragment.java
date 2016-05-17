@@ -1,6 +1,8 @@
 package com.example.simone.booksharing;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,6 +54,9 @@ public class LoginFragment extends android.app.Fragment implements View.OnClickL
 
     @Override
     public void onClick(View v) {
+        SharedPreferences login=getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
+        SharedPreferences.Editor et=login.edit();
+        et.putString("email",""+email.getText()).commit();
       startActivity(new Intent(v.getContext(),Home.class));
         /*
         if(v.getId() == accedi.getId()) {

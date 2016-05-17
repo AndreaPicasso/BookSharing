@@ -1,6 +1,8 @@
 package com.example.simone.booksharing;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,9 +37,9 @@ public class RegistrationFragment extends android.app.Fragment implements View.O
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.e("view", "registra");
+
         View ris = inflater.inflate(R.layout.fragment_registration,container,false);
-        Log.e("view", "registraok");
+
         nome = (EditText)  ris.findViewById( R.id.registration_nome_et);
         cognome = (EditText)  ris.findViewById( R.id.registration_cognome_et);
         email = (EditText)  ris.findViewById( R.id.registration_email_et);
@@ -81,6 +83,9 @@ public class RegistrationFragment extends android.app.Fragment implements View.O
             ok=false;
             Toast.makeText(this.getActivity(), "Le password non coincidono", Toast.LENGTH_SHORT).show();
         }
+        SharedPreferences login=getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
+        SharedPreferences.Editor et= login.edit();
+        et.putString("email",""+email.getText());
 
         if(!ok) return;
         UnigeServerConnection con = new UnigeServerConnection(new UnigeServerConnectionHandler() {
