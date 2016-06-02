@@ -20,6 +20,8 @@ public class ChatFragment extends android.app.Fragment {
     private WebView web;
 
     public void onCreate(Bundle savedInstanceState) {
+
+        CheckConnection.isOnline(getActivity());
         super.onCreate(savedInstanceState);
     }
 

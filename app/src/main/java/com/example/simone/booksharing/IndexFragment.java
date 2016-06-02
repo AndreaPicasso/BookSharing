@@ -35,6 +35,7 @@ public class IndexFragment extends android.app.Fragment
 
         switch (v.getId()){
             case R.id.login_button:{
+
                 et.putInt("flag",1).commit();
                 getFragmentManager().beginTransaction().replace(R.id.index_fragment, new LoginFragment()).addToBackStack(null).commit();
 

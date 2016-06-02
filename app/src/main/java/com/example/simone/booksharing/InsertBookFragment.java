@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 
 public class InsertBookFragment extends android.app.Fragment {
     public void onCreate(Bundle savedInstanceState) {
+        CheckConnection.isOnline(getActivity());
+
         super.onCreate(savedInstanceState);
     }
 

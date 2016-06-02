@@ -15,7 +15,9 @@ public class Home extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        SharedPreferences pref= getSharedPreferences("pref", MODE_PRIVATE);
+
+
+        SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
         super.onCreate(savedInstanceState);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         setContentView(R.layout.activity_home);
@@ -27,7 +29,7 @@ public class Home extends Activity {
 
 
             // Create a new Fragment to be placed in the activity layout
-            HomeFragment hFragment=new HomeFragment();
+            HomeFragment hFragment = new HomeFragment();
 
             // In case this activity was started with special instructions from an
             // Intent, pass the Intent's extras to the fragment as arguments
@@ -46,6 +48,8 @@ public class Home extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
+        CheckConnection.isOnline(this);
+
         SharedPreferences login=getSharedPreferences("login", Context.MODE_PRIVATE);
 
         if(login.getString("email","")==""){

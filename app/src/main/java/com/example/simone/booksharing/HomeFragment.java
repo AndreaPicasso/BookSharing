@@ -48,10 +48,12 @@ public class HomeFragment extends android.app.Fragment implements View.OnClickLi
     private HashMap<Integer, ItemBook> sliderMap;
 
     public void onCreate(Bundle savedInstanceState) {
+        CheckConnection.isOnline(getActivity());
 
 
         super.onCreate(savedInstanceState);
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

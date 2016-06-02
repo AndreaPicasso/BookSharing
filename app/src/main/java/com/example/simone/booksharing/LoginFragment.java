@@ -31,7 +31,7 @@ public class LoginFragment extends android.app.Fragment implements View.OnClickL
     private TextView pswDim;
 
     public void onCreate(Bundle savedInstanceState) {
-
+        CheckConnection.isOnline(this.getActivity().getApplicationContext());
         super.onCreate(savedInstanceState);
     }
 
@@ -54,11 +54,9 @@ public class LoginFragment extends android.app.Fragment implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        SharedPreferences login=getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
-        SharedPreferences.Editor et=login.edit();
-        et.putString("email",""+email.getText()).commit();
-      startActivity(new Intent(v.getContext(),Home.class));
-        /*
+
+
+
         if(v.getId() == accedi.getId()) {
             boolean ok = true;
             if (email.getText().toString().equals("")) {
@@ -79,7 +77,13 @@ public class LoginFragment extends android.app.Fragment implements View.OnClickL
                 public void onResponse(JSONObject risposta) {
                     try{
                         if (risposta.getString("risultato").equals("ok")) {
-                            startActivity(new Intent(email.getContext(), Home.class));
+                            SharedPreferences login=getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor et=login.edit();
+                            et.putString("email",""+email.getText()).commit();
+
+                                startActivity(new Intent(email.getContext(), Home.class));
+
+
                         } else
                             Toast.makeText(email.getContext(), "Utente non riconosciuto.", Toast.LENGTH_SHORT).show();
                     }catch(Exception e){
@@ -147,7 +151,7 @@ public class LoginFragment extends android.app.Fragment implements View.OnClickL
             conn.sendRequest(this.getActivity());
         }
 
-        */
+
 
     }
 

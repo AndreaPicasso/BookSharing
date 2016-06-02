@@ -15,6 +15,8 @@ public class Details extends Activity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        CheckConnection.isOnline(this);
+
         SharedPreferences pref= getSharedPreferences("pref", MODE_PRIVATE);
         Boolean flag=true;
         SharedPreferences.Editor et= pref.edit();
@@ -68,6 +70,8 @@ public class Details extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
+        CheckConnection.isOnline(this);
+
         SharedPreferences login=getSharedPreferences("login",MODE_PRIVATE);
         if(login.getString("email","")==""){
             SharedPreferences index=getSharedPreferences("index",MODE_PRIVATE);

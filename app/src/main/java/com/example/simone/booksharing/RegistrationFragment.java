@@ -31,6 +31,8 @@ public class RegistrationFragment extends android.app.Fragment implements View.O
 
 
     public void onCreate(Bundle savedInstanceState) {
+        CheckConnection.isOnline(getActivity());
+
         super.onCreate(savedInstanceState);
     }
 
