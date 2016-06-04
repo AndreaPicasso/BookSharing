@@ -20,7 +20,7 @@ public class InsertBookFragment extends android.app.Fragment {
     public Button inserisci;
     public TextView titolo;
     public TextView autore;
-    public TextView genere,stato;
+    public TextView genere;
 
     public RatingBar rating;
 
@@ -35,7 +35,9 @@ public class InsertBookFragment extends android.app.Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         SharedPreferences pref= getActivity().getSharedPreferences("home", Context.MODE_PRIVATE);
+
         View view=null;
+
 
         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
             view=inflater.inflate(R.layout.fragment_insert_book_port,container,false);
@@ -47,15 +49,11 @@ public class InsertBookFragment extends android.app.Fragment {
         autore=(TextView) view.findViewById(R.id.autore_tw);
         genere=(TextView) view.findViewById(R.id.genere_tw);
         copertina=(ImageView) view.findViewById(R.id.imageView);
-        stato = (TextView) view.findViewById(R.id.stato_tw);
+
         titolo.setText(pref.getString("titoloBookToShow",""));
         autore.setText(pref.getString("autoreBookToShow",""));
         genere.setText(pref.getString("genereBookToShow", ""));
         String url=pref.getString("copertinaBookToShow", "");
-        int state = pref.getInt("disponibileBookToShow",-1);
-        if(state == 0) stato.setText("Stato: Non disponibile");
-        else if(state == 1) stato.setText("Stato: Disponibile");
-        else if(state == -1) stato.setText("Stato: Err");
 
 
         DownloadSingleImg img = new DownloadSingleImg(url,this.getActivity(),copertina);

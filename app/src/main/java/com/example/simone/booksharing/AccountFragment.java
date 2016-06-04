@@ -219,13 +219,14 @@ public class AccountFragment extends android.app.Fragment {
                             SharedPreferences.Editor et=pref.edit();
 
 
-                           et.putString("titoloBookToShow",risposta.getString("title"));
+                           et.putString("titoloBookToShow",risposta.getString("title")).commit();
+                            Log.e("fdgdf",""+risposta.getString("title"));
                             if(risposta.has("imageLinks"))
-                                et.putString("copertinaBookToShow",risposta.getJSONObject("imageLinks").getString("thumbnail"));
+                                et.putString("copertinaBookToShow",risposta.getJSONObject("imageLinks").getString("thumbnail")).commit();
                             if(risposta.has("categories"))
-                                et.putString("genereBookToShow", risposta.getJSONArray("categories").getString(0));
+                                et.putString("genereBookToShow", risposta.getJSONArray("categories").getString(0)).commit();
                             if(risposta.has("authors"))
-                                et.putString("autoreBookToShow", risposta.getJSONArray("authors").getString(0));
+                                et.putString("autoreBookToShow", risposta.getJSONArray("authors").getString(0)).commit();
                             getFragmentManager().beginTransaction().replace(R.id.details_fragment, new InsertBookFragment()).addToBackStack(null).commit();
 
                         }
