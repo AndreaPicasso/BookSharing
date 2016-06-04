@@ -53,24 +53,22 @@ public class ListaLibri  {
             public void onResponse(JSONObject risposta) {
 
                 try {
-                    if(risposta.getInt("totalItems")!=0) {
-                        JSONArray arr = risposta.getJSONArray("items");
-                        risposta = arr.getJSONObject(0).getJSONObject("volumeInfo");
-                        // /!\ NON E DETTO CHE CI SIANO TUTTE LE INFO SU GOOGLE
+                    JSONArray arr = risposta.getJSONArray("items");
+                    risposta = arr.getJSONObject(0).getJSONObject("volumeInfo");
+                    // /!\ NON E DETTO CHE CI SIANO TUTTE LE INFO SU GOOGLE
 
-                        listaLibri.get(cont).setTitolo(risposta.getString("title"));
-                        if (risposta.has("imageLinks"))
-                            listaLibri.get(cont).setCopertinaLink(risposta.getJSONObject("imageLinks").getString("thumbnail"));
-                        if (risposta.has("pageCount"))
-                            listaLibri.get(cont).setNumPag(risposta.getInt("pageCount"));
-                        if (risposta.has("categories"))
-                            listaLibri.get(cont).setGenere(risposta.getJSONArray("categories").getString(0));
-                        if (risposta.has("authors"))
-                            listaLibri.get(cont).setAutore(risposta.getJSONArray("authors").getString(0));
-                    }
+                    listaLibri.get(cont).setTitolo(risposta.getString("title"));
+                    if(risposta.has("imageLinks"))
+                        listaLibri.get(cont).setCopertinaLink(risposta.getJSONObject("imageLinks").getString("thumbnail"));
+                    if(risposta.has("pageCount"))
+                        listaLibri.get(cont).setNumPag(risposta.getInt("pageCount"));
+                    if(risposta.has("categories"))
+                        listaLibri.get(cont).setGenere(risposta.getJSONArray("categories").getString(0));
+                    if(risposta.has("authors"))
+                        listaLibri.get(cont).setAutore(risposta.getJSONArray("authors").getString(0));
                 }
                 catch(Exception e){
-                    //Log.e("Eccezione lista libri",""+e.getMessage());
+                    Log.e("Eccezione lista libri",""+e.getMessage());
                 }
 
                 if(cont<max-1){
@@ -105,11 +103,11 @@ public class ListaLibri  {
                     else aut="";
                     if(googleSearchParam.get("genere")!=null) gen =googleSearchParam.get("genere");
                     else gen="";
-                   return GoogleBooksConnection.URL + GoogleBooksConnection.makeGoogleQuery(tit, aut, listaLibri.get(cont).getISBN(), gen);
+                    return GoogleBooksConnection.URL + GoogleBooksConnection.makeGoogleQuery(tit, aut, listaLibri.get(cont).getISBN(), gen);
                 }
-                    else {
-                    return GoogleBooksConnection.URL + GoogleBooksConnection.makeGoogleQuery("", "", listaLibri.get(cont).getISBN(), "");
-                }
+                else
+                    return GoogleBooksConnection.URL+GoogleBooksConnection.makeGoogleQuery("","",listaLibri.get(cont).getISBN(),"");
+
             }
         });
         con.sendRequest(context);

@@ -136,8 +136,8 @@ public class HomeFragment extends android.app.Fragment implements View.OnClickLi
         if(raggio.getProgress()>2) {
             /* trova posizione */
             unigeOk=true;
-            double myLat =44;
-            double myLon = 9;
+            double myLat =5;
+            double myLon = 6;
 
             // /!\ NON CREDO SIA COSI SEMPLICE
             double temp = myLat-raggio.getProgress()/2;

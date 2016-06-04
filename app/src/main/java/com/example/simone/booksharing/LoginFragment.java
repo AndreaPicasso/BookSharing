@@ -80,8 +80,10 @@ public class LoginFragment extends android.app.Fragment implements View.OnClickL
                             SharedPreferences login=getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
                             SharedPreferences.Editor et=login.edit();
                             et.putString("email",""+email.getText()).commit();
+                            et.putString("psw",""+password.getText()).commit();
 
-                                startActivity(new Intent(email.getContext(), Home.class));
+
+                            startActivity(new Intent(email.getContext(), Home.class));
 
 
                         } else

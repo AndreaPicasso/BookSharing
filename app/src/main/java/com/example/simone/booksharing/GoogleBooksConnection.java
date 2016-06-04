@@ -1,7 +1,6 @@
 package com.example.simone.booksharing;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -45,7 +44,6 @@ public class GoogleBooksConnection {
     public void sendRequest(Context context){
 
         RequestQueue queue = Volley.newRequestQueue(context);
-
         StringRequest stringRequest = new StringRequest(Request.Method.GET, helper.getURL(), new Response.Listener<String>(){
 
             @Override
@@ -75,12 +73,11 @@ public class GoogleBooksConnection {
 
     public static String makeGoogleQuery(String titolo, String autore, String isbn, String genere){
         StringBuffer ris=new StringBuffer();
-        if(!isbn.equals("")) ris.append("isbn:"+isbn+"+");
-        if(!genere.equals("")) ris.append("subject:"+genere+"+");
-        if(!titolo.equals("")) ris.append("intitle:"+titolo+"+");
-        if(!autore.equals("")) ris.append("inauthor:"+autore+"+");
+        if(!genere.equals("")) ris.append(genere+"&");
+        if(!titolo.equals("")) ris.append("intitle:"+titolo+"&");
+        if(!autore.equals("")) ris.append("inauthor:"+autore+"&");
+        if(!isbn.equals("")) ris.append("isbn:"+isbn);
 
-        Log.e("asdasd", ris.toString());
         return ris.toString();
     }
 
