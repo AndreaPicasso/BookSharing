@@ -3,6 +3,7 @@ package com.example.simone.booksharing;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.VolleyError;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class InsertBookFragment extends android.app.Fragment {
@@ -54,8 +63,63 @@ public class InsertBookFragment extends android.app.Fragment {
         autore.setText(pref.getString("autoreBookToShow",""));
         genere.setText(pref.getString("genereBookToShow", ""));
         String url=pref.getString("copertinaBookToShow", "");
+        View.OnClickListener ins= new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UnigeServerConnection connection= new UnigeServerConnection(new UnigeServerConnectionHandler() {
+                    @Override
+                    public void onResponse(JSONObject risposta) {
+                        try {
+                            if(risposta.getString("risultato").equals("ok")){
+                                Toast.makeText(autore.getContext(), "Il libro è stato inserito!", Toast.LENGTH_SHORT).show();
+
+                            }
+                            else{
+                                Toast.makeText(autore.getContext(), risposta.getString("risultato"),Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+                        catch(Exception e){
+                        }
+                    }
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+
+                    @Override
+                    public Map<String, String> getParams() {
+                       Geolocation geolocation=new Geolocation();
+                        geolocation.getLocation(autore.getContext());
+                        Map<String,String> params = new HashMap<String, String>();
 
 
+                        SharedPreferences pref= getActivity().getSharedPreferences("home", Context.MODE_PRIVATE);
+                        SharedPreferences login= getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
+                        params.put("ISBN", pref.getString("ISBN", ""));
+
+                        params.put("pswAccesso", UnigeServerConnection.PSW_ACCESSO);
+
+                        params.put("proprietario",login.getString("email", ""));
+                        params.put("lat", geolocation.lat.toString());
+                        params.put("lon", geolocation.lng.toString());
+
+                        return params;
+
+                    }
+
+                    @Override
+                    public String getURL() {
+                        return UnigeServerConnection.URL + UnigeServerConnection.INSERISCI_LIBRO;
+                    }
+                });
+                connection.sendRequest(getActivity());
+
+            }
+        };
+
+        inserisci.setOnClickListener(ins);
         DownloadSingleImg img = new DownloadSingleImg(url,this.getActivity(),copertina);
         img.execute();
 

@@ -23,6 +23,7 @@ public class BookFragment extends android.app.Fragment  {
     public TextView genere,stato;
     public RatingBar rating;
     public ImageView copertina;
+    public TextView description;
 
 
     public void onCreate(Bundle savedInstanceState) {
@@ -44,8 +45,10 @@ public class BookFragment extends android.app.Fragment  {
         titolo=(TextView) view.findViewById(R.id.titolo_tw);
         autore=(TextView) view.findViewById(R.id.autore_tw);
         genere=(TextView) view.findViewById(R.id.genere_tw);
+        description=(TextView) view.findViewById(R.id.description_tw);
         copertina=(ImageView) view.findViewById(R.id.imageView);
         stato = (TextView) view.findViewById(R.id.stato_tw);
+        description.setText(pref.getString("description",""));
         titolo.setText(pref.getString("titoloBookToShow",""));
         autore.setText(pref.getString("autoreBookToShow",""));
         genere.setText(pref.getString("genereBookToShow", ""));
