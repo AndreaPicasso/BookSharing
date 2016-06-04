@@ -65,7 +65,6 @@ public class ListaLibri  {
                     if(risposta.has("categories"))
                         listaLibri.get(cont).setGenere(risposta.getJSONArray("categories").getString(0));
                     if(risposta.has("description")){
-                       Log.e("eccolo",""+risposta.getString("description"));
                         listaLibri.get(cont).setDescription(risposta.getString("description"));
 
                     }
