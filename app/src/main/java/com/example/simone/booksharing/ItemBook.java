@@ -65,6 +65,9 @@ public class ItemBook {
     public int getNumPag() {
         return numPag;
     }
+    public void setDescription(String description){
+        this.description=description;
+    }
 
     public void setNumPag(int numPag) {
         this.numPag = numPag;
@@ -105,6 +108,8 @@ public class ItemBook {
     public String getProprietario() {
         return proprietario;
     }
+    public String getDescription(){return description;
+    }
 
     public void setProprietario(String proprietario) {
         this.proprietario = proprietario;
@@ -132,6 +137,7 @@ public class ItemBook {
     private String autore;
     private String genere;
     private Bitmap copertina;
+    public String description;
     private String copertinaLink;
     private int numPag;
     private boolean disponibile;
@@ -167,6 +173,13 @@ public class ItemBook {
                     copertinaLink = risposta.getJSONObject("volumeInfo").getJSONObject("imageLinks").getString("thumbnail");
                     autore = risposta.getJSONObject("volumeInfo").getJSONArray("authors").getString(0);
                     genere = risposta.getJSONObject("volumeInfo").getJSONArray("categories").getString(0);
+                    Log.e("dentro onrespo","");
+                    if(risposta.has("description")){
+                        Log.e("eccolo",""+risposta.getJSONObject("volumeInfo").getString("description"));
+                        description=risposta.getJSONObject("volumeInfo").getString("description");
+
+                    }
+
 
                 }
                 catch(Exception e){

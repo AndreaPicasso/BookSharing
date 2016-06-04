@@ -99,6 +99,11 @@ public class HomeFragment extends android.app.Fragment implements View.OnClickLi
                 ItemBook choose = sliderMap.get(position);
                 SharedPreferences pref = getActivity().getSharedPreferences("home",Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
+                if(choose.getDescription()!=null){
+                    editor.putString("description",choose.getDescription().toString()).commit();
+                    Log.e("dfgdf","description!=null");
+                }
+
                 editor.putString("titoloBookToShow", choose.getTitolo().toString());
                 editor.putString("autoreBookToShow", choose.getAutore().toString());
                 editor.putString("copertinaBookToShow", choose.getCopertinaLink().toString());

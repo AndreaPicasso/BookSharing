@@ -69,7 +69,7 @@ public class Geolocation {
                     }
                 }
             }
-            Log.e("latlon",""+lat.toString()+" "+lng.toString());
+
 
         } catch (Exception e) {
             e.printStackTrace();

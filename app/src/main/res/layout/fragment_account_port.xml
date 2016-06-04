@@ -8,7 +8,7 @@
     android:background="@drawable/back">
 
 
-        <RelativeLayout
+    <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="200dp">
 
@@ -122,6 +122,11 @@
                 android:layout_alignParentEnd="true" />
         </RelativeLayout>
 
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView4" >
+
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -157,8 +162,7 @@
                 android:id="@+id/lettura_list" />
 
         </LinearLayout>
-
-
+    </ScrollView>
 
 
 </LinearLayout>

@@ -220,10 +220,8 @@ public class AccountFragment extends android.app.Fragment {
 
                             et.putString("ISBN",ISBN.getText().toString()).commit();
                            et.putString("titoloBookToShow",risposta.getString("title")).commit();
-                            Log.e("fdgdf",""+risposta.getString("description"));
 
-                            if(risposta.has("description"))
-                                et.putString("description",risposta.getString("description"));
+
                             if(risposta.has("imageLinks"))
                                 et.putString("copertinaBookToShow",risposta.getJSONObject("imageLinks").getString("thumbnail")).commit();
                             if(risposta.has("categories"))

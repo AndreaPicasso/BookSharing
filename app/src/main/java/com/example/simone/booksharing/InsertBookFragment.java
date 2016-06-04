@@ -69,8 +69,9 @@ public class InsertBookFragment extends android.app.Fragment {
                 UnigeServerConnection connection= new UnigeServerConnection(new UnigeServerConnectionHandler() {
                     @Override
                     public void onResponse(JSONObject risposta) {
+
                         try {
-                            if(risposta.getString("risultato").equals("ok")){
+                            if(risposta.has("ok")){
                                 Toast.makeText(autore.getContext(), "Il libro è stato inserito!", Toast.LENGTH_SHORT).show();
 
                             }
@@ -80,12 +81,13 @@ public class InsertBookFragment extends android.app.Fragment {
 
                         }
                         catch(Exception e){
+                            Log.e("eccezione onresponse",""+e.getMessage());
                         }
                     }
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
+                        Log.e("Inserimento libro","onerroResponse");
                     }
 
                     @Override
@@ -97,10 +99,9 @@ public class InsertBookFragment extends android.app.Fragment {
 
                         SharedPreferences pref= getActivity().getSharedPreferences("home", Context.MODE_PRIVATE);
                         SharedPreferences login= getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
-                        params.put("ISBN", pref.getString("ISBN", ""));
+                        params.put("isbn", pref.getString("ISBN", ""));
 
                         params.put("pswAccesso", UnigeServerConnection.PSW_ACCESSO);
-
                         params.put("proprietario",login.getString("email", ""));
                         params.put("lat", geolocation.lat.toString());
                         params.put("lon", geolocation.lng.toString());
@@ -111,6 +112,7 @@ public class InsertBookFragment extends android.app.Fragment {
 
                     @Override
                     public String getURL() {
+
                         return UnigeServerConnection.URL + UnigeServerConnection.INSERISCI_LIBRO;
                     }
                 });

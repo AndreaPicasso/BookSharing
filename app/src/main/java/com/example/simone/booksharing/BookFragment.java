@@ -48,7 +48,11 @@ public class BookFragment extends android.app.Fragment  {
         description=(TextView) view.findViewById(R.id.description_tw);
         copertina=(ImageView) view.findViewById(R.id.imageView);
         stato = (TextView) view.findViewById(R.id.stato_tw);
+
         description.setText(pref.getString("description",""));
+        Log.e("desr","dd"+pref.getString("description",""));
+        SharedPreferences.Editor et=pref.edit();
+        et.putString("description","").commit();
         titolo.setText(pref.getString("titoloBookToShow",""));
         autore.setText(pref.getString("autoreBookToShow",""));
         genere.setText(pref.getString("genereBookToShow", ""));

@@ -64,6 +64,11 @@ public class ListaLibri  {
                         listaLibri.get(cont).setNumPag(risposta.getInt("pageCount"));
                     if(risposta.has("categories"))
                         listaLibri.get(cont).setGenere(risposta.getJSONArray("categories").getString(0));
+                    if(risposta.has("description")){
+                       Log.e("eccolo",""+risposta.getString("description"));
+                        listaLibri.get(cont).setDescription(risposta.getString("description"));
+
+                    }
                     if(risposta.has("authors"))
                         listaLibri.get(cont).setAutore(risposta.getJSONArray("authors").getString(0));
                 }
