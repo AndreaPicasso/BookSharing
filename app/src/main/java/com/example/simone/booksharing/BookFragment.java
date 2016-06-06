@@ -14,13 +14,21 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.VolleyError;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.Map;
 
 
 public class BookFragment extends android.app.Fragment  {
     public Button prenota;
     public TextView titolo;
     public TextView autore;
-    public TextView genere,stato;
+    public TextView genere,stato,luogo;
     public RatingBar rating;
     public ImageView copertina;
     public TextView description;
@@ -41,6 +49,7 @@ public class BookFragment extends android.app.Fragment  {
 
         else
             view=inflater.inflate(R.layout.fragment_book_land,container,false);
+
         prenota=(Button) view.findViewById(R.id.prenota_button);
         titolo=(TextView) view.findViewById(R.id.titolo_tw);
         autore=(TextView) view.findViewById(R.id.autore_tw);
@@ -48,14 +57,14 @@ public class BookFragment extends android.app.Fragment  {
         description=(TextView) view.findViewById(R.id.description_tw);
         copertina=(ImageView) view.findViewById(R.id.imageView);
         stato = (TextView) view.findViewById(R.id.stato_tw);
+        luogo = (TextView) view.findViewById(R.id.luogo_tw);
 
-        description.setText(pref.getString("description",""));
-        Log.e("desr","dd"+pref.getString("description",""));
+        description.setText(pref.getString("description", ""));
         SharedPreferences.Editor et=pref.edit();
         et.putString("description","").commit();
-        titolo.setText(pref.getString("titoloBookToShow",""));
-        autore.setText(pref.getString("autoreBookToShow",""));
-        genere.setText(pref.getString("genereBookToShow", ""));
+        titolo.setText(pref.getString("titoloBookToShow", ""));
+        autore.setText("Autore: "+pref.getString("autoreBookToShow",""));
+        genere.setText("Genere: "+pref.getString("genereBookToShow", ""));
         String url=pref.getString("copertinaBookToShow", "");
         int state = pref.getInt("disponibileBookToShow",-1);
         if(state == 0) stato.setText("Stato: Non disponibile");
@@ -65,6 +74,42 @@ public class BookFragment extends android.app.Fragment  {
 
         DownloadSingleImg img = new DownloadSingleImg(url,this.getActivity(),copertina);
         img.execute();
+        float lat1 = pref.getFloat("latBookToShow", 0);
+
+        final float lat = lat1;
+        final float lon = pref.getFloat("lonBookToShow", 0);
+
+
+
+        GoogleBooksConnection con= new GoogleBooksConnection(new GoogleBooksConnectionHandler() {
+            @Override
+            public void onResponse(JSONObject risposta) {
+
+                try {
+                    luogo.setText("Luogo: "+risposta.getJSONArray("results").getJSONObject(0).getString("formatted_address"));
+                }
+                catch(Exception e){
+                    Log.e("Eccezione posizione",""+e.getMessage());
+                }
+
+            }
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+
+            @Override
+            public Map<String, String> getParams() {
+                return null;
+            }
+
+            @Override
+            public String getURL() {
+                    return "https://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+","+lon;
+
+            }
+        });
+        con.sendRequest(this.getActivity());
 
 
 

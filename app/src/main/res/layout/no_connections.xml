@@ -11,8 +11,11 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:text="Nessuna Connessione"
         android:textSize="60sp"
-        android:textColor="@color/G"
-        android:layout_height="300dp" />
+        android:textColor="#787878"
+        android:layout_height="300dp"
+        android:text="@string/no_conn"
+        android:padding="10dp"
+        android:textAlignment="center"
+        android:layout_gravity="center_vertical" />
 </LinearLayout>

@@ -41,4 +41,7 @@
     <string name="modifica">Modifica</string>
     <string name="aggiungilibro">Aggiungi Libro</string>
 
+    <!-- No connecrions -->
+    <string name="no_conn">Nessuna connessione</string>
+
 </resources>
