@@ -36,7 +36,8 @@
                 android:focusableInTouchMode="true"
                 android:id="@+id/nome_et"
                 android:layout_alignParentTop="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:hint="Nome" />
 
             <EditText
                 android:layout_width="wrap_content"
@@ -44,7 +45,6 @@
                 android:focusable="false"
                 android:focusableInTouchMode="true"
                 android:inputType="textPersonName"
-                android:text="cognome"
                 android:ems="10"
                 android:id="@+id/cognome_et"
                 android:hint="Surname"
@@ -60,7 +60,8 @@
                 android:ems="10"
                 android:id="@+id/genere_pref_et"
                 android:layout_alignTop="@+id/editText2"
-                android:layout_toStartOf="@+id/modifica_button" />
+                android:layout_toStartOf="@+id/modifica_button"
+                android:hint="Genere preferito" />
 
             <EditText
                 android:layout_width="wrap_content"
@@ -71,18 +72,19 @@
                 android:focusableInTouchMode="true"
                 android:id="@+id/login_password_et"
                 android:layout_alignTop="@+id/cognome_et"
-                android:layout_alignStart="@+id/genere_pref_et" />
+                android:layout_alignStart="@+id/genere_pref_et"
+                android:hint="Password" />
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
-                android:text="Sesso"
                 android:ems="10"
                 android:focusable="false"
                 android:focusableInTouchMode="true"
                 android:id="@+id/sesso_et"
                 android:layout_below="@+id/cognome_et"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:hint="Sesso [M/F]" />
 
         </RelativeLayout>
 

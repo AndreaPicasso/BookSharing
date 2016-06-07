@@ -40,32 +40,36 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/autore"
-            android:id="@+id/autore_tw" />
+            android:id="@+id/autore_tw"
+            android:padding="3dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/genere"
-            android:id="@+id/genere_tw" />
+            android:id="@+id/genere_tw"
+            android:padding="3dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="stato"
-            android:id="@+id/stato_tw" />
+            android:id="@+id/stato_tw"
+            android:padding="3dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/luogo"
-            android:id="@+id/luogo_tw" />
+            android:id="@+id/luogo_tw"
+            android:padding="3dp" />
 
         <RatingBar
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:clickable="true"
             android:focusable="true"
 
@@ -73,7 +77,8 @@
             android:id="@+id/rating_bar"
             style="?android:attr/ratingBarStyleSmall"
 
-            android:numStars="5" />
+            android:numStars="5"
+            android:padding="3dp" />
 
         <ScrollView
             android:layout_width="wrap_content"
@@ -84,10 +89,10 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/titolo"
                 android:id="@+id/description_tw"
                 android:textAlignment="center"
-                android:padding="10dp" />
+                android:padding="10dp"
+                android:hint="Descrizione" />
         </ScrollView>
 
     </LinearLayout>

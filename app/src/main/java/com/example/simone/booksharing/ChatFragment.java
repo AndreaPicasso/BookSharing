@@ -1,10 +1,12 @@
 package com.example.simone.booksharing;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.util.Xml;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,7 +37,8 @@ public class ChatFragment extends android.app.Fragment {
 
 
         web.setWebViewClient(new WebViewClient());
-        String postData = "pswAccesso="+UnigeServerConnection.PSW_ACCESSO+"&email=a@a.it";
+        SharedPreferences login=getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
+        String postData = "pswAccesso="+UnigeServerConnection.PSW_ACCESSO+"&email="+login.getString("email","");
 
 
         web.postUrl("http://webdev.dibris.unige.it/~S3940125/chatapp.php", postData.getBytes(Charset.forName("utf-8")));

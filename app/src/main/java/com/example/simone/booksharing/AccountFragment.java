@@ -154,12 +154,12 @@ public class AccountFragment extends android.app.Fragment {
                         @Override
                         public void onResponse(JSONObject risposta) {
                             try {
-                                if(risposta.getString("risultato").equals("ok")){
+                                if(risposta.has("ok")){
                                     Toast.makeText(password.getContext(), "Modifica dati avvenuta con successo!", Toast.LENGTH_SHORT).show();
 
                                 }
                                 else{
-                                    Toast.makeText(password.getContext(), risposta.getString("risultato"),Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(password.getContext(), risposta.getString("error"),Toast.LENGTH_SHORT).show();
                                 }
 
                             }
@@ -183,7 +183,7 @@ public class AccountFragment extends android.app.Fragment {
                             params.put("pswAccesso", UnigeServerConnection.PSW_ACCESSO);
 
                             params.put("cognome", cognome.getText().toString());
-                            params.put("genere", genere.getText().toString());
+                            params.put("genere_pref", genere.getText().toString());
                             params.put("password", password.getText().toString());
 
                             params.put("sesso", sesso.getText().toString());
