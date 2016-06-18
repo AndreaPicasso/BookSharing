@@ -49,22 +49,31 @@ public class DownloadImgs extends AsyncTask<Void, Void, String> {
     @Override
     protected String doInBackground(Void... params) {
         try {
-            Log.e("234", ""+url.length);
             for(int i=0; i<url.length; i++){
+
+
                 Bitmap myBitmap;
                 if(url[i]==null){
                     myBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.not_available);
                 }
                 else {
-                    URL urlConnection = new URL(url[i]);
+                    myBitmap = ImgsStorageManager.loadImageFromStorage(listaLibri.get(i).getISBN(),context);
+                    if (myBitmap == null) {
+                        Log.e("imgasd","NON TROVATA");
+                        //Se non la trovo in memoria la scarico
+                        URL urlConnection = new URL(url[i]);
+                        HttpURLConnection connection = (HttpURLConnection) urlConnection.openConnection();
+                        connection.setDoInput(true);
+                        connection.connect();
+                        InputStream input = connection.getInputStream();
+                        myBitmap = BitmapFactory.decodeStream(input);
+                        //E poi la salvo con il nome del link
+                        ImgsStorageManager.saveToInternalStorage(myBitmap,context,listaLibri.get(i).getISBN());
+                    }
+                    else{
+                        Log.e("imgasd","TROVATA");
 
-                    HttpURLConnection connection = (HttpURLConnection) urlConnection.openConnection();
-
-
-                    connection.setDoInput(true);
-                    connection.connect();
-                    InputStream input = connection.getInputStream();
-                    myBitmap = BitmapFactory.decodeStream(input);
+                    }
                 }
                 Log.e("234", ""+listaLibri.get(i).getCopertinaLink());
                 images.add(myBitmap);

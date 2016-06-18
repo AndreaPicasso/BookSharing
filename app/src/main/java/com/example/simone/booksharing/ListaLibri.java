@@ -39,13 +39,13 @@ public class ListaLibri  {
         ArrayList<String> listaLink= new ArrayList<String>();
         int i=0;
         try {
-            while (i < listaLibri.size() /*&& i < 5*/) {
+            while (i < listaLibri.size() && i < 5) {
                 if (listaLibri.get(i).getISBN() != null) {
                     listaLink.add(listaLibri.get(i).getCopertinaLink());
                     i++;
                 } else
                     listaLibri.remove(i);
-                Log.e("123", "ok0");
+                //Log.e("123", "ok0");
             }
         }catch (Exception e){
             Log.e("123", ""+ e.getMessage());
