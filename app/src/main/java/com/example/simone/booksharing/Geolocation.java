@@ -30,6 +30,7 @@ public class Geolocation {
 
             if (!isGPSEnabled && !isNetworkEnabled) {
                 // no network provider is enabled
+
             } else {
                 // First get location from Network Provider
                 if (isNetworkEnabled) {

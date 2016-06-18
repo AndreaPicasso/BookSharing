@@ -209,6 +209,11 @@ public class AccountFragment extends android.app.Fragment {
         View.OnClickListener ins_libro= new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(ISBN.getText().toString().equals(""))
+                {
+                    Toast.makeText(ISBN.getContext(), "Nessun libro trovato", Toast.LENGTH_LONG).show();
+                    return;
+                }
                 GoogleBooksConnection connection= new GoogleBooksConnection(new GoogleBooksConnectionHandler() {
                     @Override
                     public void onResponse(JSONObject risposta) {
@@ -232,7 +237,6 @@ public class AccountFragment extends android.app.Fragment {
 
                         }
                         catch(Exception e){
-                            Toast.makeText(ISBN.getContext(), "Nessun libro trovato", Toast.LENGTH_LONG).show();
                             Log.e("Eccezione lista libri",""+e.getMessage());
                         }
 

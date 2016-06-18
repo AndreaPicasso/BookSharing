@@ -65,7 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Inserisci"
-        android:id="@+id/Inserisci_button"
+        android:id="@+id/insert_book_inserisci_button"
         android:layout_marginEnd="68dp"
         android:layout_alignBottom="@+id/imageView"
         android:layout_alignParentEnd="true"
