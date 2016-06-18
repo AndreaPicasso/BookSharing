@@ -73,10 +73,10 @@ public class GoogleBooksConnection {
 
     public static String makeGoogleQuery(String titolo, String autore, String isbn, String genere){
         StringBuffer ris=new StringBuffer();
-        if(!genere.equals("")) ris.append(genere+"&");
-        if(!titolo.equals("")) ris.append("intitle:"+titolo+"&");
-        if(!autore.equals("")) ris.append("inauthor:"+autore+"&");
-        if(!isbn.equals("")) ris.append("isbn:"+isbn);
+        if(!isbn.equals("")) ris.append("isbn:"+isbn+"+");
+        if(!genere.equals("")) ris.append("subject:"+genere+"+");
+        if(!titolo.equals("")) ris.append("intitle:"+titolo+"+");
+        if(!autore.equals("")) ris.append("inauthor:"+autore+"+");
 
         return ris.toString();
     }

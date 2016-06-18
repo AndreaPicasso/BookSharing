@@ -49,6 +49,7 @@ public class DownloadImgs extends AsyncTask<Void, Void, String> {
     @Override
     protected String doInBackground(Void... params) {
         try {
+            Log.e("234", ""+url.length);
             for(int i=0; i<url.length; i++){
                 Bitmap myBitmap;
                 if(url[i]==null){
@@ -65,6 +66,7 @@ public class DownloadImgs extends AsyncTask<Void, Void, String> {
                     InputStream input = connection.getInputStream();
                     myBitmap = BitmapFactory.decodeStream(input);
                 }
+                Log.e("234", ""+listaLibri.get(i).getCopertinaLink());
                 images.add(myBitmap);
                 listaLibri.get(i).setCopertina(myBitmap);
                 sliderMap.put(i,listaLibri.get(i));

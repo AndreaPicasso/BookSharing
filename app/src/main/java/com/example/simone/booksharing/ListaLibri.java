@@ -36,40 +36,66 @@ public class ListaLibri  {
     }
 
     public void riempiSlider(){
-        String[] listaLink= new String[listaLibri.size()];
-        for(int i=0; i<listaLink.length; i++){
-            listaLink[i]=listaLibri.get(i).getCopertinaLink();
+        ArrayList<String> listaLink= new ArrayList<String>();
+        int i=0;
+        try {
+            while (i < listaLibri.size() /*&& i < 5*/) {
+                if (listaLibri.get(i).getISBN() != null) {
+                    listaLink.add(listaLibri.get(i).getCopertinaLink());
+                    i++;
+                } else
+                    listaLibri.remove(i);
+                Log.e("123", "ok0");
+            }
+        }catch (Exception e){
+            Log.e("123", ""+ e.getMessage());
+        }
+            // Volley executor delivery -> run() Log.e("123","ok0.5");
+        try {
+            String [] listaLinkArr = new String[listaLink.size()];
+            for(int j=0; j<listaLink.size();j++)
+                listaLinkArr[j]=listaLink.get(j);
+            DownloadImgs downloadImg = new DownloadImgs(listaLinkArr, context, slider, listaLibri, sliderMap);
+            downloadImg.execute();
+
+        }catch(Exception e){
+            Log.e("123", ""+ e.getMessage());
 
         }
-        DownloadImgs downloadImg= new DownloadImgs(listaLink,context,slider,listaLibri,sliderMap);
-
-        downloadImg.execute();
-
 
     }
+
     public void Riempi(final Map<String, String> googleSearchParam){
         GoogleBooksConnection con= new GoogleBooksConnection(new GoogleBooksConnectionHandler() {
             @Override
             public void onResponse(JSONObject risposta) {
 
                 try {
-                    JSONArray arr = risposta.getJSONArray("items");
-                    risposta = arr.getJSONObject(0).getJSONObject("volumeInfo");
-                    // /!\ NON E DETTO CHE CI SIANO TUTTE LE INFO SU GOOGLE
+                    if(risposta.getInt("totalItems")>0) {
 
-                    listaLibri.get(cont).setTitolo(risposta.getString("title"));
-                    if(risposta.has("imageLinks"))
-                        listaLibri.get(cont).setCopertinaLink(risposta.getJSONObject("imageLinks").getString("thumbnail"));
-                    if(risposta.has("pageCount"))
-                        listaLibri.get(cont).setNumPag(risposta.getInt("pageCount"));
-                    if(risposta.has("categories"))
-                        listaLibri.get(cont).setGenere(risposta.getJSONArray("categories").getString(0));
-                    if(risposta.has("description")){
-                        listaLibri.get(cont).setDescription(risposta.getString("description"));
+                        JSONArray arr = risposta.getJSONArray("items");
+                        risposta = arr.getJSONObject(0).getJSONObject("volumeInfo");
+                        // /!\ NON E DETTO CHE CI SIANO TUTTE LE INFO SU GOOGLE
 
+                        listaLibri.get(cont).setTitolo(risposta.getString("title"));
+                        if (risposta.has("imageLinks"))
+                            listaLibri.get(cont).setCopertinaLink(risposta.getJSONObject("imageLinks").getString("thumbnail"));
+                        if (risposta.has("pageCount"))
+                            listaLibri.get(cont).setNumPag(risposta.getInt("pageCount"));
+                        if (risposta.has("categories"))
+                            listaLibri.get(cont).setGenere(risposta.getJSONArray("categories").getString(0));
+                        if (risposta.has("description")) {
+                            listaLibri.get(cont).setDescription(risposta.getString("description"));
+                        }
+                        if (risposta.has("authors"))
+                            listaLibri.get(cont).setAutore(risposta.getJSONArray("authors").getString(0));
                     }
-                    if(risposta.has("authors"))
-                        listaLibri.get(cont).setAutore(risposta.getJSONArray("authors").getString(0));
+                    else {
+                        listaLibri.get(cont).setISBN(null);
+                    }
+                    //Log.e("123", cont+" "+listaLibri.get(cont).getISBN());
+
+
                 }
                 catch(Exception e){
                     Log.e("Eccezione lista libri",""+e.getMessage());
@@ -82,9 +108,6 @@ public class ListaLibri  {
                 else if(cont==max-1){
                     riempiSlider();
                 }
-
-
-
             }
 
             @Override

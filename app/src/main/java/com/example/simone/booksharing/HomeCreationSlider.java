@@ -38,7 +38,7 @@ public class HomeCreationSlider {
                     boolean disponibile=true;
                     int numBook = risposta.getInt("number");
                     JSONArray books = risposta.getJSONArray("items");
-                    if(numBook>5)   numBook =5;             /*Massimo caricane solo 5 */
+                    //if(numBook>5)   numBook =5;             /*Massimo caricane solo 5 */
                     ArrayList<ItemBook> toCreate = new ArrayList<>(numBook);
                     for(int i = 0; i<numBook; i++){
                         isbn = books.getJSONObject(i).getString("isbn");
