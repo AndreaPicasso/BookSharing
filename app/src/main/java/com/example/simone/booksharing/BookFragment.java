@@ -107,7 +107,7 @@ public class BookFragment extends android.app.Fragment  {
         final int state = pref.getInt("disponibileBookToShow",-1);
         if(state == 0){
             stato.setText("Stato: Non disponibile");
-            prenota.setText("Avvisami appena\r\ndisponibile");
+            prenota.setText("Avvisami\r\nappena\r\ndisponibile");
         }
         else if(state == 1){
             stato.setText("Stato: Disponibile");
@@ -135,7 +135,12 @@ public class BookFragment extends android.app.Fragment  {
                     else{
 
                         double rating = risposta.getDouble("rating");
-                        ratingBar.setProgress((int)(rating*2));
+                        if(rating==0){
+                            ratingBar.setVisibility(View.INVISIBLE);
+                        }
+                        else {
+                            ratingBar.setProgress((int) (rating * 2));
+                        }
 
                     }
 
@@ -176,7 +181,7 @@ public class BookFragment extends android.app.Fragment  {
                     luogo.setText("Luogo: "+risposta.getJSONArray("results").getJSONObject(0).getString("formatted_address"));
                 }
                 catch(Exception e){
-                    Log.e("Eccezione posizione",""+e.getMessage());
+                    Log.e("bookposition",""+e.getMessage());
                 }
 
             }
@@ -192,7 +197,9 @@ public class BookFragment extends android.app.Fragment  {
 
             @Override
             public String getURL() {
-                    return "https://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+","+lon;
+                Log.e("bookposition","https://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+","+lon);
+
+                return "https://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+","+lon;
 
             }
         });
@@ -208,22 +215,21 @@ public class BookFragment extends android.app.Fragment  {
                     @Override
                     public void onResponse(JSONObject risposta) {
                         try {
-                            Log.e("richiestaprestito", risposta.toString());
                             if (risposta.has("error")) {
                                 Toast.makeText(getActivity(), risposta.getString("error"), Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(getActivity(), risposta.getString("ok"), Toast.LENGTH_LONG).show();
-                                SharedPreferences pref = getActivity().getSharedPreferences("pref", Context.MODE_PRIVATE);
-                                SharedPreferences.Editor et = pref.edit();
-                                et.putInt("flagdetails", 1).commit();
-                                Intent i2 = new Intent(getActivity().getApplicationContext(), Details.class);
-                                i2.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                                startActivity(i2);
-
+                                if(state==1) {
+                                    SharedPreferences pref = getActivity().getSharedPreferences("pref", Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor et = pref.edit();
+                                    et.putInt("flagdetails", 1).commit();
+                                    Intent i2 = new Intent(getActivity().getApplicationContext(), Details.class);
+                                    i2.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                                    startActivity(i2);
+                                }
                             }
 
                         } catch (Exception e) {
-                            Log.e("richiestaprestito", e.getMessage());
                         }
                     }
 
@@ -235,11 +241,6 @@ public class BookFragment extends android.app.Fragment  {
                     @Override
                     public Map<String, String> getParams() {
                         Map<String, String> params = new HashMap<String, String>();
-                        Log.e("richiestaprestito", "user:"+email);
-                        Log.e("richiestaprestito", "propr:"+proprietario);
-                        Log.e("richiestaprestito", isbn);
-                        Log.e("richiestaprestito", titolo.getText().toString());
-
                         params.put("email", email);
                         params.put("proprietario", proprietario);
                         params.put("isbn", isbn);
@@ -257,7 +258,7 @@ public class BookFragment extends android.app.Fragment  {
                             url =UnigeServerConnection.URL + UnigeServerConnection.RICHIESTA_PRESTITO;
                         }
                         else if(state==0) {
-                            url = UnigeServerConnection.URL;
+                            url = UnigeServerConnection.URL+UnigeServerConnection.RICHIESTA_PRENOTAZIONE;
                         }
                         return url;
                     }
