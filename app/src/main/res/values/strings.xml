@@ -15,6 +15,7 @@
     <string name="genere">Genere</string>
     <string name="isbn">ISBN</string>
     <string name="raggio">Raggio</string>
+    <string name="return_button">Indietro</string>
     <string name="solo_disponibili">Solo disponibili</string>
     <string name="ricerca">Esegui la tua ricerca..</string>
 

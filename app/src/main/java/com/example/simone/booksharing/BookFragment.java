@@ -7,12 +7,14 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.OrientationEventListener;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +34,8 @@ public class BookFragment extends android.app.Fragment  {
     public RatingBar rating;
     public ImageView copertina;
     public TextView description;
+    public ScrollView parent;
+    public ScrollView child;
 
 
     public void onCreate(Bundle savedInstanceState) {
@@ -58,6 +62,31 @@ public class BookFragment extends android.app.Fragment  {
         copertina=(ImageView) view.findViewById(R.id.imageView);
         stato = (TextView) view.findViewById(R.id.stato_tw);
         luogo = (TextView) view.findViewById(R.id.luogo_tw);
+        child=(ScrollView) view.findViewById(R.id.child_scroll_view);
+        parent=(ScrollView) view.findViewById(R.id.parent_scroll_view);
+        parent.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+
+                v.findViewById(R.id.child_scroll_view).getParent()
+                        .requestDisallowInterceptTouchEvent(false);
+                return false;
+            }
+        });
+
+        child.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+
+                // Disallow the touch request for parent scroll on touch of  child view
+                v.getParent().requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
 
         description.setText(pref.getString("description", ""));
         SharedPreferences.Editor et=pref.edit();

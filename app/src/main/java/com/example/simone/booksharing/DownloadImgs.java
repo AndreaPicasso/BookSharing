@@ -57,7 +57,9 @@ public class DownloadImgs extends AsyncTask<Void, Void, String> {
                     myBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.not_available);
                 }
                 else {
+                    Log.e("caricamentoesterno","inizio");
                     myBitmap = ImgsStorageManager.loadImageFromStorage(listaLibri.get(i).getISBN(),context);
+                    Log.e("caricamentoesterno","fine");
                     if (myBitmap == null) {
                         Log.e("imgasd","NON TROVATA");
                         //Se non la trovo in memoria la scarico
@@ -96,6 +98,7 @@ public class DownloadImgs extends AsyncTask<Void, Void, String> {
 
         MyAdapter m=new MyAdapter(this.context,R.layout.list_item_img_book,this.images);
         slider.setAdapter(m);
+        slider.setVisibility(View.VISIBLE);
 
         super.onPostExecute(s);
     }

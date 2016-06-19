@@ -11,7 +11,8 @@
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/scrollView2" >
+        android:id="@+id/scrollView2"
+        >
 
         <LinearLayout
             android:focusable="true"
@@ -36,6 +37,7 @@
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:textSize="30sp"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="@string/ricerca"
                 android:id="@+id/textView3" />
@@ -173,15 +175,34 @@
                 </TableRow>
 
             </TableLayout>
-
-            <Button
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/search"
-                android:id="@+id/cerca_button"
-                android:layout_gravity="center_horizontal" />
+                android:orientation="horizontal"
+                android:layout_marginLeft="50dp"
+                android:layout_gravity="center_horizontal">
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_marginRight="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/search"
+                    android:textSize="25sp"
+                    android:id="@+id/cerca_button"
+                    android:layout_gravity="center_horizontal" />
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="25sp"
+                    android:text="@string/return_button"
+                    android:id="@+id/return_button"
+                    android:visibility="invisible"
+                    android:clickable="false"
+                    android:layout_gravity="center_horizontal" />
+            </LinearLayout>
+
 
         </LinearLayout>
+
     </ScrollView>
 
 </FrameLayout>
