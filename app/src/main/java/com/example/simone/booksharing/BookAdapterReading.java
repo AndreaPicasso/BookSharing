@@ -39,7 +39,7 @@ public class BookAdapterReading extends ArrayAdapter<BookReadingForAdapter> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         View row = convertView;
         BookHolder holder = null;
 
@@ -85,7 +85,7 @@ public class BookAdapterReading extends ArrayAdapter<BookReadingForAdapter> {
         holder.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //da implementare
+                
             }
         });
 

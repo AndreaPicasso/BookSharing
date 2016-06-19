@@ -2,6 +2,7 @@ package com.example.simone.booksharing;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.ProgressBar;
 
 import com.android.volley.VolleyError;
 
@@ -20,10 +21,12 @@ public class HomeCreationSlider {
     private Context context;
     private  TwoWayView slider;
     private HashMap<Integer, ItemBook> sliderMap;
-    HomeCreationSlider( Context context,  TwoWayView slider, HashMap<Integer, ItemBook> sliderMap){
+    private ProgressBar progressBar;
+    HomeCreationSlider( Context context,  TwoWayView slider, HashMap<Integer, ItemBook> sliderMap, ProgressBar progressBar){
         this.slider=slider;
         this.context=context;
         this.sliderMap = sliderMap;
+        this.progressBar=progressBar;
 
     }
 
@@ -54,7 +57,7 @@ public class HomeCreationSlider {
                         }
                         toCreate.add(new ItemBook(isbn,lat,lon,proprietario,disponibile));
                     }
-                    ListaLibri list= new ListaLibri(toCreate,context,slider,sliderMap);
+                    ListaLibri list= new ListaLibri(toCreate,context,slider,sliderMap,progressBar);
                     list.Riempi(googleSearchParam);
 
 

@@ -2,6 +2,7 @@ package com.example.simone.booksharing;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
@@ -25,8 +26,10 @@ public class ListaLibri  {
     private Context context;
     private TwoWayView slider;
     public HashMap<Integer, ItemBook> sliderMap;
+    private ProgressBar progressBar;
 
-    ListaLibri(ArrayList<ItemBook> l, Context context, TwoWayView s,HashMap<Integer, ItemBook> sliderMap){
+    ListaLibri(ArrayList<ItemBook> l, Context context, TwoWayView s,HashMap<Integer, ItemBook> sliderMap, ProgressBar progressBar){
+        this.progressBar=progressBar;
         this.listaLibri=l;
         this.cont=0;
         this.slider=s;
@@ -55,7 +58,7 @@ public class ListaLibri  {
             String [] listaLinkArr = new String[listaLink.size()];
             for(int j=0; j<listaLink.size();j++)
                 listaLinkArr[j]=listaLink.get(j);
-            DownloadImgs downloadImg = new DownloadImgs(listaLinkArr, context, slider, listaLibri, sliderMap);
+            DownloadImgs downloadImg = new DownloadImgs(listaLinkArr, context, slider, listaLibri, sliderMap,progressBar);
             downloadImg.execute();
 
         }catch(Exception e){

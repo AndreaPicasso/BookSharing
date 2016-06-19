@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import org.lucasr.twowayview.TwoWayView;
 
@@ -33,11 +34,13 @@ public class DownloadImgs extends AsyncTask<Void, Void, String> {
     private Context context;
     private  ArrayList<ItemBook> listaLibri;
     private HashMap<Integer, ItemBook> sliderMap;
+    private  ProgressBar progressBar;
 
 
     private TwoWayView slider;
-    public DownloadImgs(String url[], Context context, TwoWayView slider, ArrayList<ItemBook> listaLibri, HashMap<Integer, ItemBook> sliderMap){
+    public DownloadImgs(String url[], Context context, TwoWayView slider, ArrayList<ItemBook> listaLibri, HashMap<Integer, ItemBook> sliderMap,ProgressBar progressBar){
         this.url=url;
+        this.progressBar=progressBar;
         this.slider=slider;
         this.context=context;
         this.images= new ArrayList<>();
@@ -98,6 +101,7 @@ public class DownloadImgs extends AsyncTask<Void, Void, String> {
 
         MyAdapter m=new MyAdapter(this.context,R.layout.list_item_img_book,this.images);
         slider.setAdapter(m);
+        progressBar.setVisibility(View.INVISIBLE);
         slider.setVisibility(View.VISIBLE);
 
 

@@ -101,7 +101,7 @@ public class HomeFragment extends android.app.Fragment implements View.OnClickLi
             public void onClick(View v) {
                 slider.setVisibility(View.INVISIBLE);
                 progressBar.setVisibility(View.VISIBLE);
-                HomeCreationSlider homeCreationSlider= new HomeCreationSlider(v.getContext(),slider,sliderMap);
+                HomeCreationSlider homeCreationSlider= new HomeCreationSlider(v.getContext(),slider,sliderMap,progressBar);
                 homeCreationSlider.start(null, null);
                 indietro.setVisibility(View.INVISIBLE);
                 indietro.setClickable(false);
@@ -115,7 +115,7 @@ public class HomeFragment extends android.app.Fragment implements View.OnClickLi
 
             }
         });
-        HomeCreationSlider homeCreationSlider= new HomeCreationSlider(this.getActivity(),slider,sliderMap);
+        HomeCreationSlider homeCreationSlider= new HomeCreationSlider(this.getActivity(),slider,sliderMap,progressBar);
         homeCreationSlider.start(null, null);
         slider.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -196,7 +196,7 @@ public class HomeFragment extends android.app.Fragment implements View.OnClickLi
         if(googleOk || unigeOk) {
             slider.setVisibility(View.INVISIBLE);
             progressBar.setVisibility(View.VISIBLE);
-            HomeCreationSlider homeCreationSlider = new HomeCreationSlider(this.getActivity(), slider, sliderMap);
+            HomeCreationSlider homeCreationSlider = new HomeCreationSlider(this.getActivity(), slider, sliderMap,progressBar);
             homeCreationSlider.start(unigeParams, googleParams);
             indietro.setVisibility(View.VISIBLE);
             indietro.setClickable(true);

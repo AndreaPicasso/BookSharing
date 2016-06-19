@@ -75,7 +75,7 @@ class BookAdapterShared extends ArrayAdapter<BookSharedForAdapter> {
         holder.isbn.setText(list.get(position).ISBN);
         holder.dataPrestito.setText(list.get(position).dataPrestito);
         holder.richiedente.setText(list.get(position).richiedente);
-        switch (list.get(position).stato){
+        switch (list.get(position).stato) {
             case nonconfermato:
                 holder.button.setText("Conferma prestito");
                 holder.button1.setVisibility(View.VISIBLE);
@@ -91,8 +91,9 @@ class BookAdapterShared extends ArrayAdapter<BookSharedForAdapter> {
                 holder.button1.setVisibility(View.INVISIBLE);
                 break;
             default:
-                Log.e("riempiprestati","problemabottonestato");
+                Log.e("riempiprestati", "problemabottonestato");
         }
+
 
 
         return row;
