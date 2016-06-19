@@ -218,22 +218,26 @@ public class AccountFragment extends android.app.Fragment {
                     @Override
                     public void onResponse(JSONObject risposta) {
                         try {
-                            JSONArray arr = risposta.getJSONArray("items");
-                            risposta = arr.getJSONObject(0).getJSONObject("volumeInfo");
-                            SharedPreferences pref= getActivity().getSharedPreferences("home", Context.MODE_PRIVATE);
-                            SharedPreferences.Editor et=pref.edit();
+                            if(risposta.getInt("totalItems")>0) {
+                                JSONArray arr = risposta.getJSONArray("items");
+                                risposta = arr.getJSONObject(0).getJSONObject("volumeInfo");
+                                SharedPreferences pref = getActivity().getSharedPreferences("home", Context.MODE_PRIVATE);
+                                SharedPreferences.Editor et = pref.edit();
 
-                            et.putString("ISBN",ISBN.getText().toString()).commit();
-                           et.putString("titoloBookToShow",risposta.getString("title")).commit();
+                                et.putString("ISBN", ISBN.getText().toString()).commit();
+                                et.putString("titoloBookToShow", risposta.getString("title")).commit();
 
 
-                            if(risposta.has("imageLinks"))
-                                et.putString("copertinaBookToShow",risposta.getJSONObject("imageLinks").getString("thumbnail")).commit();
-                            if(risposta.has("categories"))
-                                et.putString("genereBookToShow", risposta.getJSONArray("categories").getString(0)).commit();
-                            if(risposta.has("authors"))
-                                et.putString("autoreBookToShow", risposta.getJSONArray("authors").getString(0)).commit();
-                            getFragmentManager().beginTransaction().replace(R.id.details_fragment, new InsertBookFragment()).addToBackStack(null).commit();
+                                if (risposta.has("imageLinks"))
+                                    et.putString("copertinaBookToShow", risposta.getJSONObject("imageLinks").getString("thumbnail")).commit();
+                                if (risposta.has("categories"))
+                                    et.putString("genereBookToShow", risposta.getJSONArray("categories").getString(0)).commit();
+                                if (risposta.has("authors"))
+                                    et.putString("autoreBookToShow", risposta.getJSONArray("authors").getString(0)).commit();
+                                getFragmentManager().beginTransaction().replace(R.id.details_fragment, new InsertBookFragment()).addToBackStack(null).commit();
+                            }
+                            else
+                                Toast.makeText(ISBN.getContext(), "Nessun libro trovato", Toast.LENGTH_LONG).show();
 
                         }
                         catch(Exception e){

@@ -69,16 +69,13 @@ public class InsertBookFragment extends android.app.Fragment {
         View.OnClickListener ins= new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("insertBook","onClick");
                 UnigeServerConnection connection= new UnigeServerConnection(new UnigeServerConnectionHandler() {
                     @Override
                     public void onResponse(JSONObject risposta) {
-                        Log.e("insertBook","Risposta");
                         try {
                             if(risposta.has("ok")){
                                 Toast.makeText(autore.getContext(), "Il libro è stato inserito!", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(titolo.getContext(), Home.class));
-
 
                             }
                             else{
@@ -109,7 +106,6 @@ public class InsertBookFragment extends android.app.Fragment {
 
                         params.put("pswAccesso", UnigeServerConnection.PSW_ACCESSO);
                         params.put("proprietario",login.getString("email", ""));
-                        Log.e("insertBook","ok");
                         params.put("lat", geolocation.lat.toString());
                         params.put("lon", geolocation.lng.toString());
 
@@ -119,7 +115,6 @@ public class InsertBookFragment extends android.app.Fragment {
 
                     @Override
                     public String getURL() {
-
                         return UnigeServerConnection.URL + UnigeServerConnection.INSERISCI_LIBRO;
                     }
                 });
