@@ -98,7 +98,7 @@ public class BookFragment extends android.app.Fragment  {
         int state = pref.getInt("disponibileBookToShow",-1);
         if(state == 0){
             stato.setText("Stato: Non disponibile");
-            prenota.setText("Avvisami appena disponibile");
+            prenota.setText("Avvisami appena\r\ndisponibile");
         }
         else if(state == 1){
             stato.setText("Stato: Disponibile");

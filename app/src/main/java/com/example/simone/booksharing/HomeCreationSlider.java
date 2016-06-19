@@ -46,11 +46,12 @@ public class HomeCreationSlider {
                         lat = books.getJSONObject(i).getDouble("lat");
                         lon = books.getJSONObject(i).getDouble("lon");
                         disp= books.getJSONObject(i).getString("disponibile");
-                        if(disp.equals("no"))
-                            disponibile=false;
-                        else
-                            disponibile=true;
-
+                        if(disp.equals("no")) {
+                            disponibile = false;
+                        }
+                        else {
+                            disponibile = true;
+                        }
                         toCreate.add(new ItemBook(isbn,lat,lon,proprietario,disponibile));
                     }
                     ListaLibri list= new ListaLibri(toCreate,context,slider,sliderMap);
