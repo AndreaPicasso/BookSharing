@@ -101,7 +101,6 @@ public class HomeFragment extends android.app.Fragment implements View.OnClickLi
                 SharedPreferences.Editor editor = pref.edit();
                 if(choose.getDescription()!=null){
                     editor.putString("description",choose.getDescription().toString()).commit();
-                    Log.e("dfgdf","description!=null");
                 }
 
                 editor.putString("titoloBookToShow", choose.getTitolo().toString());
