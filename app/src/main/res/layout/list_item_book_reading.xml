@@ -8,18 +8,26 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
-        android:id="@+id/titolo_libro_inlettura" />
+        android:id="@+id/isbn_libro_inlettura" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/data_libro_inlettura" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/proprietario_libro_inlettura" />
 
     <RatingBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
         style="?android:attr/ratingBarStyleSmall"
-
         android:numStars="5"
-
-
-
         android:id="@+id/ratingBar" />
 
     <Button
@@ -27,4 +35,5 @@
         android:layout_height="wrap_content"
         android:text="Restituisci"
         android:id="@+id/restituisci_button" />
+
 </LinearLayout>

@@ -2,10 +2,12 @@ package com.example.simone.booksharing;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -47,8 +49,11 @@ class BookAdapterShared extends ArrayAdapter<BookSharedForAdapter> {
             row = inflater.inflate(layoutResourceId, parent, false);
 
             holder = new BookHolder();
-            holder.titolo = (TextView) row.findViewById(R.id.titolo_prestato_tw);
+            holder.isbn = (TextView) row.findViewById(R.id.isbn_prestato_tw);
             holder.dataPrestito = (TextView) row.findViewById(R.id.data_prestito_tw);
+            holder.richiedente= (TextView) row.findViewById(R.id.richiedente_prestito_tw);
+            holder.button=(Button) row.findViewById(R.id.prestito_button);
+            holder.button1=(Button) row.findViewById(R.id.prestito_button2);
 
             /*
             holder.imgIcon.setOnClickListener(new View.OnClickListener() {
@@ -67,17 +72,39 @@ class BookAdapterShared extends ArrayAdapter<BookSharedForAdapter> {
 
 
         //holder.txtTitle.setText(weather.title);
-        holder.titolo.setText(list.get(position).titolo);
+        holder.isbn.setText(list.get(position).ISBN);
         holder.dataPrestito.setText(list.get(position).dataPrestito);
+        holder.richiedente.setText(list.get(position).richiedente);
+        switch (list.get(position).stato){
+            case nonconfermato:
+                holder.button.setText("Conferma prestito");
+                holder.button1.setVisibility(View.VISIBLE);
+                holder.button.setVisibility(View.VISIBLE);
+                break;
+            case incorso:
+                holder.button.setVisibility(View.INVISIBLE);
+                holder.button1.setVisibility(View.INVISIBLE);
+                break;
+            case inrestituzione:
+                holder.button.setVisibility(View.VISIBLE);
+                holder.button.setText("Conferma restituzione");
+                holder.button1.setVisibility(View.INVISIBLE);
+                break;
+            default:
+                Log.e("riempiprestati","problemabottonestato");
+        }
 
 
         return row;
     }
 
     class BookHolder {
-        TextView titolo;
+        TextView isbn;
         TextView dataPrestito;
-        //TextView txtTitle;
+        TextView richiedente;
+        TextView dataprestito;
+        Button button;
+        Button button1;
     }
 }
 
