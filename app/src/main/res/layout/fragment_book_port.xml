@@ -76,13 +76,11 @@
 
         <RatingBar
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:clickable="true"
+            android:layout_height="wrap_content"
+            android:clickable="false"
             android:focusable="true"
-
-            android:focusableInTouchMode="true"
             android:id="@+id/rating_bar"
-            style="?android:attr/ratingBarStyleSmall"
+            style="?android:attr/ratingBarStyleIndicator"
 
             android:numStars="5"
             android:padding="3dp" />
@@ -120,8 +118,9 @@
         android:layout_alignBottom="@+id/imageView"
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="142dp"
-        android:background="@drawable/button_rounded"/>
-    </RelativeLayout>
-</ScrollView>
+        android:background="@drawable/button_rounded"
+        android:layout_marginLeft="10dp" />
 
     </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

@@ -79,14 +79,14 @@
 
         <RatingBar
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
+            android:clickable="false"
             android:focusable="true"
-            android:focusableInTouchMode="true"
-
-            style="?android:attr/ratingBarStyleSmall"
             android:id="@+id/rating_bar"
+            style="?android:attr/ratingBarStyleIndicator"
+
             android:numStars="5"
-            android:padding="3dp" />
+            android:padding="3dp" /> />
 
     </LinearLayout>
 
