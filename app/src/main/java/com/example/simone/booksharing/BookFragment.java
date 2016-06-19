@@ -2,6 +2,7 @@ package com.example.simone.booksharing;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -47,6 +48,9 @@ public class BookFragment extends android.app.Fragment  {
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         SharedPreferences pref= getActivity().getSharedPreferences("home", Context.MODE_PRIVATE);
+        SharedPreferences loginPref= getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
+
+
         View view=null;
 
         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
@@ -97,8 +101,10 @@ public class BookFragment extends android.app.Fragment  {
         autore.setText("Autore: "+pref.getString("autoreBookToShow",""));
         genere.setText("Genere: "+pref.getString("genereBookToShow", ""));
         String url=pref.getString("copertinaBookToShow", "");
+        final String isbn = pref.getString("isbnBookToShow","");
         final String proprietario = pref.getString("proprietarioBookToShow", "");
-        int state = pref.getInt("disponibileBookToShow",-1);
+        final String email = loginPref.getString("email","");
+        final int state = pref.getInt("disponibileBookToShow",-1);
         if(state == 0){
             stato.setText("Stato: Non disponibile");
             prenota.setText("Avvisami appena\r\ndisponibile");
@@ -147,8 +153,7 @@ public class BookFragment extends android.app.Fragment  {
             @Override
             public Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("proprietario",proprietario);
-                Log.e("bookrating",proprietario);
+                params.put("proprietario", proprietario);
                 params.put("pswAccesso", UnigeServerConnection.PSW_ACCESSO);
                 return params;
             }
@@ -192,6 +197,75 @@ public class BookFragment extends android.app.Fragment  {
             }
         });
         con.sendRequest(this.getActivity());
+
+
+
+        //---------RICHIESTA PRESTITO/PRENOTAZIONE
+        prenota.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UnigeServerConnection unigeServerConnection2 = new UnigeServerConnection(new UnigeServerConnectionHandler() {
+                    @Override
+                    public void onResponse(JSONObject risposta) {
+                        try {
+                            Log.e("richiestaprestito", risposta.toString());
+                            if (risposta.has("error")) {
+                                Toast.makeText(getActivity(), risposta.getString("error"), Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getActivity(), risposta.getString("ok"), Toast.LENGTH_LONG).show();
+                                SharedPreferences pref = getActivity().getSharedPreferences("pref", Context.MODE_PRIVATE);
+                                SharedPreferences.Editor et = pref.edit();
+                                et.putInt("flagdetails", 1).commit();
+                                Intent i2 = new Intent(getActivity().getApplicationContext(), Details.class);
+                                i2.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                                startActivity(i2);
+
+                            }
+
+                        } catch (Exception e) {
+                            Log.e("richiestaprestito", e.getMessage());
+                        }
+                    }
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("richiestaprestito", error.getMessage());
+                    }
+
+                    @Override
+                    public Map<String, String> getParams() {
+                        Map<String, String> params = new HashMap<String, String>();
+                        Log.e("richiestaprestito", "user:"+email);
+                        Log.e("richiestaprestito", "propr:"+proprietario);
+                        Log.e("richiestaprestito", isbn);
+                        Log.e("richiestaprestito", titolo.getText().toString());
+
+                        params.put("email", email);
+                        params.put("proprietario", proprietario);
+                        params.put("isbn", isbn);
+                        params.put("titolo", titolo.getText().toString());
+
+
+                        params.put("pswAccesso", UnigeServerConnection.PSW_ACCESSO);
+                        return params;
+                    }
+
+                    @Override
+                    public String getURL() {
+                        String url ="";
+                        if(state==1){
+                            url =UnigeServerConnection.URL + UnigeServerConnection.RICHIESTA_PRESTITO;
+                        }
+                        else if(state==0) {
+                            url = UnigeServerConnection.URL;
+                        }
+                        return url;
+                    }
+                });
+                unigeServerConnection2.sendRequest(getActivity());
+            }
+        });
+
 
 
 
