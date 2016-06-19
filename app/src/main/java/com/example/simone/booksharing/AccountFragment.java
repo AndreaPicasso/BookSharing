@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
@@ -33,6 +34,8 @@ public class AccountFragment extends android.app.Fragment {
     public EditText password;
     public EditText ISBN;
     public Boolean flag;
+    public ListView libri_inlettura;
+    public ListView libri_prestati;
     SharedPreferences pref;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -75,6 +78,10 @@ public class AccountFragment extends android.app.Fragment {
         sesso=(EditText) view.findViewById(R.id.sesso_et);
         genere=(EditText) view.findViewById(R.id.genere_pref_et);
         password=(EditText) view.findViewById(R.id.login_password_et);
+        libri_inlettura=(ListView) view.findViewById(R.id.lettura_list);
+        libri_prestati=(ListView) view.findViewById(R.id.prestito_list);
+        AccountFunction.RiempiLibriInLettura(view.getContext(),libri_inlettura);
+        AccountFunction.RiempiLibriPrestati(view.getContext(),libri_prestati);
 
         UnigeServerConnection con = new UnigeServerConnection(new UnigeServerConnectionHandler() {
             @Override

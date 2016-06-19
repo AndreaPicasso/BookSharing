@@ -49,9 +49,11 @@ public class BookAdapterReading extends ArrayAdapter<BookReadingForAdapter> {
             row = inflater.inflate(layoutResourceId, parent, false);
 
             holder = new BookHolder();
-            holder.titolo = (TextView) row.findViewById(R.id.titolo_libro_inlettura);
+            holder.isbn = (TextView) row.findViewById(R.id.isbn_libro_inlettura);
             holder.rating = (RatingBar) row.findViewById(R.id.ratingBar);
-            holder.restituisci=(Button) row.findViewById(R.id.restituisci_button);
+            holder.button=(Button) row.findViewById(R.id.restituisci_button);
+            holder.dataprestito=(TextView) row.findViewById(R.id.data_libro_inlettura);
+            holder.proprietario=(TextView) row.findViewById(R.id.proprietario_libro_inlettura);
 
             /*
             holder.imgIcon.setOnClickListener(new View.OnClickListener() {
@@ -70,15 +72,17 @@ public class BookAdapterReading extends ArrayAdapter<BookReadingForAdapter> {
 
 
         //holder.txtTitle.setText(weather.title);
-        holder.titolo.setText(list.get(position).titolo);
-        holder.rating.setNumStars(list.get(position).rating);
+        holder.isbn.setText(list.get(position).isbn);
+        holder.dataprestito.setText(list.get(position).dataprestito);
+        holder.proprietario.setText(list.get(position).proprietario);
+
         holder.rating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
                 //da implementare la modifica sul server
             }
         });
-        holder.restituisci.setOnClickListener(new View.OnClickListener() {
+        holder.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //da implementare
@@ -90,9 +94,11 @@ public class BookAdapterReading extends ArrayAdapter<BookReadingForAdapter> {
     }
 
     class BookHolder {
-        TextView titolo;
+        TextView isbn;
         RatingBar rating;
-        Button restituisci;
+        Button button;
+        TextView proprietario;
+        TextView dataprestito;
         //TextView txtTitle;
     }
 }

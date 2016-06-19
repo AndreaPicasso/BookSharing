@@ -33,6 +33,8 @@ public class UnigeServerConnection {
     public static final String URL = "http://webdev.dibris.unige.it/~S3940125/ANDROID_ENGINE/";
 
     public static final String LOGIN = "query_login.php";
+    public static final String LIBRI_PRESTATI = "query_libri_prestati.php";
+    public static final String LIBRI_IN_LETTURA = "query_libri_in_lettura.php";
     public static final String REGISTRATION = "query_registration.php";
     public static final String PSW_DIMENTICATA = "query_psw_dimenticata.php";
     public static final String RICERCA = "query_ricerca.php";
