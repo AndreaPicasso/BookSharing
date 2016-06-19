@@ -128,6 +128,14 @@ public class ItemBook {
         return disponibile;
     }
 
+    public void setProprietarioRating(double rating) {
+        this.proprietarioRating = rating;
+    }
+
+    public double getProprietarioRating() {
+        return proprietarioRating;
+    }
+
     public void setDisponibile(boolean disp) {
         this.disponibile = disp;
     }
@@ -141,6 +149,7 @@ public class ItemBook {
     private String copertinaLink;
     private int numPag;
     private boolean disponibile;
+    private double proprietarioRating;
 
     private String proprietario;
     private double lat,lon;

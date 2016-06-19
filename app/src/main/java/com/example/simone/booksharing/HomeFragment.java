@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.OrientationEventListener;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -39,6 +40,7 @@ public class HomeFragment extends android.app.Fragment implements View.OnClickLi
     public Button cerca;
     SharedPreferences pref1;
     public TwoWayView slider;
+    public Button indietro;
 
     private EditText titolo, autore,genere,isbn;
     private CheckBox disponibile;
@@ -61,6 +63,7 @@ public class HomeFragment extends android.app.Fragment implements View.OnClickLi
         SharedPreferences.Editor et= pref1.edit();
         et.putInt("n",0);
         View view=inflater.inflate(R.layout.fragment_home,container,false);
+        indietro=(Button) view.findViewById(R.id.return_button);
         cerca=(Button) view.findViewById(R.id.cerca_button);
         slider=(TwoWayView) view.findViewById(R.id.slider_lw);
         genere = (EditText) view.findViewById(R.id.genere_et);
@@ -90,7 +93,24 @@ public class HomeFragment extends android.app.Fragment implements View.OnClickLi
         });
 
         cerca.setOnClickListener(this);
+        indietro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                slider.setVisibility(View.INVISIBLE);
+                HomeCreationSlider homeCreationSlider= new HomeCreationSlider(v.getContext(),slider,sliderMap);
+                homeCreationSlider.start(null, null);
+                indietro.setVisibility(View.INVISIBLE);
+                indietro.setClickable(false);
+                genere.setText("");
+                isbn.setText("");
+                titolo.setText("");
+                autore.setText("");
+                disponibile.setChecked(true);
+                raggio.setProgress(0);
+                raggioDisp.setText("");
 
+            }
+        });
         HomeCreationSlider homeCreationSlider= new HomeCreationSlider(this.getActivity(),slider,sliderMap);
         homeCreationSlider.start(null, null);
         slider.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -128,7 +148,8 @@ public class HomeFragment extends android.app.Fragment implements View.OnClickLi
     @Override
     public void onClick(View v) {
         //getFragmentManager().beginTransaction().replace(R.id.home_fragment, new BookFragment()).addToBackStack(null).commit();
-
+        InputMethodManager mgr = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        mgr.hideSoftInputFromWindow(v.getWindowToken(), 0);
         Map<String,String> unigeParams = new HashMap<String, String>();
         boolean googleOk=false, unigeOk=false;
         if(!isbn.getText().toString().equals("")){
@@ -169,9 +190,13 @@ public class HomeFragment extends android.app.Fragment implements View.OnClickLi
 
         if(!googleOk) googleParams=null;
         if(googleOk || unigeOk) {
-            //slider.removeAllViews();
+            slider.setVisibility(View.INVISIBLE);
             HomeCreationSlider homeCreationSlider = new HomeCreationSlider(this.getActivity(), slider, sliderMap);
             homeCreationSlider.start(unigeParams, googleParams);
+            indietro.setVisibility(View.VISIBLE);
+            indietro.setClickable(true);
+
+
         }
 
 

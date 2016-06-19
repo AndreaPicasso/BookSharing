@@ -60,6 +60,7 @@ public class HomeCreationSlider {
 
 
 
+
                 }catch(Exception e){
                     Log.e("Eccezione webdev",e.getMessage());
                 }

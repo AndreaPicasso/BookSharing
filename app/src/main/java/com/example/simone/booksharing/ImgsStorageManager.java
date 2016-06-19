@@ -23,15 +23,20 @@ public class ImgsStorageManager {
 
     public static Bitmap loadImageFromStorage(String nameImg, Context context)
     {
+        Log.e("caricamento","inizio");
         Bitmap b = null;
         try {
             ContextWrapper cw = new ContextWrapper(context);
+            Log.e("caricamento","1");
             File directory = cw.getDir("imageDir", Context.MODE_APPEND);
+            Log.e("caricamento","2");
             if(!directory.exists()){
                 directory.mkdir();
             }
             File f=new File(directory, nameImg);
+            Log.e("caricamento","3");
             b = BitmapFactory.decodeStream(new FileInputStream(f));
+            Log.e("caricamento","4");
             Log.e("imgasd", "cerco nella dir: "+directory.getAbsolutePath());
 
         }

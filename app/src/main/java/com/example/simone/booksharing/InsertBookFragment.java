@@ -106,8 +106,12 @@ public class InsertBookFragment extends android.app.Fragment {
 
                         params.put("pswAccesso", UnigeServerConnection.PSW_ACCESSO);
                         params.put("proprietario",login.getString("email", ""));
+
                         params.put("lat", geolocation.lat.toString());
                         params.put("lon", geolocation.lng.toString());
+                        Log.e("insertBook", ""+geolocation.lat.toString()+"lon"+geolocation.lng.toString());
+
+
 
                         return params;
 
