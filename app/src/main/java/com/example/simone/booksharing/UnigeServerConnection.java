@@ -43,6 +43,8 @@ public class UnigeServerConnection {
     public static final String MODIFICA_DATI = "query_modifica_dati.php";
     public static final String GET_VALUTAZIONE_UTENTE = "query_get_valutazione_utente.php";
     public static final String RICHIESTA_PRESTITO = "query_richiesta_prestito.php";
+    public static final String RICHIESTA_PRENOTAZIONE = "query_richiesta_prenotazione.php";
+
 
 
 
