@@ -21,14 +21,7 @@ public class Index extends Activity {
 
         super.onCreate(savedInstanceState);
         SharedPreferences login= getSharedPreferences("login",MODE_PRIVATE);
-        SharedPreferences pref =getSharedPreferences("index",MODE_PRIVATE);
-        /*
-        Log.e("login", "oncreate");
-        if(!login.contains("email") || login.getString("email","").equals("")) {
-            Log.e("login", "emailpresente");
-            startActivity(new Intent(this, Home.class));
-        }
-        */
+        SharedPreferences pref =getSharedPreferences("index", MODE_PRIVATE);
 
         SharedPreferences.Editor etlogin=login.edit();
         SharedPreferences.Editor et= pref.edit();
@@ -71,11 +64,22 @@ public class Index extends Activity {
     protected void onResume() {
         super.onResume();
 
+        SharedPreferences login=getSharedPreferences("login",Context.MODE_PRIVATE);
+        Log.e("login", "onResume:" + login.getString("email", ""));
+        if(!login.getString("email","").equals("")) {
+            Log.e("login", "emailpresente");
+            startActivity(new Intent(this, Home.class));
+        }
+        else{
+            Log.e("login", "emailNONpresente");
+        }
+
+
         SharedPreferences indexPref =getSharedPreferences("index", MODE_PRIVATE);
         SharedPreferences.Editor et= indexPref.edit();
         int flag=indexPref.getInt("flag",0);
 
-        Log.e("login", "onResume: "+flag);
+        Log.e("index", "onResume: "+flag);
         switch (flag){
             case 0:
                 if (findViewById(R.id.index_fragment) != null) {

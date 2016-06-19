@@ -31,6 +31,21 @@ public class LoginFragment extends android.app.Fragment implements View.OnClickL
     private EditText email, password;
     private TextView pswDim;
 
+    public void onResume(){
+        super.onResume();
+        /*
+        SharedPreferences login= getActivity().getSharedPreferences("login",Context.MODE_PRIVATE);
+        Log.e("login", "onResume:"+login.getString("email",""));
+        if(!login.getString("email","").equals("")) {
+            Log.e("login", "emailpresente");
+            startActivity(new Intent(getActivity(), Home.class));
+        }
+        else{
+            Log.e("login", "emailNONpresente");
+        }
+        */
+    }
+
     public void onCreate(Bundle savedInstanceState) {
         CheckConnection.isOnline(this.getActivity().getApplicationContext());
         super.onCreate(savedInstanceState);
@@ -48,7 +63,6 @@ public class LoginFragment extends android.app.Fragment implements View.OnClickL
 
         accedi.setOnClickListener(this);
         pswDim.setOnClickListener(this);
-
        return view;
 
     }
