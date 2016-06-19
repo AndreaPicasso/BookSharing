@@ -100,6 +100,7 @@ public class DownloadImgs extends AsyncTask<Void, Void, String> {
         slider.setAdapter(m);
         slider.setVisibility(View.VISIBLE);
 
+
         super.onPostExecute(s);
     }
 }

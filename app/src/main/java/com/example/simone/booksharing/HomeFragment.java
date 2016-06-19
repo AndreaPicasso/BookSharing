@@ -22,6 +22,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -46,6 +47,7 @@ public class HomeFragment extends android.app.Fragment implements View.OnClickLi
     private CheckBox disponibile;
     private SeekBar raggio;
     private TextView raggioDisp;
+    public ProgressBar progressBar;
 
     private HashMap<Integer, ItemBook> sliderMap;
 
@@ -63,6 +65,7 @@ public class HomeFragment extends android.app.Fragment implements View.OnClickLi
         SharedPreferences.Editor et= pref1.edit();
         et.putInt("n",0);
         View view=inflater.inflate(R.layout.fragment_home,container,false);
+        progressBar=(ProgressBar) view.findViewById(R.id.progressBar);
         indietro=(Button) view.findViewById(R.id.return_button);
         cerca=(Button) view.findViewById(R.id.cerca_button);
         slider=(TwoWayView) view.findViewById(R.id.slider_lw);
@@ -97,6 +100,7 @@ public class HomeFragment extends android.app.Fragment implements View.OnClickLi
             @Override
             public void onClick(View v) {
                 slider.setVisibility(View.INVISIBLE);
+                progressBar.setVisibility(View.VISIBLE);
                 HomeCreationSlider homeCreationSlider= new HomeCreationSlider(v.getContext(),slider,sliderMap);
                 homeCreationSlider.start(null, null);
                 indietro.setVisibility(View.INVISIBLE);
@@ -191,6 +195,7 @@ public class HomeFragment extends android.app.Fragment implements View.OnClickLi
         if(!googleOk) googleParams=null;
         if(googleOk || unigeOk) {
             slider.setVisibility(View.INVISIBLE);
+            progressBar.setVisibility(View.VISIBLE);
             HomeCreationSlider homeCreationSlider = new HomeCreationSlider(this.getActivity(), slider, sliderMap);
             homeCreationSlider.start(unigeParams, googleParams);
             indietro.setVisibility(View.VISIBLE);
