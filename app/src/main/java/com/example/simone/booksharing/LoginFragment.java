@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,7 +81,7 @@ public class LoginFragment extends android.app.Fragment implements View.OnClickL
                             SharedPreferences login=getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
                             SharedPreferences.Editor et=login.edit();
                             et.putString("email",""+email.getText()).commit();
-                            et.putString("psw",""+password.getText()).commit();
+                            //et.putString("psw",""+password.getText()).commit();
 
 
                             startActivity(new Intent(email.getContext(), Home.class));

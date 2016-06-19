@@ -2,6 +2,8 @@ package com.example.simone.booksharing;
 
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -20,8 +22,15 @@ public class Index extends Activity {
         super.onCreate(savedInstanceState);
         SharedPreferences login= getSharedPreferences("login",MODE_PRIVATE);
         SharedPreferences pref =getSharedPreferences("index",MODE_PRIVATE);
+        /*
+        Log.e("login", "oncreate");
+        if(!login.contains("email") || login.getString("email","").equals("")) {
+            Log.e("login", "emailpresente");
+            startActivity(new Intent(this, Home.class));
+        }
+        */
+
         SharedPreferences.Editor etlogin=login.edit();
-        etlogin.putString("email","").commit();
         SharedPreferences.Editor et= pref.edit();
         et.putInt("flag",0).commit();
 
@@ -66,7 +75,7 @@ public class Index extends Activity {
         SharedPreferences.Editor et= indexPref.edit();
         int flag=indexPref.getInt("flag",0);
 
-        Log.e("ONRESUME", ""+flag);
+        Log.e("login", "onResume: "+flag);
         switch (flag){
             case 0:
                 if (findViewById(R.id.index_fragment) != null) {
@@ -101,7 +110,6 @@ public class Index extends Activity {
                     // Intent, pass the Intent's extras to the fragment as arguments
                     getFragmentManager().beginTransaction().add(R.id.index_fragment, loginFragment).commit();
                     // Add the fragment to the 'fragment_container' FrameLayout
-                    Log.e("login","sgfgdfgdf");
 
                 }
                 break;
