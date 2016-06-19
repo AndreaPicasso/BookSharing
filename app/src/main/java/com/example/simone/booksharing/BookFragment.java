@@ -96,8 +96,14 @@ public class BookFragment extends android.app.Fragment  {
         genere.setText("Genere: "+pref.getString("genereBookToShow", ""));
         String url=pref.getString("copertinaBookToShow", "");
         int state = pref.getInt("disponibileBookToShow",-1);
-        if(state == 0) stato.setText("Stato: Non disponibile");
-        else if(state == 1) stato.setText("Stato: Disponibile");
+        if(state == 0){
+            stato.setText("Stato: Non disponibile");
+            prenota.setText("Avvisami appena disponibile");
+        }
+        else if(state == 1){
+            stato.setText("Stato: Disponibile");
+            prenota.setText("Prenota");
+        }
         else if(state == -1) stato.setText("Stato: Err");
 
 

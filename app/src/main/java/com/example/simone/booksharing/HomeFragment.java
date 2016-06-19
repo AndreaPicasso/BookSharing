@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.OrientationEventListener;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -95,10 +96,18 @@ public class HomeFragment extends android.app.Fragment implements View.OnClickLi
         indietro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                slider.setVisibility(View.INVISIBLE);
                 HomeCreationSlider homeCreationSlider= new HomeCreationSlider(v.getContext(),slider,sliderMap);
                 homeCreationSlider.start(null, null);
                 indietro.setVisibility(View.INVISIBLE);
                 indietro.setClickable(false);
+                genere.setText("");
+                isbn.setText("");
+                titolo.setText("");
+                autore.setText("");
+                disponibile.setChecked(true);
+                raggio.setProgress(0);
+                raggioDisp.setText("");
 
             }
         });
@@ -112,7 +121,6 @@ public class HomeFragment extends android.app.Fragment implements View.OnClickLi
                 SharedPreferences.Editor editor = pref.edit();
                 if(choose.getDescription()!=null){
                     editor.putString("description",choose.getDescription().toString()).commit();
-                    Log.e("dfgdf","description!=null");
                 }
 
                 editor.putString("titoloBookToShow", choose.getTitolo().toString());
@@ -140,7 +148,8 @@ public class HomeFragment extends android.app.Fragment implements View.OnClickLi
     @Override
     public void onClick(View v) {
         //getFragmentManager().beginTransaction().replace(R.id.home_fragment, new BookFragment()).addToBackStack(null).commit();
-
+        InputMethodManager mgr = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        mgr.hideSoftInputFromWindow(v.getWindowToken(), 0);
         Map<String,String> unigeParams = new HashMap<String, String>();
         boolean googleOk=false, unigeOk=false;
         if(!isbn.getText().toString().equals("")){

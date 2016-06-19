@@ -30,6 +30,7 @@ interface GoogleBooksConnectionHandler{
 
 public class GoogleBooksConnection {
     public static final String URL = "https://www.googleapis.com/books/v1/volumes?q=";
+    public static final String APIKey ="AIzaSyBRCubp0RFQ_EgffojAOC8jf7fxjMPGXHg";
     public GoogleBooksConnectionHandler helper = null;
 
 
@@ -44,7 +45,7 @@ public class GoogleBooksConnection {
     public void sendRequest(Context context){
 
         RequestQueue queue = Volley.newRequestQueue(context);
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, helper.getURL(), new Response.Listener<String>(){
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, helper.getURL()+"&key="+APIKey, new Response.Listener<String>(){
 
             @Override
             public void onResponse(String response) {
