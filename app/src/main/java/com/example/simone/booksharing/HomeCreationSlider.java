@@ -2,7 +2,10 @@ package com.example.simone.booksharing;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 
@@ -30,7 +33,7 @@ public class HomeCreationSlider {
 
     }
 
-    public  void start(final Map<String, String> unigeSearchParam, final Map<String, String> googleSearchParam){
+    public  void start(final Map<String, String> unigeSearchParam, final Map<String, String> googleSearchParam,final Button indietro){
 
         UnigeServerConnection unigeCon = new UnigeServerConnection(new UnigeServerConnectionHandler() {
             @Override
@@ -40,22 +43,31 @@ public class HomeCreationSlider {
                     double lat,lon;
                     boolean disponibile=true;
                     int numBook = risposta.getInt("number");
-                    JSONArray books = risposta.getJSONArray("items");
-                    //if(numBook>5)   numBook =5;             /*Massimo caricane solo 5 */
+                    if(numBook==0){
+                        progressBar.setVisibility(View.INVISIBLE);
+                        slider.setVisibility(View.VISIBLE);
+                        Toast.makeText(context,"Nessun libro trovato",Toast.LENGTH_SHORT).show();
+                        indietro.setClickable(false);
+                        indietro.setVisibility(View.INVISIBLE);
+                        return;
+                    }
                     ArrayList<ItemBook> toCreate = new ArrayList<>(numBook);
-                    for(int i = 0; i<numBook; i++){
-                        isbn = books.getJSONObject(i).getString("isbn");
-                        proprietario = books.getJSONObject(i).getString("proprietario");
-                        lat = books.getJSONObject(i).getDouble("lat");
-                        lon = books.getJSONObject(i).getDouble("lon");
-                        disp= books.getJSONObject(i).getString("disponibile");
-                        if(disp.equals("no")) {
-                            disponibile = false;
+                    if(numBook!=0) {
+                        JSONArray books = risposta.getJSONArray("items");
+                        //if(numBook>5)   numBook =5;             /*Massimo caricane solo 5 */
+                        for (int i = 0; i < numBook; i++) {
+                            isbn = books.getJSONObject(i).getString("isbn");
+                            proprietario = books.getJSONObject(i).getString("proprietario");
+                            lat = books.getJSONObject(i).getDouble("lat");
+                            lon = books.getJSONObject(i).getDouble("lon");
+                            disp = books.getJSONObject(i).getString("disponibile");
+                            if (disp.equals("no")) {
+                                disponibile = false;
+                            } else {
+                                disponibile = true;
+                            }
+                            toCreate.add(new ItemBook(isbn, lat, lon, proprietario, disponibile));
                         }
-                        else {
-                            disponibile = true;
-                        }
-                        toCreate.add(new ItemBook(isbn,lat,lon,proprietario,disponibile));
                     }
                     ListaLibri list= new ListaLibri(toCreate,context,slider,sliderMap,progressBar);
                     list.Riempi(googleSearchParam);

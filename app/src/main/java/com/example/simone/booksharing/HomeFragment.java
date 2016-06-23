@@ -100,11 +100,12 @@ public class HomeFragment extends android.app.Fragment implements View.OnClickLi
             @Override
             public void onClick(View v) {
                 slider.setVisibility(View.INVISIBLE);
+                indietro.setClickable(false);
                 progressBar.setVisibility(View.VISIBLE);
                 HomeCreationSlider homeCreationSlider= new HomeCreationSlider(v.getContext(),slider,sliderMap,progressBar);
-                homeCreationSlider.start(null, null);
+                homeCreationSlider.start(null, null,indietro);
                 indietro.setVisibility(View.INVISIBLE);
-                indietro.setClickable(false);
+
                 genere.setText("");
                 isbn.setText("");
                 titolo.setText("");
@@ -116,7 +117,7 @@ public class HomeFragment extends android.app.Fragment implements View.OnClickLi
             }
         });
         HomeCreationSlider homeCreationSlider= new HomeCreationSlider(this.getActivity(),slider,sliderMap,progressBar);
-        homeCreationSlider.start(null, null);
+        homeCreationSlider.start(null, null,indietro);
         slider.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -167,19 +168,13 @@ public class HomeFragment extends android.app.Fragment implements View.OnClickLi
             unigeOk=true;
             Geolocation loc = new Geolocation();
             loc.getLocation(getActivity());
+            loc.boundingCoordinates(raggio.getProgress());
 
-            double myLat =loc.lat;
-            double myLon = loc.lng;
+            unigeParams.put("minLat",Double.toString(loc.minLat));
+            unigeParams.put("maxLat",Double.toString(loc.maxLat));
+            unigeParams.put("minLon",Double.toString(loc.minLon));
+            unigeParams.put("maxLon",Double.toString(loc.maxLon));
 
-            // /!\ NON CREDO SIA COSI SEMPLICE
-            double temp = myLat-raggio.getProgress()/2;
-            unigeParams.put("minLat",Double.toString(temp));
-            temp = myLat-raggio.getProgress()+2;
-            unigeParams.put("maxLat",Double.toString(temp));
-            temp = myLon-raggio.getProgress()-2;
-            unigeParams.put("minLon",Double.toString(temp));
-            temp = myLon-raggio.getProgress()-2;
-            unigeParams.put("maxLon",Double.toString(temp));
             }
         Map<String,String> googleParams = new HashMap<String, String>();
         if(!autore.getText().toString().equals("")){
@@ -200,16 +195,11 @@ public class HomeFragment extends android.app.Fragment implements View.OnClickLi
             slider.setVisibility(View.INVISIBLE);
             progressBar.setVisibility(View.VISIBLE);
             HomeCreationSlider homeCreationSlider = new HomeCreationSlider(this.getActivity(), slider, sliderMap,progressBar);
-            homeCreationSlider.start(unigeParams, googleParams);
+            homeCreationSlider.start(unigeParams, googleParams,indietro);
             indietro.setVisibility(View.VISIBLE);
             indietro.setClickable(true);
 
 
         }
-
-
-
-
-
     }
 }
