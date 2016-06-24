@@ -92,13 +92,13 @@ public class BookAdapterReading extends ArrayAdapter<BookReadingForAdapter> {
         holder.rating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, final float rating, boolean fromUser) {
-
                 UnigeServerConnection unigeServerConnection=new UnigeServerConnection(new UnigeServerConnectionHandler() {
                     @Override
                     public void onResponse(JSONObject risposta) {
                         try{
                             if (risposta.has("ok")) {
                                 Toast.makeText(getContext(), risposta.getString("ok"), Toast.LENGTH_SHORT).show();
+
                             }
                             else{
                                 Toast.makeText(getContext(),risposta.getString("error"), Toast.LENGTH_SHORT).show();

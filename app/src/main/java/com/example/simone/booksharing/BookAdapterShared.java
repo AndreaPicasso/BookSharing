@@ -47,11 +47,17 @@ class BookAdapterShared extends ArrayAdapter<BookSharedForAdapter> {
 
         return position;
     }
+    public void refresh(BookSharedForAdapter x){
+        this.remove(x);
+    }
+
 
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, final ViewGroup parent) {
         View row = convertView;
         BookHolder holder = null;
+
+        Log.e("punti","1");
 
 
         if (row == null) {
@@ -85,6 +91,7 @@ class BookAdapterShared extends ArrayAdapter<BookSharedForAdapter> {
         holder.isbn.setText(list.get(position).ISBN);
         holder.dataPrestito.setText(list.get(position).dataPrestito);
         holder.richiedente.setText(list.get(position).richiedente);
+
         switch (list.get(position).stato) {
             case nonconfermato:
                 holder.button.setText("Conferma prestito");
@@ -97,7 +104,9 @@ class BookAdapterShared extends ArrayAdapter<BookSharedForAdapter> {
                                 try {
                                     if (risposta.has("ok")) {
                                         Toast.makeText(getContext(), risposta.getString("ok"), Toast.LENGTH_SHORT).show();
-                                        AccountFunction.RiempiLibriPrestati(context, (ListView) v.findViewById(R.id.prestito_list));
+                                        refresh(list.get(position));
+
+
                                     } else {
                                         Toast.makeText(getContext(), risposta.getString("error"), Toast.LENGTH_SHORT).show();
                                     }
@@ -120,7 +129,9 @@ class BookAdapterShared extends ArrayAdapter<BookSharedForAdapter> {
                                 params.put("email", login.getString("email", ""));
                                 params.put("isbn", list.get(position).ISBN);
                                 params.put("richiedente", list.get(position).richiedente);
+                                Log.e("punti", "uno");
                                 return params;
+
                             }
 
                             @Override
@@ -144,8 +155,7 @@ class BookAdapterShared extends ArrayAdapter<BookSharedForAdapter> {
                                 try {
                                     if (risposta.has("ok")) {
                                         Toast.makeText(getContext(), risposta.getString("ok"), Toast.LENGTH_SHORT).show();
-                                        AccountFunction.RiempiLibriPrestati(context, (ListView) v.findViewById(R.id.prestito_list));
-
+                                        refresh(list.get(position));
                                     } else {
                                         Toast.makeText(getContext(), risposta.getString("error"), Toast.LENGTH_SHORT).show();
                                     }
@@ -182,6 +192,7 @@ class BookAdapterShared extends ArrayAdapter<BookSharedForAdapter> {
                 holder.button.setVisibility(View.VISIBLE);
                 break;
             case incorso:
+                Log.e("punti","uno2");
                 holder.button.setVisibility(View.INVISIBLE);
                 holder.button.setClickable(false);
                 holder.button1.setClickable(false);
@@ -200,8 +211,7 @@ class BookAdapterShared extends ArrayAdapter<BookSharedForAdapter> {
                                 try {
                                     if (risposta.has("ok")) {
                                         Toast.makeText(getContext(), risposta.getString("ok"), Toast.LENGTH_SHORT).show();
-                                        AccountFunction.RiempiLibriPrestati(context,(ListView) v.findViewById(R.id.prestito_list));
-
+                                        refresh(list.get(position));
                                     } else {
                                         Toast.makeText(getContext(), risposta.getString("error"), Toast.LENGTH_SHORT).show();
                                     }
@@ -223,8 +233,10 @@ class BookAdapterShared extends ArrayAdapter<BookSharedForAdapter> {
                                 params.put("pswAccesso", UnigeServerConnection.PSW_ACCESSO);
                                 params.put("email", login.getString("email", ""));
                                 params.put("isbn", list.get(position).ISBN);
+                                Log.e("punti", "unogf");
                                 params.put("richiedente", list.get(position).richiedente);
                                 return params;
+
                             }
 
                             @Override
