@@ -93,7 +93,7 @@ public class AccountFunction {
                         dataprestito= books.getJSONObject(i).getString("dataprestito");
 
                         list.add(new BookReadingForAdapter(isbn,proprietario,dataprestito));
-
+                        Log.e("provasi", "eccolo");
 
 
 
