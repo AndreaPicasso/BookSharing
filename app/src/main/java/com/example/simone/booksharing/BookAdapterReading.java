@@ -97,20 +97,22 @@ public class BookAdapterReading extends ArrayAdapter<BookReadingForAdapter> {
                     @Override
                     public void onResponse(JSONObject risposta) {
                         try{
-                            if (risposta.getString("risultato").equals("ok")){
-                                Toast.makeText(getContext(), "Valutazione effettuata.", Toast.LENGTH_SHORT).show();
-
+                            if (risposta.has("ok")) {
+                                Toast.makeText(getContext(), risposta.getString("ok"), Toast.LENGTH_SHORT).show();
+                            }
+                            else{
+                                Toast.makeText(getContext(),risposta.getString("error"), Toast.LENGTH_SHORT).show();
                             }
 
                         }
                         catch(Exception e){
-                            Log.e("e",e.getMessage().toString());
+                            Log.e("e",e.getMessage());
                         }
                     }
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.e("error",error.getMessage().toString());
+                        Log.e("error",error.getMessage());
                     }
 
                     @Override
@@ -140,8 +142,8 @@ public class BookAdapterReading extends ArrayAdapter<BookReadingForAdapter> {
                     @Override
                     public void onResponse(JSONObject risposta) {
                         try{
-                            if (risposta.getString("risultato").equals("ok")){
-                                Toast.makeText(getContext(), "Richiesta effettuata.", Toast.LENGTH_SHORT).show();
+                            if (risposta.has("ok")){
+                                Toast.makeText(getContext(), risposta.getString("ok"), Toast.LENGTH_SHORT).show();
                                 SharedPreferences pref = context.getSharedPreferences("pref", Context.MODE_PRIVATE);
                                 SharedPreferences.Editor et = pref.edit();
                                 et.putInt("flagdetails", 1).commit();
@@ -150,17 +152,17 @@ public class BookAdapterReading extends ArrayAdapter<BookReadingForAdapter> {
                                 context.startActivity(i2);
                             }
                             else{
-                                Toast.makeText(getContext(), "Errore nella richiesta.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), risposta.getString("error"), Toast.LENGTH_SHORT).show();
                             }
                         }
                         catch(Exception e){
-                            Log.e("e",e.getMessage().toString());
+                            Log.e("e",e.getMessage());
                         }
                     }
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.e("error",error.getMessage().toString());
+                        Log.e("error",error.getMessage());
                     }
 
                     @Override
