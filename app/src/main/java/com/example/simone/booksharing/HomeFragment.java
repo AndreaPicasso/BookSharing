@@ -142,6 +142,7 @@ public class HomeFragment extends android.app.Fragment implements View.OnClickLi
                 editor.putFloat("latBookToShow", ((float) choose.getLat()));
                 editor.putFloat("lonBookToShow", ((float) choose.getLon()));
                 editor.putInt("numPagBookToShow", choose.getNumPag());
+
                 int disp=0;
                 if(choose.getDisponibile()) disp=1;
                 editor.putInt("disponibileBookToShow", disp);
