@@ -45,6 +45,7 @@ public class AccountFunction {
                     }
                     BookAdapterShared adapter=new BookAdapterShared(context,R.layout.list_item_book_shared,list);
                     daRiempire.setAdapter(adapter);
+                    Log.e("conferma","conferma");
 
                 }
                 catch (Exception e){
@@ -100,6 +101,7 @@ public class AccountFunction {
                     }
                     BookAdapterReading adapter=new BookAdapterReading(context,R.layout.list_item_book_reading,list);
                     daRiempire.setAdapter(adapter);
+                    Log.e("conferma", "conferma");
 
                 }
                 catch (Exception e){
