@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -60,6 +61,7 @@ public class BookFragment extends android.app.Fragment  {
             view=inflater.inflate(R.layout.fragment_book_land,container,false);
 
         prenota=(Button) view.findViewById(R.id.prenota_button);
+        prenota.setClickable(true);
         titolo=(TextView) view.findViewById(R.id.titolo_tw);
         autore=(TextView) view.findViewById(R.id.autore_tw);
         genere=(TextView) view.findViewById(R.id.genere_tw);
@@ -211,6 +213,8 @@ public class BookFragment extends android.app.Fragment  {
         prenota.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                prenota.setClickable(false);
+                prenota.setBackgroundColor(Color.GRAY);
                 UnigeServerConnection unigeServerConnection2 = new UnigeServerConnection(new UnigeServerConnectionHandler() {
                     @Override
                     public void onResponse(JSONObject risposta) {
