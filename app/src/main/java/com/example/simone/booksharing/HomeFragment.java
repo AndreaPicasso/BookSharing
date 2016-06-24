@@ -130,7 +130,12 @@ public class HomeFragment extends android.app.Fragment implements View.OnClickLi
 
                 editor.putString("titoloBookToShow", choose.getTitolo().toString());
                 editor.putString("autoreBookToShow", choose.getAutore().toString());
-                editor.putString("copertinaBookToShow", choose.getCopertinaLink().toString());
+                if(choose.getCopertinaLink()!=null) {
+                    editor.putString("copertinaBookToShow", choose.getCopertinaLink().toString());
+                }
+                else{
+                    editor.putString("copertinaBookToShow",null);
+                }
                 editor.putString("genereBookToShow", choose.getGenere().toString());
                 editor.putString("proprietarioBookToShow", choose.getProprietario().toString());
                 editor.putString("isbnBookToShow", choose.getISBN().toString());
