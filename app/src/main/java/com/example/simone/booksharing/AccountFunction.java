@@ -3,6 +3,7 @@ package com.example.simone.booksharing;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.view.View;
 import android.widget.ListView;
 
 import com.android.volley.VolleyError;
@@ -18,7 +19,9 @@ import java.util.Map;
  * Created by Utente on 19/06/2016.
  */
 public class AccountFunction {
+
     public static void RiempiLibriPrestati(final Context context, final ListView daRiempire){
+        Log.e("qwe", " conf iniz");
 
         UnigeServerConnection unigeServerConnection=new UnigeServerConnection(new UnigeServerConnectionHandler() {
             @Override
@@ -35,26 +38,33 @@ public class AccountFunction {
                         richiedente = books.getJSONObject(i).getString("richiedente");
                         stato = books.getJSONObject(i).getString("stato");
                         dataprestito= books.getJSONObject(i).getString("dataprestito");
+                        Log.e("qwe","conferma1");
 
                         list.add(new BookSharedForAdapter(stato, isbn, dataprestito, richiedente));
+                        Log.e("qwe", "conferma2");
 
 
 
 
 
                     }
+                    Log.e("qwe","conferma3");
+
                     BookAdapterShared adapter=new BookAdapterShared(context,R.layout.list_item_book_shared,list);
+                    Log.e("qwe","conferma4");
+                    //eccezione qui
                     daRiempire.setAdapter(adapter);
+                    Log.e("qwe","conferma");
 
                 }
                 catch (Exception e){
-                    Log.e("librirestati",""+e.getMessage().toString());
+                    Log.e("qwe","excep: "+e.getMessage());
                 }
             }
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                    Log.e("libriprestati",""+error.getMessage().toString());
+                    Log.e("qwe","error resp"+error.getMessage());
             }
 
             @Override
@@ -77,6 +87,8 @@ public class AccountFunction {
 
     }
     public static void RiempiLibriInLettura(final Context context,final ListView daRiempire){
+        Log.e("conferma2","conferma");
+
         UnigeServerConnection unigeServerConnection=new UnigeServerConnection(new UnigeServerConnectionHandler() {
             @Override
             public void onResponse(JSONObject risposta) {
@@ -100,6 +112,7 @@ public class AccountFunction {
                     }
                     BookAdapterReading adapter=new BookAdapterReading(context,R.layout.list_item_book_reading,list);
                     daRiempire.setAdapter(adapter);
+                    Log.e("conferma", "conferma");
 
                 }
                 catch (Exception e){

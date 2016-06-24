@@ -168,6 +168,7 @@
                 android:layout_height="300dp"
                 android:id="@+id/prestito_list" />
 
+
             <TextView
                 android:background="@drawable/border"
                 android:layout_width="fill_parent"

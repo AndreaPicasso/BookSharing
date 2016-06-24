@@ -40,11 +40,12 @@ public class AccountFragment extends android.app.Fragment {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        pref=this.getActivity().getSharedPreferences("pref",Context.MODE_PRIVATE);
-        flag=pref.getBoolean("flag", true);
-        Log.e("account fragment","oncreate");
-
+        pref = this.getActivity().getSharedPreferences("pref", Context.MODE_PRIVATE);
+        flag = pref.getBoolean("flag", true);
+        Log.e("account fragment", "oncreate");
     }
+
+
 
     @Override
     public void onResume() {

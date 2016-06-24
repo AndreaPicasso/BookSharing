@@ -98,6 +98,7 @@ public class BookAdapterReading extends ArrayAdapter<BookReadingForAdapter> {
                         try{
                             if (risposta.has("ok")) {
                                 Toast.makeText(getContext(), risposta.getString("ok"), Toast.LENGTH_SHORT).show();
+
                             }
                             else{
                                 Toast.makeText(getContext(),risposta.getString("error"), Toast.LENGTH_SHORT).show();
