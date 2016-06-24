@@ -33,12 +33,18 @@ public class UnigeServerConnection {
     public static final String URL = "http://webdev.dibris.unige.it/~S3940125/ANDROID_ENGINE/";
 
     public static final String LOGIN = "query_login.php";
+    public static final String VALUTAZIONE = "query_valuta_utente.php";
+    public static final String RIFIUTA_PRESTITO = "query_rifiuta_prestito.php";
+    public static final String CONFERMA_RESTITUZIONE = "query_conferma_restituzione.php";
     public static final String LIBRI_PRESTATI = "query_libri_prestati.php";
+    public static final String RICHIESTA_RESTITUZIONE = "query_richiesta_restituzione.php";
     public static final String LIBRI_IN_LETTURA = "query_libri_in_lettura.php";
     public static final String REGISTRATION = "query_registration.php";
     public static final String PSW_DIMENTICATA = "query_psw_dimenticata.php";
     public static final String RICERCA = "query_ricerca.php";
     public static final String UTENTE = "query_utente.php";
+    public static final String CONFERMA_PRESTITO = "query_conferma_prestito.php";
+
     public static final String INSERISCI_LIBRO = "query_aggiungi_libro.php";
     public static final String MODIFICA_DATI = "query_modifica_dati.php";
     public static final String GET_VALUTAZIONE_UTENTE = "query_get_valutazione_utente.php";

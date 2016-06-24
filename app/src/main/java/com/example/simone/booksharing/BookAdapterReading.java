@@ -2,6 +2,9 @@ package com.example.simone.booksharing;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +12,15 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.VolleyError;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Utente on 17/05/2016.
@@ -41,7 +51,8 @@ public class BookAdapterReading extends ArrayAdapter<BookReadingForAdapter> {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         View row = convertView;
-        BookHolder holder = null;
+         BookHolder holder = null;
+
 
 
         if (row == null) {
@@ -73,19 +84,102 @@ public class BookAdapterReading extends ArrayAdapter<BookReadingForAdapter> {
 
         //holder.txtTitle.setText(weather.title);
         holder.isbn.setText(list.get(position).isbn);
+
+
         holder.dataprestito.setText(list.get(position).dataprestito);
         holder.proprietario.setText(list.get(position).proprietario);
 
         holder.rating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
-            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                //da implementare la modifica sul server
+            public void onRatingChanged(RatingBar ratingBar, final float rating, boolean fromUser) {
+
+                UnigeServerConnection unigeServerConnection=new UnigeServerConnection(new UnigeServerConnectionHandler() {
+                    @Override
+                    public void onResponse(JSONObject risposta) {
+                        try{
+                            if (risposta.getString("risultato").equals("ok")){
+                                Toast.makeText(getContext(), "Valutazione effettuata.", Toast.LENGTH_SHORT).show();
+
+                            }
+
+                        }
+                        catch(Exception e){
+                            Log.e("e",e.getMessage().toString());
+                        }
+                    }
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("error",error.getMessage().toString());
+                    }
+
+                    @Override
+                    public Map<String, String> getParams() {
+                        Float rat=rating;
+                        Map<String, String> params = new HashMap<String, String>();
+                        SharedPreferences login=context.getSharedPreferences("login", Context.MODE_PRIVATE);
+                        params.put("pswAccesso", UnigeServerConnection.PSW_ACCESSO);
+                        params.put("valutatore",login.getString("email","") );
+                        params.put("rating",rat.toString() );
+                        params.put("valutato",list.get(position).proprietario);
+                        return params;
+                    }
+
+                    @Override
+                    public String getURL() {
+                        return UnigeServerConnection.URL+UnigeServerConnection.VALUTAZIONE;
+                    }
+                });
+                unigeServerConnection.sendRequest(context);
             }
         });
         holder.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+                UnigeServerConnection unigeServerConnection=new UnigeServerConnection(new UnigeServerConnectionHandler() {
+                    @Override
+                    public void onResponse(JSONObject risposta) {
+                        try{
+                            if (risposta.getString("risultato").equals("ok")){
+                                Toast.makeText(getContext(), "Richiesta effettuata.", Toast.LENGTH_SHORT).show();
+                                SharedPreferences pref = context.getSharedPreferences("pref", Context.MODE_PRIVATE);
+                                SharedPreferences.Editor et = pref.edit();
+                                et.putInt("flagdetails", 1).commit();
+                                Intent i2 = new Intent(context.getApplicationContext(), Details.class);
+                                i2.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                                context.startActivity(i2);
+                            }
+                            else{
+                                Toast.makeText(getContext(), "Errore nella richiesta.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        catch(Exception e){
+                            Log.e("e",e.getMessage().toString());
+                        }
+                    }
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("error",error.getMessage().toString());
+                    }
+
+                    @Override
+                    public Map<String, String> getParams() {
+                        Map<String, String> params = new HashMap<String, String>();
+                        SharedPreferences login=context.getSharedPreferences("login", Context.MODE_PRIVATE);
+                        params.put("pswAccesso", UnigeServerConnection.PSW_ACCESSO);
+                        params.put("email",login.getString("email","") );
+                        params.put("isbn",list.get(position).isbn);
+                        params.put("proprietario",list.get(position).proprietario);
+                        return params;
+                    }
+
+                    @Override
+                    public String getURL() {
+                        return UnigeServerConnection.URL+UnigeServerConnection.RICHIESTA_RESTITUZIONE;
+                    }
+                });
+                unigeServerConnection.sendRequest(context);
             }
         });
 
@@ -96,7 +190,7 @@ public class BookAdapterReading extends ArrayAdapter<BookReadingForAdapter> {
     class BookHolder {
         TextView isbn;
         RatingBar rating;
-        Button button;
+        Button button=null;
         TextView proprietario;
         TextView dataprestito;
         //TextView txtTitle;

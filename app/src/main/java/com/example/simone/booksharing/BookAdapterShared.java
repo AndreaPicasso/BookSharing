@@ -2,15 +2,25 @@ package com.example.simone.booksharing;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.VolleyError;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Utente on 17/05/2016.
@@ -39,7 +49,7 @@ class BookAdapterShared extends ArrayAdapter<BookSharedForAdapter> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         View row = convertView;
         BookHolder holder = null;
 
@@ -78,17 +88,157 @@ class BookAdapterShared extends ArrayAdapter<BookSharedForAdapter> {
         switch (list.get(position).stato) {
             case nonconfermato:
                 holder.button.setText("Conferma prestito");
+                holder.button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(final View v) {
+                        UnigeServerConnection unigeServerConnection = new UnigeServerConnection(new UnigeServerConnectionHandler() {
+                            @Override
+                            public void onResponse(JSONObject risposta) {
+                                try {
+                                    if (risposta.getString("risultato").equals("ok")) {
+                                        Toast.makeText(getContext(), "Conferma del prestito effettuata.", Toast.LENGTH_SHORT).show();
+                                        AccountFunction.RiempiLibriPrestati(context, (ListView) v.findViewById(R.id.prestito_list));
+                                    } else {
+                                        Toast.makeText(getContext(), "Errore nella conferma.", Toast.LENGTH_SHORT).show();
+                                    }
+                                } catch (Exception e) {
+                                    Log.e("e", e.getMessage().toString());
+                                }
+
+                            }
+
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.e("error", error.getMessage().toString());
+                            }
+
+                            @Override
+                            public Map<String, String> getParams() {
+                                Map<String, String> params = new HashMap<String, String>();
+                                SharedPreferences login = context.getSharedPreferences("login", Context.MODE_PRIVATE);
+                                params.put("pswAccesso", UnigeServerConnection.PSW_ACCESSO);
+                                params.put("email", login.getString("email", ""));
+                                params.put("isbn", list.get(position).ISBN);
+                                params.put("richiedente", list.get(position).richiedente);
+                                return params;
+                            }
+
+                            @Override
+                            public String getURL() {
+                                return UnigeServerConnection.URL + UnigeServerConnection.CONFERMA_PRESTITO;
+                            }
+                        });
+                        unigeServerConnection.sendRequest(context);
+
+                    }
+                });
                 holder.button1.setVisibility(View.VISIBLE);
+                holder.button.setClickable(true);
+                holder.button1.setClickable(true);
+                holder.button1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(final View v) {
+                        UnigeServerConnection unigeServerConnection = new UnigeServerConnection(new UnigeServerConnectionHandler() {
+                            @Override
+                            public void onResponse(JSONObject risposta) {
+                                try {
+                                    if (risposta.getString("risultato").equals("ok")) {
+                                        Toast.makeText(getContext(), "Rifiuto del prestito eseguito.", Toast.LENGTH_SHORT).show();
+                                        AccountFunction.RiempiLibriPrestati(context, (ListView) v.findViewById(R.id.prestito_list));
+
+                                    } else {
+                                        Toast.makeText(getContext(), "Errore nel rifiuto del prestito.", Toast.LENGTH_SHORT).show();
+                                    }
+                                } catch (Exception e) {
+                                    Log.e("e", e.getMessage().toString());
+                                }
+
+                            }
+
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.e("error", error.getMessage().toString());
+                            }
+
+                            @Override
+                            public Map<String, String> getParams() {
+                                Map<String, String> params = new HashMap<String, String>();
+                                SharedPreferences login = context.getSharedPreferences("login", Context.MODE_PRIVATE);
+                                params.put("pswAccesso", UnigeServerConnection.PSW_ACCESSO);
+                                params.put("email", login.getString("email", ""));
+                                params.put("isbn", list.get(position).ISBN);
+                                params.put("richiedente", list.get(position).richiedente);
+                                return params;
+                            }
+
+                            @Override
+                            public String getURL() {
+                                return UnigeServerConnection.URL + UnigeServerConnection.RIFIUTA_PRESTITO ;
+                            }
+                        });
+                        unigeServerConnection.sendRequest(context);
+                    }
+                });
                 holder.button.setVisibility(View.VISIBLE);
                 break;
             case incorso:
                 holder.button.setVisibility(View.INVISIBLE);
+                holder.button.setClickable(false);
+                holder.button1.setClickable(false);
                 holder.button1.setVisibility(View.INVISIBLE);
                 break;
             case inrestituzione:
                 holder.button.setVisibility(View.VISIBLE);
+                holder.button.setClickable(true);
                 holder.button.setText("Conferma restituzione");
+                holder.button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(final View v) {
+                        UnigeServerConnection unigeServerConnection = new UnigeServerConnection(new UnigeServerConnectionHandler() {
+                            @Override
+                            public void onResponse(JSONObject risposta) {
+                                try {
+                                    if (risposta.getString("risultato").equals("ok")) {
+                                        Toast.makeText(getContext(), "Conferma restituzione effettuata.", Toast.LENGTH_SHORT).show();
+                                        AccountFunction.RiempiLibriPrestati(context,(ListView) v.findViewById(R.id.prestito_list));
+
+                                    } else {
+                                        Toast.makeText(getContext(), "Errore nella conferma.", Toast.LENGTH_SHORT).show();
+                                    }
+                                } catch (Exception e) {
+                                    Log.e("e", e.getMessage().toString());
+                                }
+
+                            }
+
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.e("error", error.getMessage().toString());
+                            }
+
+                            @Override
+                            public Map<String, String> getParams() {
+                                Map<String, String> params = new HashMap<String, String>();
+                                SharedPreferences login = context.getSharedPreferences("login", Context.MODE_PRIVATE);
+                                params.put("pswAccesso", UnigeServerConnection.PSW_ACCESSO);
+                                params.put("email", login.getString("email", ""));
+                                params.put("isbn", list.get(position).ISBN);
+                                params.put("richiedente", list.get(position).richiedente);
+                                return params;
+                            }
+
+                            @Override
+                            public String getURL() {
+                                return UnigeServerConnection.URL + UnigeServerConnection.CONFERMA_RESTITUZIONE;
+                            }
+                        });
+                        unigeServerConnection.sendRequest(context);
+
+                    }
+                });
+
                 holder.button1.setVisibility(View.INVISIBLE);
+                holder.button1.setClickable(false);
                 break;
             default:
                 Log.e("riempiprestati", "problemabottonestato");
