@@ -145,7 +145,10 @@
             android:text="@string/prestito"
             android:id="@+id/textView5"
             android:layout_gravity="center_horizontal"
-            android:gravity="center" />
+            android:gravity="center"
+            android:paddingTop="20dp"
+            android:paddingBottom="10dp"
+            android:textStyle="bold" />
 
         <ListView
             android:background="@drawable/border"
@@ -162,7 +165,10 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/lettura"
             android:id="@+id/zdfdsf"
-            android:gravity="center" />
+            android:gravity="center"
+            android:paddingTop="20dp"
+            android:paddingBottom="10dp"
+            android:textStyle="bold" />
 
         <ListView
             android:background="@drawable/border"

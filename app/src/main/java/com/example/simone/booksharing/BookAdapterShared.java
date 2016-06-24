@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -64,6 +65,7 @@ class BookAdapterShared extends ArrayAdapter<BookSharedForAdapter> {
             holder.richiedente= (TextView) row.findViewById(R.id.richiedente_prestito_tw);
             holder.button=(Button) row.findViewById(R.id.prestito_button);
             holder.button1=(Button) row.findViewById(R.id.prestito_button2);
+            holder.rating = (RatingBar) row.findViewById(R.id.ratingBar2);
 
             /*
             holder.imgIcon.setOnClickListener(new View.OnClickListener() {
@@ -245,6 +247,54 @@ class BookAdapterShared extends ArrayAdapter<BookSharedForAdapter> {
         }
 
 
+        holder.rating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, final float rating, boolean fromUser) {
+                Log.e("rating","ok");
+                UnigeServerConnection unigeServerConnection=new UnigeServerConnection(new UnigeServerConnectionHandler() {
+                    @Override
+                    public void onResponse(JSONObject risposta) {
+                        try{
+                            if (risposta.has("ok")) {
+                                Toast.makeText(getContext(), risposta.getString("ok"), Toast.LENGTH_SHORT).show();
+                            }
+                            else{
+                                Toast.makeText(getContext(),risposta.getString("error"), Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+                        catch(Exception e){
+                            Log.e("e",e.getMessage());
+                        }
+                    }
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("error",error.getMessage());
+                    }
+
+                    @Override
+                    public Map<String, String> getParams() {
+                        Float rat=rating;
+                        Map<String, String> params = new HashMap<String, String>();
+                        SharedPreferences login=context.getSharedPreferences("login", Context.MODE_PRIVATE);
+                        params.put("pswAccesso", UnigeServerConnection.PSW_ACCESSO);
+                        params.put("valutatore",login.getString("email","") );
+                        params.put("rating",rat.toString() );
+                        params.put("valutato",list.get(position).richiedente);
+                        return params;
+                    }
+
+                    @Override
+                    public String getURL() {
+                        return UnigeServerConnection.URL+UnigeServerConnection.VALUTAZIONE;
+                    }
+                });
+                unigeServerConnection.sendRequest(context);
+            }
+        });
+
+
 
         return row;
     }
@@ -256,6 +306,7 @@ class BookAdapterShared extends ArrayAdapter<BookSharedForAdapter> {
         TextView dataprestito;
         Button button;
         Button button1;
+        RatingBar rating;
     }
 }
 

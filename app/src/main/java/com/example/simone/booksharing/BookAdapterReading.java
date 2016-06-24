@@ -88,17 +88,10 @@ public class BookAdapterReading extends ArrayAdapter<BookReadingForAdapter> {
 
         holder.dataprestito.setText(list.get(position).dataprestito);
         holder.proprietario.setText(list.get(position).proprietario);
-        holder.rating.setProgress(3);
-        holder.rating.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.e("rating", "onclick");
-            }
-        });
+
         holder.rating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, final float rating, boolean fromUser) {
-                Log.e("rating","ok");
                 UnigeServerConnection unigeServerConnection=new UnigeServerConnection(new UnigeServerConnectionHandler() {
                     @Override
                     public void onResponse(JSONObject risposta) {
