@@ -4,4 +4,12 @@
 
 
         <stroke android:width="3dip" android:color="#9A9797"/>
+    <!--
+    <padding
+        android:left="10dp"
+        android:top="20dp"
+        android:right="10dp"
+        android:bottom="20dp"
+        />
+    -->
     </shape>

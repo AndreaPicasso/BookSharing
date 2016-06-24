@@ -37,8 +37,7 @@
         android:text="testodamettere"
 
         android:layout_centerVertical="true"
-        android:layout_alignEnd="@+id/data_prestito_tw"
-        android:layout_marginEnd="43dp" />
+        android:layout_toStartOf="@+id/richiedente_prestito_tw" />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -48,6 +47,14 @@
 
         android:layout_alignTop="@+id/prestito_button"
         android:layout_toEndOf="@+id/prestito_button" />
+
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ratingBar2"
+        android:layout_alignTop="@+id/prestito_button"
+        android:layout_toEndOf="@+id/isbn_prestato_tw"
+        android:numStars="5" />
 
 </RelativeLayout>
 
