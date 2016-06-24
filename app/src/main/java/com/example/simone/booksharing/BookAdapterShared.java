@@ -95,21 +95,21 @@ class BookAdapterShared extends ArrayAdapter<BookSharedForAdapter> {
                             @Override
                             public void onResponse(JSONObject risposta) {
                                 try {
-                                    if (risposta.getString("risultato").equals("ok")) {
-                                        Toast.makeText(getContext(), "Conferma del prestito effettuata.", Toast.LENGTH_SHORT).show();
+                                    if (risposta.has("ok")) {
+                                        Toast.makeText(getContext(), risposta.getString("ok"), Toast.LENGTH_SHORT).show();
                                         AccountFunction.RiempiLibriPrestati(context, (ListView) v.findViewById(R.id.prestito_list));
                                     } else {
-                                        Toast.makeText(getContext(), "Errore nella conferma.", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getContext(), risposta.getString("error"), Toast.LENGTH_SHORT).show();
                                     }
                                 } catch (Exception e) {
-                                    Log.e("e", e.getMessage().toString());
+                                    Log.e("e", e.getMessage());
                                 }
 
                             }
 
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                Log.e("error", error.getMessage().toString());
+                                Log.e("error", error.getMessage());
                             }
 
                             @Override
@@ -142,22 +142,22 @@ class BookAdapterShared extends ArrayAdapter<BookSharedForAdapter> {
                             @Override
                             public void onResponse(JSONObject risposta) {
                                 try {
-                                    if (risposta.getString("risultato").equals("ok")) {
-                                        Toast.makeText(getContext(), "Rifiuto del prestito eseguito.", Toast.LENGTH_SHORT).show();
+                                    if (risposta.has("ok")) {
+                                        Toast.makeText(getContext(), risposta.getString("ok"), Toast.LENGTH_SHORT).show();
                                         AccountFunction.RiempiLibriPrestati(context, (ListView) v.findViewById(R.id.prestito_list));
 
                                     } else {
-                                        Toast.makeText(getContext(), "Errore nel rifiuto del prestito.", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getContext(), risposta.getString("error"), Toast.LENGTH_SHORT).show();
                                     }
                                 } catch (Exception e) {
-                                    Log.e("e", e.getMessage().toString());
+                                    Log.e("e", e.getMessage());
                                 }
 
                             }
 
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                Log.e("error", error.getMessage().toString());
+                                Log.e("error", error.getMessage());
                             }
 
                             @Override
@@ -198,22 +198,22 @@ class BookAdapterShared extends ArrayAdapter<BookSharedForAdapter> {
                             @Override
                             public void onResponse(JSONObject risposta) {
                                 try {
-                                    if (risposta.getString("risultato").equals("ok")) {
-                                        Toast.makeText(getContext(), "Conferma restituzione effettuata.", Toast.LENGTH_SHORT).show();
+                                    if (risposta.has("ok")) {
+                                        Toast.makeText(getContext(), risposta.getString("ok"), Toast.LENGTH_SHORT).show();
                                         AccountFunction.RiempiLibriPrestati(context,(ListView) v.findViewById(R.id.prestito_list));
 
                                     } else {
-                                        Toast.makeText(getContext(), "Errore nella conferma.", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getContext(), risposta.getString("error"), Toast.LENGTH_SHORT).show();
                                     }
                                 } catch (Exception e) {
-                                    Log.e("e", e.getMessage().toString());
+                                    Log.e("e", e.getMessage());
                                 }
 
                             }
 
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                Log.e("error", error.getMessage().toString());
+                                Log.e("error", error.getMessage());
                             }
 
                             @Override
