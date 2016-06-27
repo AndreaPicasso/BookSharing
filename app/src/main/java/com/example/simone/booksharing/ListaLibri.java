@@ -15,9 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by Utente on 05/05/2016.
- */
+
 public class ListaLibri  {
 
     private ArrayList<ItemBook> listaLibri;
@@ -56,8 +54,12 @@ public class ListaLibri  {
             // Volley executor delivery -> run() Log.e("123","ok0.5");
         try {
             String [] listaLinkArr = new String[listaLink.size()];
-            for(int j=0; j<listaLink.size();j++)
-                listaLinkArr[j]=listaLink.get(j);
+            for(int j=0; j<listaLink.size();j++) {
+                listaLinkArr[j] = listaLink.get(j);
+            }
+            if(listaLink.size()==0){
+                Toast.makeText(context,"Nessun libro trovato",Toast.LENGTH_SHORT).show();
+            }
             DownloadImgs downloadImg = new DownloadImgs(listaLinkArr, context, slider, listaLibri, sliderMap,progressBar);
             downloadImg.execute();
 
@@ -75,7 +77,6 @@ public class ListaLibri  {
 
                 try {
                     if(risposta.getInt("totalItems")>0) {
-
                         JSONArray arr = risposta.getJSONArray("items");
                         risposta = arr.getJSONObject(0).getJSONObject("volumeInfo");
                         // /!\ NON E DETTO CHE CI SIANO TUTTE LE INFO SU GOOGLE

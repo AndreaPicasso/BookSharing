@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import org.lucasr.twowayview.TwoWayView;
 
@@ -53,8 +54,6 @@ public class DownloadImgs extends AsyncTask<Void, Void, String> {
     protected String doInBackground(Void... params) {
         try {
             for(int i=0; i<url.length; i++){
-
-
                 Bitmap myBitmap;
                 if(url[i]==null){
                     myBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.not_available);
@@ -77,7 +76,6 @@ public class DownloadImgs extends AsyncTask<Void, Void, String> {
                     }
                     else{
                         Log.e("imgasd","TROVATA");
-
                     }
                 }
                 Log.e("234", ""+listaLibri.get(i).getCopertinaLink());
@@ -85,9 +83,6 @@ public class DownloadImgs extends AsyncTask<Void, Void, String> {
                 listaLibri.get(i).setCopertina(myBitmap);
                 sliderMap.put(i,listaLibri.get(i));
             }
-
-
-
 
             return null;
         } catch (Exception e) {

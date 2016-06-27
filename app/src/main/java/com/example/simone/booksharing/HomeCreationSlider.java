@@ -40,6 +40,7 @@ public class HomeCreationSlider {
             public void onResponse(JSONObject risposta) {
                 try {
                     String isbn, proprietario,disp;
+                    //Log.e("risposta", risposta.toString());
                     double lat,lon;
                     boolean disponibile=true;
                     int numBook = risposta.getInt("number");
