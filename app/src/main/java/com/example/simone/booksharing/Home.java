@@ -79,6 +79,8 @@ public class Home extends Activity {
                 SharedPreferences login=getSharedPreferences("login",MODE_PRIVATE);
                 SharedPreferences.Editor etlog=login.edit();
                 etlog.putString("email","").commit();
+                etlog.putString("psw","").commit();
+
                 SharedPreferences index=getSharedPreferences("index",MODE_PRIVATE);
                 SharedPreferences.Editor etindex=index.edit();
                 etindex.putInt("flag",0).commit();

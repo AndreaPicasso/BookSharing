@@ -42,7 +42,7 @@ public class AccountFragment extends android.app.Fragment {
         super.onCreate(savedInstanceState);
         pref = this.getActivity().getSharedPreferences("pref", Context.MODE_PRIVATE);
         flag = pref.getBoolean("flag", true);
-        Log.e("account fragment", "oncreate");
+        //Log.e("account fragment", "oncreate");
     }
 
 
@@ -50,49 +50,52 @@ public class AccountFragment extends android.app.Fragment {
     @Override
     public void onResume() {
         flag=pref.getBoolean("flag",true);
-        Log.e("account fragment","onresume");
+        //Log.e("account fragment","onresume");
         super.onResume();
     }
 
     @Override
     public void onPause() {
         SharedPreferences.Editor et= pref.edit();
-        et.putBoolean("flag",flag);
-        Log.e("account fragment", "onpause");
+        et.putBoolean("flag", flag);
+        //Log.e("account fragment", "onpause");
         super.onPause();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =null;
-        Log.e("account fragment", "oncreateview");
+        //Log.e("account fragment", "oncreateview");
         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
             view=inflater.inflate(R.layout.fragment_account_port,container,false);
 
         else
             view=inflater.inflate(R.layout.fragment_account_land,container,false);
-        modifica=(Button)view.findViewById(R.id.modifica_button);
-        ISBN= (EditText) view.findViewById(R.id.ISBN_et);
-        inserisci_libro=(Button) view.findViewById(R.id.aggiungi_button);
-        nome=(EditText) view.findViewById(R.id.nome_et);
-        cognome=(EditText) view.findViewById(R.id.cognome_et);
-        sesso=(EditText) view.findViewById(R.id.sesso_et);
-        genere=(EditText) view.findViewById(R.id.genere_pref_et);
-        password=(EditText) view.findViewById(R.id.login_password_et);
-        libri_inlettura=(ListView) view.findViewById(R.id.lettura_list);
-        libri_prestati=(ListView) view.findViewById(R.id.prestito_list);
-        AccountFunction.RiempiLibriInLettura(view.getContext(),libri_inlettura);
-        AccountFunction.RiempiLibriPrestati(view.getContext(),libri_prestati);
+            modifica=(Button)view.findViewById(R.id.modifica_button);
+            ISBN= (EditText) view.findViewById(R.id.ISBN_et);
+            inserisci_libro=(Button) view.findViewById(R.id.aggiungi_button);
+            nome=(EditText) view.findViewById(R.id.nome_et);
+            cognome=(EditText) view.findViewById(R.id.cognome_et);
+            sesso=(EditText) view.findViewById(R.id.sesso_et);
+            genere=(EditText) view.findViewById(R.id.genere_pref_et);
+            password=(EditText) view.findViewById(R.id.login_password_et);
+            libri_inlettura=(ListView) view.findViewById(R.id.lettura_list);
+            libri_prestati=(ListView) view.findViewById(R.id.prestito_list);
+            AccountFunction.RiempiLibriInLettura(view.getContext(),libri_inlettura);
+            AccountFunction.RiempiLibriPrestati(view.getContext(),libri_prestati);
 
         UnigeServerConnection con = new UnigeServerConnection(new UnigeServerConnectionHandler() {
             @Override
             public void onResponse(JSONObject risposta) {
 
                 try{
+                    Log.e("risposta", risposta.toString());
                     nome.setText(risposta.getString("nome"));
                     cognome.setText(risposta.getString("cognome"));
-                    sesso.setText(risposta.getString("sesso"));
-                    genere.setText(risposta.getString("genere"));
+                    if(!risposta.getString("sesso").equals("null"))
+                        sesso.setText(risposta.getString("sesso"));
+                    if(!risposta.getString("genere").equals("null"))
+                        genere.setText(risposta.getString("genere"));
 
 
                 }
@@ -183,16 +186,14 @@ public class AccountFragment extends android.app.Fragment {
                         @Override
                         public Map<String, String> getParams() {
                             Map<String,String> params = new HashMap<String, String>();
-                            params.put("nome", nome.getText().toString());
                             SharedPreferences login=getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
 
                             params.put("email", login.getString("email", ""));
-                            params.put("psw", login.getString("psw",""));
                             params.put("pswAccesso", UnigeServerConnection.PSW_ACCESSO);
-
+                            params.put("nome", nome.getText().toString());
                             params.put("cognome", cognome.getText().toString());
                             params.put("genere_pref", genere.getText().toString());
-                            params.put("password", password.getText().toString());
+                            params.put("psw", password.getText().toString());
 
                             params.put("sesso", sesso.getText().toString());
                             return params;
