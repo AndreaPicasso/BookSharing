@@ -165,9 +165,12 @@ public class AccountFragment extends android.app.Fragment {
                         @Override
                         public void onResponse(JSONObject risposta) {
                             try {
+                                Log.e("risposta",risposta.toString());
                                 if(risposta.has("ok")){
                                     Toast.makeText(password.getContext(), "Modifica dati avvenuta con successo!", Toast.LENGTH_SHORT).show();
-
+                                    SharedPreferences login=getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor et=login.edit();
+                                    et.putString("psw", password.getText().toString()).commit();
                                 }
                                 else{
                                     Toast.makeText(password.getContext(), risposta.getString("error"),Toast.LENGTH_SHORT).show();
@@ -175,12 +178,12 @@ public class AccountFragment extends android.app.Fragment {
 
                             }
                             catch(Exception e){
+
                             }
                         }
 
                         @Override
                         public void onErrorResponse(VolleyError error) {
-
                         }
 
                         @Override
@@ -194,7 +197,6 @@ public class AccountFragment extends android.app.Fragment {
                             params.put("cognome", cognome.getText().toString());
                             params.put("genere_pref", genere.getText().toString());
                             params.put("psw", password.getText().toString());
-
                             params.put("sesso", sesso.getText().toString());
                             return params;
 

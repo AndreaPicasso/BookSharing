@@ -48,6 +48,7 @@ public class RegistrationFragment extends android.app.Fragment implements View.O
         psw = (EditText)  ris.findViewById( R.id.registration_password_et);
         repsw = (EditText)  ris.findViewById( R.id.registration_password_et);
         iscriviti = (Button) ris.findViewById(R.id.iscriviti_button);
+        iscriviti.setClickable(true);
         iscriviti.setOnClickListener(this);
         return ris;
     }
@@ -90,6 +91,8 @@ public class RegistrationFragment extends android.app.Fragment implements View.O
         et.putString("email",""+email.getText());
 
         if(!ok) return;
+        if(ok) { iscriviti.setClickable(false);}
+
         UnigeServerConnection con = new UnigeServerConnection(new UnigeServerConnectionHandler() {
             @Override
             public void onResponse(JSONObject risposta) {
@@ -100,6 +103,7 @@ public class RegistrationFragment extends android.app.Fragment implements View.O
                     }
                     else{
                         Toast.makeText(email.getContext(), risposta.getString("risultato"),Toast.LENGTH_SHORT).show();
+                        iscriviti.setClickable(true);
                     }
 
                 }

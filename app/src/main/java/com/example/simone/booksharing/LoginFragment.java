@@ -60,7 +60,8 @@ public class LoginFragment extends android.app.Fragment implements View.OnClickL
         password = (EditText) view.findViewById(R.id.login_password_et);
         pswDim = (TextView) view.findViewById(R.id.pswdimenticata_tw);
 
-
+        accedi.setClickable(true);
+        pswDim.setClickable(true);
         accedi.setOnClickListener(this);
         pswDim.setOnClickListener(this);
        return view;
@@ -68,10 +69,7 @@ public class LoginFragment extends android.app.Fragment implements View.OnClickL
     }
 
     @Override
-    public void onClick(View v) {
-
-
-
+    public void onClick(final View v) {
         if(v.getId() == accedi.getId()) {
             boolean ok = true;
             if (email.getText().toString().equals("")) {
@@ -86,7 +84,8 @@ public class LoginFragment extends android.app.Fragment implements View.OnClickL
                 ok = false;
                 Toast.makeText(this.getActivity(), "Campo password vuoto", Toast.LENGTH_SHORT).show();
             }
-            if (!ok) return;
+            if (!ok) {return;}
+            if(ok)   { v.setClickable(false);}
             UnigeServerConnection connection = new UnigeServerConnection(new UnigeServerConnectionHandler() {
                 @Override
                 public void onResponse(JSONObject risposta) {
@@ -103,6 +102,7 @@ public class LoginFragment extends android.app.Fragment implements View.OnClickL
 
                         } else
                             Toast.makeText(email.getContext(), "Utente non riconosciuto.", Toast.LENGTH_SHORT).show();
+                            v.setClickable(true);
                     }catch(Exception e){
 
                     }
