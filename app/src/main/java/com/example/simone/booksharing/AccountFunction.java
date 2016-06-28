@@ -28,11 +28,9 @@ public class AccountFunction {
             public void onResponse(JSONObject risposta) {
                 try{
                     String isbn, richiedente,dataprestito,stato;
-
                     int numBook = risposta.getInt("number");
                     JSONArray books = risposta.getJSONArray("items");
                     ArrayList<BookSharedForAdapter> list=new ArrayList<BookSharedForAdapter>();
-
                     for(int i = 0; i<numBook; i++) {
                         isbn = books.getJSONObject(i).getString("isbn");
                         richiedente = books.getJSONObject(i).getString("richiedente");
