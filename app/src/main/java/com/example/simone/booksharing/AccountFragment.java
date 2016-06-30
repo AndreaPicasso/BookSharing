@@ -170,7 +170,8 @@ public class AccountFragment extends android.app.Fragment {
                                     Toast.makeText(password.getContext(), "Modifica dati avvenuta con successo!", Toast.LENGTH_SHORT).show();
                                     SharedPreferences login=getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
                                     SharedPreferences.Editor et=login.edit();
-                                    et.putString("psw", password.getText().toString()).commit();
+                                    if(!password.getText().equals(""))
+                                        et.putString("psw", password.getText().toString()).commit();
                                 }
                                 else{
                                     Toast.makeText(password.getContext(), risposta.getString("error"),Toast.LENGTH_SHORT).show();

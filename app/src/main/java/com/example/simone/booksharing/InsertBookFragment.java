@@ -1,5 +1,6 @@
 package com.example.simone.booksharing;
 
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -30,11 +31,8 @@ public class InsertBookFragment extends android.app.Fragment {
     public Button inserisci;
     public TextView titolo;
     public TextView autore;
-    public TextView genere;
-    public TextView luogo;
-    public String lat;
-    public String lon;
-    public RatingBar rating;
+
+    public TextView genere,luogo;
 
     public ImageView copertina;
 
@@ -54,7 +52,6 @@ public class InsertBookFragment extends android.app.Fragment {
         /*
         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
             view=inflater.inflate(R.layout.fragment_insert_book_port,container,false);
-
         else
             view=inflater.inflate(R.layout.fragment_insert_book_land,container,false);
     */
@@ -62,6 +59,7 @@ public class InsertBookFragment extends android.app.Fragment {
         titolo=(TextView) view.findViewById(R.id.titolo_tw);
         autore=(TextView) view.findViewById(R.id.autore_tw);
         genere=(TextView) view.findViewById(R.id.genere_tw);
+        luogo=(TextView) view.findViewById(R.id.luogo_tw);
         copertina=(ImageView) view.findViewById(R.id.imageView);
         luogo=(TextView) view.findViewById(R.id.luogo_tw);
 
@@ -69,6 +67,49 @@ public class InsertBookFragment extends android.app.Fragment {
         autore.setText(pref.getString("autoreBookToShow",""));
         genere.setText(pref.getString("genereBookToShow", ""));
         String url=pref.getString("copertinaBookToShow", "");
+
+
+
+        //------------- INDIVIDUA POSIZIONE ----------------
+        GoogleBooksConnection con= new GoogleBooksConnection(new GoogleBooksConnectionHandler() {
+            @Override
+            public void onResponse(JSONObject risposta) {
+
+                try {
+                    luogo.setText("Luogo: "+risposta.getJSONArray("results").getJSONObject(0).getString("formatted_address"));
+
+                }
+                catch(Exception e){
+                    Log.e("bookposition",""+e.getMessage());
+                }
+
+            }
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("bookposition",""+error.getMessage());
+
+            }
+
+            @Override
+            public Map<String, String> getParams() {
+                return null;
+            }
+
+            @Override
+            public String getURL() {
+                Geolocation geolocation=new Geolocation();
+                geolocation.getLocation(autore.getContext());
+                Log.e("bookposition","https://maps.googleapis.com/maps/api/geocode/json?latlng="+geolocation.lat+","+geolocation.lng);
+
+                return "https://maps.googleapis.com/maps/api/geocode/json?latlng="+geolocation.lat+","+geolocation.lng;
+
+            }
+        });
+        con.sendRequest(this.getActivity());
+
+
+
 
         View.OnClickListener ins= new View.OnClickListener() {
             @Override
@@ -99,7 +140,7 @@ public class InsertBookFragment extends android.app.Fragment {
 
                     @Override
                     public Map<String, String> getParams() {
-                       Geolocation geolocation=new Geolocation();
+                        Geolocation geolocation=new Geolocation();
                         geolocation.getLocation(autore.getContext());
                         Map<String,String> params = new HashMap<String, String>();
 
@@ -110,10 +151,9 @@ public class InsertBookFragment extends android.app.Fragment {
 
                         params.put("pswAccesso", UnigeServerConnection.PSW_ACCESSO);
                         params.put("proprietario",login.getString("email", ""));
-                        lat=geolocation.lat.toString();
-                        lon=geolocation.lng.toString();
-                        params.put("lat", lat);
-                        params.put("lon", lon);
+
+                        params.put("lat", geolocation.lat.toString());
+                        params.put("lon", geolocation.lng.toString());
 
 
 
@@ -130,37 +170,7 @@ public class InsertBookFragment extends android.app.Fragment {
 
             }
         };
-        GoogleBooksConnection con= new GoogleBooksConnection(new GoogleBooksConnectionHandler() {
-            @Override
-            public void onResponse(JSONObject risposta) {
 
-                try {
-                    luogo.setText("Luogo: "+risposta.getJSONArray("results").getJSONObject(0).getString("formatted_address"));
-                }
-                catch(Exception e){
-                    Log.e("bookposition",""+e.getMessage());
-                }
-
-            }
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-            }
-
-            @Override
-            public Map<String, String> getParams() {
-                return null;
-            }
-
-            @Override
-            public String getURL() {
-                Log.e("bookposition","https://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+","+lon);
-
-                return "https://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+","+lon;
-
-            }
-        });
-        con.sendRequest(this.getActivity());
 
         inserisci.setOnClickListener(ins);
         DownloadSingleImg img = new DownloadSingleImg(url,this.getActivity(),copertina);
