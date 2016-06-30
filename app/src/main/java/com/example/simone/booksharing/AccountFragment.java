@@ -89,7 +89,7 @@ public class AccountFragment extends android.app.Fragment {
             public void onResponse(JSONObject risposta) {
 
                 try{
-                    Log.e("risposta", risposta.toString());
+                    Log.e("asdasdasd", risposta.toString());
                     nome.setText(risposta.getString("nome"));
                     cognome.setText(risposta.getString("cognome"));
                     if(!risposta.getString("sesso").equals("null"))
@@ -113,10 +113,12 @@ public class AccountFragment extends android.app.Fragment {
             @Override
             public Map<String, String> getParams() {
                 SharedPreferences login=getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
-                Map<String,String> params = new HashMap<String, String>();
+                Log.e("asdasdasd",login.getString("psw",""));
 
+                Map<String,String> params = new HashMap<String, String>();
                 params.put("email", login.getString("email",""));
                 params.put("psw", login.getString("psw",""));
+                Log.e("asdasdasd",login.getString("psw", ""));
                 params.put("pswAccesso", UnigeServerConnection.PSW_ACCESSO);
                 return params;
             }
@@ -170,8 +172,9 @@ public class AccountFragment extends android.app.Fragment {
                                     Toast.makeText(password.getContext(), "Modifica dati avvenuta con successo!", Toast.LENGTH_SHORT).show();
                                     SharedPreferences login=getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
                                     SharedPreferences.Editor et=login.edit();
-                                    if(!password.getText().equals(""))
+                                    if(!password.getText().toString().equals("")) {
                                         et.putString("psw", password.getText().toString()).commit();
+                                    }
                                 }
                                 else{
                                     Toast.makeText(password.getContext(), risposta.getString("error"),Toast.LENGTH_SHORT).show();

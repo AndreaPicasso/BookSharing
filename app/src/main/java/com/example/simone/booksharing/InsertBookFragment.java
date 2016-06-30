@@ -74,7 +74,6 @@ public class InsertBookFragment extends android.app.Fragment {
 
                 try {
                     luogo.setText("Luogo: "+risposta.getJSONArray("results").getJSONObject(0).getString("formatted_address"));
-                    Log.e("bookposition", risposta.toString());
 
                 }
                 catch(Exception e){
@@ -98,7 +97,6 @@ public class InsertBookFragment extends android.app.Fragment {
             public String getURL() {
                 Geolocation geolocation=new Geolocation();
                 geolocation.getLocation(autore.getContext());
-                Log.e("bookposition","https://maps.googleapis.com/maps/api/geocode/json?latlng="+geolocation.lat+","+geolocation.lng);
 
                 return "https://maps.googleapis.com/maps/api/geocode/json?latlng="+geolocation.lat+","+geolocation.lng;
 
