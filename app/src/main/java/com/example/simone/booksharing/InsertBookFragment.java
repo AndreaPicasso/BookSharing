@@ -31,6 +31,7 @@ public class InsertBookFragment extends android.app.Fragment {
     public Button inserisci;
     public TextView titolo;
     public TextView autore;
+
     public TextView genere,luogo;
 
     public ImageView copertina;
@@ -60,11 +61,13 @@ public class InsertBookFragment extends android.app.Fragment {
         genere=(TextView) view.findViewById(R.id.genere_tw);
         luogo=(TextView) view.findViewById(R.id.luogo_tw);
         copertina=(ImageView) view.findViewById(R.id.imageView);
+        luogo=(TextView) view.findViewById(R.id.luogo_tw);
 
         titolo.setText(pref.getString("titoloBookToShow",""));
         autore.setText(pref.getString("autoreBookToShow",""));
         genere.setText(pref.getString("genereBookToShow", ""));
         String url=pref.getString("copertinaBookToShow", "");
+
 
 
         //------------- INDIVIDUA POSIZIONE ----------------
@@ -150,7 +153,6 @@ public class InsertBookFragment extends android.app.Fragment {
 
                         params.put("lat", geolocation.lat.toString());
                         params.put("lon", geolocation.lng.toString());
-                        Log.e("insertBook", ""+geolocation.lat.toString()+"lon"+geolocation.lng.toString());
 
 
 
@@ -167,6 +169,7 @@ public class InsertBookFragment extends android.app.Fragment {
 
             }
         };
+
 
         inserisci.setOnClickListener(ins);
         DownloadSingleImg img = new DownloadSingleImg(url,this.getActivity(),copertina);
