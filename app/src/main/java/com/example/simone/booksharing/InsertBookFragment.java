@@ -31,7 +31,9 @@ public class InsertBookFragment extends android.app.Fragment {
     public TextView titolo;
     public TextView autore;
     public TextView genere;
-
+    public TextView luogo;
+    public String lat;
+    public String lon;
     public RatingBar rating;
 
     public ImageView copertina;
@@ -61,11 +63,13 @@ public class InsertBookFragment extends android.app.Fragment {
         autore=(TextView) view.findViewById(R.id.autore_tw);
         genere=(TextView) view.findViewById(R.id.genere_tw);
         copertina=(ImageView) view.findViewById(R.id.imageView);
+        luogo=(TextView) view.findViewById(R.id.luogo_tw);
 
         titolo.setText(pref.getString("titoloBookToShow",""));
         autore.setText(pref.getString("autoreBookToShow",""));
         genere.setText(pref.getString("genereBookToShow", ""));
         String url=pref.getString("copertinaBookToShow", "");
+
         View.OnClickListener ins= new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,10 +110,10 @@ public class InsertBookFragment extends android.app.Fragment {
 
                         params.put("pswAccesso", UnigeServerConnection.PSW_ACCESSO);
                         params.put("proprietario",login.getString("email", ""));
-
-                        params.put("lat", geolocation.lat.toString());
-                        params.put("lon", geolocation.lng.toString());
-                        Log.e("insertBook", ""+geolocation.lat.toString()+"lon"+geolocation.lng.toString());
+                        lat=geolocation.lat.toString();
+                        lon=geolocation.lng.toString();
+                        params.put("lat", lat);
+                        params.put("lon", lon);
 
 
 
@@ -126,6 +130,37 @@ public class InsertBookFragment extends android.app.Fragment {
 
             }
         };
+        GoogleBooksConnection con= new GoogleBooksConnection(new GoogleBooksConnectionHandler() {
+            @Override
+            public void onResponse(JSONObject risposta) {
+
+                try {
+                    luogo.setText("Luogo: "+risposta.getJSONArray("results").getJSONObject(0).getString("formatted_address"));
+                }
+                catch(Exception e){
+                    Log.e("bookposition",""+e.getMessage());
+                }
+
+            }
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+
+            @Override
+            public Map<String, String> getParams() {
+                return null;
+            }
+
+            @Override
+            public String getURL() {
+                Log.e("bookposition","https://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+","+lon);
+
+                return "https://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+","+lon;
+
+            }
+        });
+        con.sendRequest(this.getActivity());
 
         inserisci.setOnClickListener(ins);
         DownloadSingleImg img = new DownloadSingleImg(url,this.getActivity(),copertina);
