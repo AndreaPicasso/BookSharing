@@ -176,10 +176,14 @@ public class HomeFragment extends android.app.Fragment implements View.OnClickLi
             loc.getLocation(getActivity());
             loc.boundingCoordinates(raggio.getProgress());
 
-            unigeParams.put("minLat",Double.toString(loc.minLat));
-            unigeParams.put("maxLat",Double.toString(loc.maxLat));
-            unigeParams.put("minLon",Double.toString(loc.minLon));
-            unigeParams.put("maxLon",Double.toString(loc.maxLon));
+            unigeParams.put("minLat", Double.toString(loc.minLat));
+            Log.e("geol", "" + Double.toString(loc.minLat));
+            unigeParams.put("maxLat", Double.toString(loc.maxLat));
+            Log.e("geol", "" + Double.toString(loc.minLon));
+            unigeParams.put("minLon", Double.toString(loc.minLon));
+            Log.e("geol", "" + Double.toString(loc.maxLat));
+            unigeParams.put("maxLon", Double.toString(loc.maxLon));
+            Log.e("geol", "" + Double.toString(loc.maxLon));
 
             }
         Map<String,String> googleParams = new HashMap<String, String>();
