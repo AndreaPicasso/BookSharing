@@ -37,12 +37,12 @@
         android:text="testodamettere"
 
         android:layout_centerVertical="true"
-        android:layout_toStartOf="@+id/richiedente_prestito_tw" />
+        android:layout_alignEnd="@+id/data_prestito_tw" />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/prestito_button2"
-        android:text="Rifiuta prestito"
+        android:text="Rifiuta"
         android:visibility="invisible"
 
         android:layout_alignTop="@+id/prestito_button"
