@@ -96,7 +96,7 @@ class BookAdapterShared extends ArrayAdapter<BookSharedForAdapter> {
 
         switch (list.get(position).stato) {
             case nonconfermato:
-                holder.button.setText("Conferma prestito");
+                holder.button.setText("Conferma");
                 holder.button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(final View v) {
