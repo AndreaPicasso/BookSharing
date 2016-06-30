@@ -59,7 +59,7 @@
                 android:inputType="text"
                 android:ems="10"
                 android:id="@+id/genere_pref_et"
-                android:layout_alignTop="@+id/editText2"
+
                 android:layout_toStartOf="@+id/modifica_button"
                 android:hint="Genere preferito" />
 
